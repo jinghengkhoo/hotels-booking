@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const bookingSchema = mongoose.Schema(
   {
-    bookingID: {
+    email: {
       type: String,
       required: true,
     },
@@ -60,10 +60,6 @@ const bookingSchema = mongoose.Schema(
     },
     phoneNumber: {
       type: Number,
-      required: true,
-    },
-    emailAddress: {
-      type: String,
       required: true,
     },
     stripeCustomerID: {
