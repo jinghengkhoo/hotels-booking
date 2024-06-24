@@ -66,7 +66,7 @@ const bookingSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    stripePaymentID:{
+    stripePaymentID: {
       type: String,
       required: true,
     },

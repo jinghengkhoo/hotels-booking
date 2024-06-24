@@ -73,7 +73,7 @@ const BookingForm = () => {
     const cardElement = elements.getElement(CardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
+      type: "card",
       card: cardElement,
       billing_details: {
         name: `${firstName} ${lastName}`,
@@ -103,7 +103,7 @@ const BookingForm = () => {
       "http://localhost:5555/api/payment",
       paymentData
     );
-    
+
     const confirmPayment = await stripe.confirmCardPayment(
       paymentIntent.client_secret
     );
@@ -138,7 +138,7 @@ const BookingForm = () => {
 
     await axios.post("http://localhost:5555/api/bookings", bookingData);
     alert("Booking successful!");
-    navigate("/")
+    navigate("/");
   };
 
   return (
