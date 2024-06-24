@@ -6,6 +6,10 @@ const bookingSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    roomID: {
+      type: String,
+      required: true,
+    },
     destinationID: {
       type: String,
       required: true,
@@ -62,7 +66,7 @@ const bookingSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    stripeCustomerID: {
+    stripePaymentID:{
       type: String,
       required: true,
     },

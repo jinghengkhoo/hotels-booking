@@ -4,10 +4,11 @@ import { PORT } from "./config.js";
 import mongoose from "mongoose";
 import booksRoute from './routes/bookingRoute.js';
 import userRoute from './routes/userRoute.js'
+import hotelsRoute from './routes/hotelsRoute.js'
+import destinationsRoute from './routes/destinationsRoute.js'
+import paymentRoute from './routes/paymentRoute.js'
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import fs from 'fs';
-import https from 'https';
 
 const app = express();
 
@@ -28,6 +29,9 @@ app.get('/', (request, response) => {
 
 app.use('/api/bookings', booksRoute);
 app.use('/api/user', userRoute);
+app.use('/api/destinations', destinationsRoute);
+app.use('/api/hotels', hotelsRoute);
+app.use('/api/payment', paymentRoute);
 
 mongoose
   .connect(process.env.MONGO_URI)

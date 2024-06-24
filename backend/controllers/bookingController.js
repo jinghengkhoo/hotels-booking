@@ -2,33 +2,9 @@ import { Booking } from '../models/bookingModel.js'
 
 export const newBooking = async (request, response) => {
   try {
-    if (
-      !request.body.email ||
-      !request.body.destinationID ||
-      !request.body.hotelID ||
-      !request.body.numberOfNights ||
-      !request.body.startDate ||
-      !request.body.endDate ||
-      !request.body.adults ||
-      !request.body.children ||
-      !request.body.messageToHotel ||
-      !request.body.roomType ||
-      !request.body.price ||
-      !request.body.salutation ||
-      !request.body.firstName ||
-      !request.body.lastName ||
-      !request.body.phoneNumber ||
-      !request.body.stripeCustomerID ||
-      !request.body.billingAddressOne ||
-      !request.body.billingAddressTwo ||
-      !request.body.billingAddressPostalCode
-    ) {
-      return response.status(400).send({
-        message: 'Send all required fields',
-      })
-    }
     const newBooking = {
       email: request.body.email,
+      roomID: request.body.roomID,
       destinationID: request.body.destinationID,
       hotelID: request.body.hotelID,
       numberOfNights: request.body.numberOfNights,
@@ -43,7 +19,7 @@ export const newBooking = async (request, response) => {
       firstName: request.body.firstName,
       lastName: request.body.lastName,
       phoneNumber: request.body.phoneNumber,
-      stripeCustomerID: request.body.stripeCustomerID,
+      stripePaymentID: request.body.stripePaymentID,
       billingAddressOne: request.body.billingAddressOne,
       billingAddressTwo: request.body.billingAddressTwo,
       billingAddressPostalCode: request.body.billingAddressPostalCode,
@@ -88,32 +64,6 @@ export const getBooking = async (request, response) => {
 
 export const updateBooking = async (request, response) => {
   try {
-
-    if (
-      !request.body.email ||
-      !request.body.destinationID ||
-      !request.body.hotelID ||
-      !request.body.numberOfNights ||
-      !request.body.startDate ||
-      !request.body.endDate ||
-      !request.body.adults ||
-      !request.body.children ||
-      !request.body.messageToHotel ||
-      !request.body.roomType ||
-      !request.body.price ||
-      !request.body.salutation ||
-      !request.body.firstName ||
-      !request.body.lastName ||
-      !request.body.phoneNumber ||
-      !request.body.stripeCustomerID ||
-      !request.body.billingAddressOne ||
-      !request.body.billingAddressTwo ||
-      !request.body.billingAddressPostalCode
-    ) {
-      return response.status(400).send({
-        message: 'Send all required fields',
-      })
-    }
 
     const { id } = request.params;
 
