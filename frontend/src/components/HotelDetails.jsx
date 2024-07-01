@@ -37,7 +37,7 @@ const HotelDetails = () => {
           setRoomDetails(response.data);
           setLoading(false);
         } else {
-          setTimeout(fetchHotelDetails, 2000); // Retry after 2 seconds
+          setTimeout(fetchHotelDetails, 100); // Retry after 0.1 seconds
         }
       } catch (error) {
         console.error("Error fetching hotel details:", error);

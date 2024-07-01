@@ -33,7 +33,7 @@ const HotelSearch = () => {
           setHotels(response.data.hotels);
           setLoading(false);
         } else {
-          setTimeout(fetchHotels, 2000); // Retry after 2 seconds
+          setTimeout(fetchHotels, 100); // Retry after 0.1 seconds
         }
       } catch (error) {
         console.error("Error fetching hotel data:", error);

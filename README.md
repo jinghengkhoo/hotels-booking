@@ -12,8 +12,11 @@ download and add destinations.json file to backend/res
 
 ## TODO:
 
+### Misc
+do routes properly for frontend
+
 ### Feature 1
-The user can also search for a hotel upfront on your main landing page should they wish to.
+form validation
 
 ### Feature 2
 
@@ -21,6 +24,7 @@ The user can also search for a hotel upfront on your main landing page should th
 fix map and long description
 
 ### Feature 4
+form validation
 
 ### functional reqs:
 https  
