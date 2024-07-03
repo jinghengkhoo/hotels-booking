@@ -3,9 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCombobox } from "downshift";
-import CustomDatePicker from "./DatePicker";
-import singaporeImage from '../assets/singapore.jpg'; // Correct import for the image
-import SearchBar from './SearchBar'; // Ensure the path is correct
+import CustomDatePicker from "../DatePicker";
+import singaporeImage from '../../assets/singapore.jpg'; // Correct import for the image
+import SearchBar from '../SearchBar'; // Ensure the path is correct
 
 const DestinationSearch = () => {
   const [destination, setDestination] = useState("");
