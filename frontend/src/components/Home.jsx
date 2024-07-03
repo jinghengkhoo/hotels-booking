@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import DestinationSearch from "./DestinationSearch";
+import NavBar from './NavBar';
+
 
 const Home = () => {
   const { user, logout } = useContext(AuthContext);
@@ -28,6 +30,7 @@ const Home = () => {
           </>
         )}
       </div>
+      <NavBar />
       <DestinationSearch />
     </div>
   );
