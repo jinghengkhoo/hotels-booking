@@ -13,6 +13,7 @@ const HotelSearch = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
+        console.log("sent")
         const response = await axios.get(
           "http://localhost:5555/api/hotels/prices",
           {
@@ -33,7 +34,7 @@ const HotelSearch = () => {
           setHotels(response.data.hotels);
           setLoading(false);
         } else {
-          setTimeout(fetchHotels, 100); // Retry after 0.1 seconds
+          setTimeout(fetchHotels, 500); // Retry after 0.5 seconds
         }
       } catch (error) {
         console.error("Error fetching hotel data:", error);
