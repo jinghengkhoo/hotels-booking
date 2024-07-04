@@ -60,7 +60,7 @@ const HotelList = ({
       newHotels.forEach(pollRoomData);
       setPreviousDisplayedLength(displayedHotels.length);
     }
-  }, [displayedHotels, previousDisplayedLength]);
+  }, [displayedHotels, previousDisplayedLength, destinationId, endDate, startDate, guests, rooms]);
 
   const fetchAdditionalData = async (hotelList) => {
     const hotelPromises = hotelList.map(async (hotel) => {
