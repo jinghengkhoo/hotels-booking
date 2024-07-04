@@ -1,5 +1,4 @@
 import axios from "axios";
-import fs from 'fs';
 import NodeCache from 'node-cache';
 
 const hotelCache = new NodeCache({ stdTTL: 3600, checkperiod: 120 });
