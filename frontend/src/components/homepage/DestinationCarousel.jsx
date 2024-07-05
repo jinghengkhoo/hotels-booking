@@ -2,20 +2,36 @@ import React, { useRef } from 'react';
 
 const destinations = [
     {
+        name: 'Singapore',
+        imageUrl: '../../src/assets/location/singapore.jpg',
+    },
+    {
+        name: 'New York City',
+        imageUrl: '../../src/assets/location/nyc.jpg',
+    },
+    {
+        name: 'Shanghai',
+        imageUrl: '../../src/assets/location/shanghai.jpeg',
+    },
+    {
         name: 'Bali',
-        imageUrl: 'path/to/bali.jpg',
+        imageUrl: '../../src/assets/location/bali.jpg',
+    },
+    {
+        name: 'Jeju Island',
+        imageUrl: '../../src/assets/location/jeju.jpg',
     },
     {
         name: 'Bangkok',
-        imageUrl: 'path/to/bangkok.jpg',
+        imageUrl: '../../src/assets/location/bangkok.jpg',
     },
     {
         name: 'Cancun',
-        imageUrl: 'path/to/cancun.jpg',
+        imageUrl: '../../src/assets/location/cancun.jpg',
     },
     {
-        name: 'Nha Trang',
-        imageUrl: 'path/to/nhatrang.jpg',
+        name: 'Japan',
+        imageUrl: '../../src/assets/location/japan.jpg',
     },
     // Add more destinations as needed
 ];
@@ -45,7 +61,7 @@ const DestinationCarousel = () => {
                 </button>
                 <div
                     ref={carouselRef}
-                    className="flex overflow-x-auto space-x-4 scrollbar-hide"
+                    className="flex overflow-x-auto space-x-4 scrollbar-hide p-8"
                 >
                     {destinations.map((destination, index) => (
                         <div
@@ -53,7 +69,7 @@ const DestinationCarousel = () => {
                             className="min-w-[200px] flex-shrink-0 rounded overflow-hidden shadow-lg bg-white"
                         >
                             <img
-                                className="w-full h-48 object-cover"
+                                className="m-4 w-48 h-48 object-cover"
                                 src={destination.imageUrl}
                                 alt={destination.name}
                             />
