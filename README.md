@@ -36,6 +36,5 @@ UI
 ### additional reqs:
 edit user profile  
 auto login after register  
-feature 1: Bonus: could process simple typos (e.g. Sinagpore → Singapore), you could choose to use an external library for this
 
 ### questions for client:
