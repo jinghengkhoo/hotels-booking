@@ -16,6 +16,7 @@ const HotelList = ({
   rooms,
 }) => {
   const [displayedHotels, setDisplayedHotels] = useState([]);
+  const [previousDisplayedLength, setPreviousDisplayedLength] = useState(0);
   const [enhancedHotels, setEnhancedHotels] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,34 @@ const HotelList = ({
     };
     initialLoad();
   }, [hotels]);
+
+  useEffect(() => {
+    const pollRoomData = async (hotel) => {
+      try {
+        await axios.get(`http://localhost:5555/api/hotels/${hotel.id}/price`, {
+          params: {
+            destination_id: destinationId,
+            checkin: startDate,
+            checkout: endDate,
+            lang: "en_US",
+            currency: "SGD",
+            country_code: "SG",
+            guests: Array(rooms).fill(guests).join("|"),
+            partner_id: 1,
+          }
+        });
+      } catch (error) {
+        console.error("Failed to update background data:", error);
+      }
+
+    };
+
+    if (displayedHotels.length > previousDisplayedLength) {
+      const newHotels = displayedHotels.slice(previousDisplayedLength);
+      newHotels.forEach(pollRoomData);
+      setPreviousDisplayedLength(displayedHotels.length);
+    }
+  }, [displayedHotels, previousDisplayedLength, destinationId, endDate, startDate, guests, rooms]);
 
   const fetchAdditionalData = async (hotelList) => {
     const hotelPromises = hotelList.map(async (hotel) => {
@@ -113,11 +142,13 @@ const HotelList = ({
         >
           <div className="grid grid-cols-1 gap-4">
             {displayedHotels.map((hotel) => (
-              <HotelItem
-                key={hotel.id}
-                hotel={hotel}
-                onSelect={handleSelectHotel}
-              />
+              hotel.name && (
+                <HotelItem
+                  key={hotel.id}
+                  hotel={hotel}
+                  onSelect={handleSelectHotel}
+                />
+              )
             ))}
           </div>
         </InfiniteScroll>
