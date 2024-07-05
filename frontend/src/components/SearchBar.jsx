@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
-import CustomDatePicker from './DatePicker'; // Ensure you have this component or import a date picker library
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSearch,
+  faCalendarAlt,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
+import CustomDatePicker from "./DatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const SearchBar = () => {
-  const [destination, setDestination] = useState('');
+  const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -18,7 +19,6 @@ const SearchBar = () => {
   const [guests, setGuests] = useState(1);
   const [rooms, setRooms] = useState(1);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (destination.length > 0) {
@@ -83,7 +83,10 @@ const SearchBar = () => {
 
   return (
     <div className="flex justify-center items-center py-8">
-      <form className="bg-white p-4 rounded-lg shadow-md flex space-x-4" onSubmit={handleFormSubmit}>
+      <form
+        className="bg-white p-4 rounded-lg shadow-md flex space-x-4"
+        onSubmit={handleFormSubmit}
+      >
         <div className="flex items-center border border-gray-300 rounded-md p-2">
           <FontAwesomeIcon icon={faSearch} className="text-gray-500 mr-2" />
           <input
@@ -95,8 +98,9 @@ const SearchBar = () => {
           />
         </div>
         <ul
-          className={`absolute w-56 bg-white shadow-md max-h-80 overflow-scroll p-0 z-10 mt-16 ${!(isOpen && suggestions.length) && "hidden"
-            }`}
+          className={`absolute w-56 bg-white shadow-md max-h-80 overflow-scroll p-0 z-10 mt-16 ${
+            !(isOpen && suggestions.length) && "hidden"
+          }`}
           {...getMenuProps()}
         >
           {isOpen &&
@@ -104,21 +108,28 @@ const SearchBar = () => {
               <li
                 key={item.id}
                 {...getItemProps({ item, index })}
-                className={`cursor-pointer px-4 py-2 ${highlightedIndex === index
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-black"
-                  }`}
+                className={`cursor-pointer px-4 py-2 ${
+                  highlightedIndex === index
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-black"
+                }`}
               >
                 {item.term}
               </li>
             ))}
         </ul>
         <div className="flex items-center border border-gray-300 rounded-md p-2">
-          <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 mr-2" />
+          <FontAwesomeIcon
+            icon={faCalendarAlt}
+            className="text-gray-500 mr-2"
+          />
           <CustomDatePicker selectedDate={startDate} onChange={setStartDate} />
         </div>
         <div className="flex items-center border border-gray-300 rounded-md p-2">
-          <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 mr-2" />
+          <FontAwesomeIcon
+            icon={faCalendarAlt}
+            className="text-gray-500 mr-2"
+          />
           <CustomDatePicker selectedDate={endDate} onChange={setEndDate} />
         </div>
         <div className="flex items-center border border-gray-300 rounded-md p-2">
@@ -149,7 +160,10 @@ const SearchBar = () => {
             ))}
           </select>
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600"
+        >
           Search
         </button>
       </form>
