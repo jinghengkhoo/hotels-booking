@@ -1,6 +1,7 @@
 import { User } from '../models/userModel.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { deleteBookingById } from '../controllers/bookingController.js'
 
 // Register User
 export const registerUser = async (req, res) => {
@@ -15,6 +16,14 @@ export const registerUser = async (req, res) => {
     user = new User({
       email,
       password,
+      bookingIDs: [],
+      salutation: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      billingAddressOne: "",
+      billingAddressTwo: "",
+      billingAddressPostalCode: 0,
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -96,11 +105,24 @@ export const refreshToken = (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select('-password'); // Exclude password
+    const user = await User.findById(req.user._id).select('-password');
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
-    res.json(user);
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password');
+    res.status(200).json({
+      count: users.length,
+      data: users
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -111,4 +133,56 @@ export const logoutUser = (req, res) => {
   res.clearCookie('token');
   res.clearCookie('refreshToken');
   res.status(200).json({ msg: 'Logged out successfully' });
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    for (const bookingId of user.bookingIDs) {
+      await deleteBookingById(bookingId);
+    }
+
+    await user.remove();
+    res.clearCookie('token');
+    res.clearCookie('refreshToken');
+    res.status(200).json({ msg: 'User deleted successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { email, salutation, firstName, lastName, phoneNumber, billingAddressOne, billingAddressTwo, billingAddressPostalCode } = req.body;
+
+  try {
+    // Find user by ID
+    let user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Update user fields
+    user.email = email || user.email;
+    user.salutation = salutation || user.salutation;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.phoneNumber = phoneNumber || user.phoneNumber;
+    user.billingAddressOne = billingAddressOne || user.billingAddressOne;
+    user.billingAddressTwo = billingAddressTwo || user.billingAddressTwo;
+    user.billingAddressPostalCode = billingAddressPostalCode || user.billingAddressPostalCode;
+
+    await user.save();
+
+    const userResponse = user.toObject();
+
+    res.status(200).json(userResponse);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
 };

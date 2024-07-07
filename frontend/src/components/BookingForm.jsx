@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -42,6 +42,35 @@ const BookingForm = () => {
     billingAddressOne: "",
     billingAddressTwo: "",
     billingAddressPostalCode: "",
+  });
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5555/api/user/profile",
+          {
+            withCredentials: true,
+          }
+        );
+        const userProfile = response.data;
+        setFormData({
+          firstName: userProfile.firstName || "",
+          lastName: userProfile.lastName || "",
+          phoneNumber: userProfile.phoneNumber || "",
+          emailAddress: userProfile.email || "",
+          messageToHotel: "",
+          salutation: userProfile.salutation || "",
+          billingAddressOne: userProfile.billingAddressOne || "",
+          billingAddressTwo: userProfile.billingAddressTwo || "",
+          billingAddressPostalCode: userProfile.billingAddressPostalCode || "",
+        });
+      } catch (error) {
+        console.error("Error fetching user profile", error);
+      }
+    };
+
+    fetchUserProfile();
   });
 
   const handleChange = (e) => {

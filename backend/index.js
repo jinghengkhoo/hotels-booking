@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import express, { request } from "express";
+import express from "express";
 import { PORT } from "./config.js";
 import mongoose from "mongoose";
 import booksRoute from './routes/bookingRoute.js';
@@ -7,6 +7,7 @@ import userRoute from './routes/userRoute.js'
 import hotelsRoute from './routes/hotelsRoute.js'
 import destinationsRoute from './routes/destinationsRoute.js'
 import paymentRoute from './routes/paymentRoute.js'
+import adminRoute from './routes/adminRoute.js'
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
@@ -32,6 +33,7 @@ app.use('/api/user', userRoute);
 app.use('/api/destinations', destinationsRoute);
 app.use('/api/hotels', hotelsRoute);
 app.use('/api/payment', paymentRoute);
+app.use('/api/admin', adminRoute);
 
 mongoose
   .connect(process.env.MONGO_URI)
