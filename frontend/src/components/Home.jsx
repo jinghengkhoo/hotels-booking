@@ -12,6 +12,9 @@ const Home = () => {
         {user ? (
           <>
             <p>Logged in as {user.email}</p>
+            <Link to="/profile">
+              <button>Profile</button>
+            </Link>
             <button onClick={logout}>Logout</button>
           </>
         ) : (

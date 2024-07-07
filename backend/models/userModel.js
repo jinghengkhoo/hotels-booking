@@ -15,12 +15,6 @@ const userSchema = mongoose.Schema(
       type: [String],
       required: true,
     },
-    adults: {
-      type: Number,
-    },
-    children: {
-      type: Number,
-    },
     salutation: {
       type: String,
     },
@@ -32,9 +26,6 @@ const userSchema = mongoose.Schema(
     },
     phoneNumber: {
       type: Number,
-    },
-    stripeCustomerID: {
-      type: String,
     },
     billingAddressOne: {
       type: String,

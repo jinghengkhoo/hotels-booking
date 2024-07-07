@@ -29,12 +29,10 @@ form validation
 ### functional reqs:
 https  
 testing  
-speed  
-account deletion  
+speed
 UI
 
 ### additional reqs:
-edit user profile  
 auto login after register  
 
 ### questions for client:

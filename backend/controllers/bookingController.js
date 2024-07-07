@@ -82,18 +82,27 @@ export const updateBooking = async (request, response) => {
 
 export const deleteBooking = async (request, response) => {
   try {
-
     const { id } = request.params;
+    const result = await deleteBookingById(id);
 
+    return response.status(200).send(result);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+}
+
+export const deleteBookingById = async (id) => {
+  try {
     const result = await Booking.findByIdAndDelete(id);
 
     if (!result) {
-      return response.status(404).json({ message: 'Booking not found' })
+      throw new Error('Booking not found');
     }
 
-    return response.status(200).send({ message: 'Booking deleted successfully' });
+    return { message: 'Booking deleted successfully' };
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message })
+    throw new Error(error.message);
   }
 }
