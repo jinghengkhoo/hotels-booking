@@ -16,7 +16,6 @@ const HotelList = ({
   rooms,
 }) => {
   const [displayedHotels, setDisplayedHotels] = useState([]);
-  const [previousDisplayedLength, setPreviousDisplayedLength] = useState(0);
   const [enhancedHotels, setEnhancedHotels] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -55,12 +54,8 @@ const HotelList = ({
 
     };
 
-    if (displayedHotels.length > previousDisplayedLength) {
-      const newHotels = displayedHotels.slice(previousDisplayedLength);
-      newHotels.forEach(pollRoomData);
-      setPreviousDisplayedLength(displayedHotels.length);
-    }
-  }, [displayedHotels, previousDisplayedLength, destinationId, endDate, startDate, guests, rooms]);
+    displayedHotels.forEach(pollRoomData);
+  }, [displayedHotels, destinationId, endDate, startDate, guests, rooms]);
 
   const fetchAdditionalData = async (hotelList) => {
     const hotelPromises = hotelList.map(async (hotel) => {
@@ -96,7 +91,7 @@ const HotelList = ({
       newFilteredHotels.slice(0, 10)
     );
     setDisplayedHotels(initialHotels);
-    setHasMore(newFilteredHotels.length > 10);
+    setHasMore(newFilteredHotels.length > initialHotels.length);
   };
 
   const fetchMoreData = async () => {
@@ -108,6 +103,7 @@ const HotelList = ({
       hotels.slice(displayedHotels.length, displayedHotels.length + 10)
     );
     setDisplayedHotels([...displayedHotels, ...moreHotels]);
+    setHasMore(displayedHotels.length + moreHotels.length < hotels.length);
   };
 
   const handleSelectHotel = (hotelId) => {
@@ -133,6 +129,7 @@ const HotelList = ({
           dataLength={displayedHotels.length}
           next={fetchMoreData}
           hasMore={hasMore}
+          scrollThreshold={0.1}
           loader={<h4>Loading more hotels...</h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>
