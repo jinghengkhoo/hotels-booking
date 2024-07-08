@@ -132,7 +132,7 @@ const DestinationSearch = () => {
           <label className="block text-gray-700">Guests</label>
           <select
             value={guests}
-            onChange={(e) => setGuests(e.target.value)}
+            onChange={(e) => setGuests(Number(e.target.value))}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           >
             {[...Array(10).keys()].map((i) => (
@@ -146,7 +146,7 @@ const DestinationSearch = () => {
           <label className="block text-gray-700">Rooms</label>
           <select
             value={rooms}
-            onChange={(e) => setRooms(e.target.value)}
+            onChange={(e) => setRooms(Number(e.target.value))}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           >
             {[...Array(10).keys()].map((i) => (
