@@ -1,7 +1,5 @@
 import 'dotenv/config'
 import express from "express";
-import { PORT } from "./config.js";
-import mongoose from "mongoose";
 import booksRoute from './routes/bookingRoute.js';
 import userRoute from './routes/userRoute.js'
 import hotelsRoute from './routes/hotelsRoute.js'
@@ -24,8 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/', (request, response) => {
-  console.log(request);
-  return response.status(400).send("Hi")
+  return response.status(200).send("Hi")
 });
 
 app.use('/api/bookings', booksRoute);
@@ -35,14 +32,4 @@ app.use('/api/hotels', hotelsRoute);
 app.use('/api/payment', paymentRoute);
 app.use('/api/admin', adminRoute);
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("Connection to MongoDB successful")
-    app.listen(PORT, () => {
-      console.log(`App is listening to port: ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+export default app;

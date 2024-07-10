@@ -137,7 +137,8 @@ export const logoutUser = (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const { id } = req.params;
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
@@ -146,7 +147,7 @@ export const deleteUser = async (req, res) => {
       await deleteBookingById(bookingId);
     }
 
-    await user.remove();
+    await User.findByIdAndDelete(id);
     res.clearCookie('token');
     res.clearCookie('refreshToken');
     res.status(200).json({ msg: 'User deleted successfully' });
@@ -157,16 +158,14 @@ export const deleteUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { email, salutation, firstName, lastName, phoneNumber, billingAddressOne, billingAddressTwo, billingAddressPostalCode } = req.body;
-
   try {
-    // Find user by ID
-    let user = await User.findById(req.user._id);
+    const { id } = req.params;
+    const { email, salutation, firstName, lastName, phoneNumber, billingAddressOne, billingAddressTwo, billingAddressPostalCode } = req.body;
+    let user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
 
-    // Update user fields
     user.email = email || user.email;
     user.salutation = salutation || user.salutation;
     user.firstName = firstName || user.firstName;

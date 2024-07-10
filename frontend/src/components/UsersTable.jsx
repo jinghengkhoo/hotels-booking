@@ -50,18 +50,24 @@ const UsersTable = () => {
 
   const handleSave = async (updatedUser) => {
     try {
-      await axios.put(`http://localhost:5555/api/user/profile`, updatedUser);
+      await axios.put(`http://localhost:5555/api/user/${updatedUser._id}`, updatedUser);
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === updatedUser._id ? updatedUser : user
+        )
+      );
       handleEditModalClose();
     } catch (error) {
       console.error("Error updating booking", error);
     }
-    console.log("Updated User:", updatedUser);
   };
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5555/api/user/`);
-      console.log("Delete user:", selectedUser._id);
+      await axios.delete(`http://localhost:5555/api/user/${selectedUser._id}`);
+      setUsers((prevUsers) =>
+        prevUsers.filter((user) => user._id !== selectedUser._id)
+      );
       handleDeleteModalClose();
     } catch (error) {
       console.error("Error deleting user:", error);
