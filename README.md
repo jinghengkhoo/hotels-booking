@@ -6,10 +6,6 @@
 copy backend/.env_exmaple to backend/.env and edit
 copy frontend/.env_exmaple to frontend/.env and edit
 
-#### 2. download client data
-download and add destinations.json file to backend/res
-
-
 ## TODO:
 
 ### Misc
@@ -28,7 +24,7 @@ form validation
 
 ### functional reqs:
 https  
-testing  
+frontend testing  
 speed
 UI
 
