@@ -1,94 +1,113 @@
 import { Booking } from '../models/bookingModel.js'
 
-export const newBooking = async (request, response) => {
+export const newBooking = async (req, res) => {
   try {
+    const requiredFields = [
+      'email', 'roomID', 'destinationID', 'hotelID', 'numberOfNights',
+      'startDate', 'endDate', 'adults', 'firstName', 'lastName', 'stripePaymentID'
+    ];
+
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).send({ message: `Missing required field: ${field}` });
+      }
+    }
+
     const newBooking = {
-      email: request.body.email,
-      roomID: request.body.roomID,
-      destinationID: request.body.destinationID,
-      hotelID: request.body.hotelID,
-      numberOfNights: request.body.numberOfNights,
-      startDate: request.body.startDate,
-      endDate: request.body.endDate,
-      adults: request.body.adults,
-      children: request.body.children,
-      messageToHotel: request.body.messageToHotel,
-      roomType: request.body.roomType,
-      price: request.body.price,
-      salutation: request.body.salutation,
-      firstName: request.body.firstName,
-      lastName: request.body.lastName,
-      phoneNumber: request.body.phoneNumber,
-      stripePaymentID: request.body.stripePaymentID,
-      billingAddressOne: request.body.billingAddressOne,
-      billingAddressTwo: request.body.billingAddressTwo,
-      billingAddressPostalCode: request.body.billingAddressPostalCode,
+      email: req.body.email,
+      roomID: req.body.roomID,
+      destinationID: req.body.destinationID,
+      hotelID: req.body.hotelID,
+      numberOfNights: req.body.numberOfNights,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      adults: req.body.adults,
+      children: req.body.children,
+      messageToHotel: req.body.messageToHotel,
+      roomType: req.body.roomType,
+      price: req.body.price,
+      salutation: req.body.salutation,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      stripePaymentID: req.body.stripePaymentID,
+      billingAddressOne: req.body.billingAddressOne,
+      billingAddressTwo: req.body.billingAddressTwo,
+      billingAddressPostalCode: req.body.billingAddressPostalCode,
     };
 
     const booking = await Booking.create(newBooking);
 
-
-    return response.status(200).send(booking);
+    return res.status(200).send(booking);
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message })
+    return res.status(500).send({ message: error.message });
   }
-}
+};
 
-export const getAllBookings = async (request, response) => {
+
+export const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({});
-    return response.status(200).json({
+    return res.status(200).json({
       count: bookings.length,
       data: bookings
     });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message })
+    res.status(500).send({ message: error.message })
   }
 }
 
-export const getBooking = async (request, response) => {
+export const getBooking = async (req, res) => {
   try {
 
-    const { id } = request.params;
+    const { id } = req.params;
 
     const booking = await Booking.findById(id);
 
-    return response.status(200).json(booking);
-  } catch (error) {
-    console.log(error.message);
-    response.status(500).send({ message: error.message })
-  }
-}
-
-export const updateBooking = async (request, response) => {
-  try {
-
-    const { id } = request.params;
-
-    const result = await Booking.findByIdAndUpdate(id, request.body);
-
-    if (!result) {
-      return response.status(404).json({ message: 'Booking not found' })
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' })
     }
 
-    return response.status(200).send({ message: 'Booking updated successfully' });
+    return res.status(200).json(booking);
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message })
+    res.status(500).send({ message: error.message })
   }
 }
 
-export const deleteBooking = async (request, response) => {
+export const updateBooking = async (req, res) => {
   try {
-    const { id } = request.params;
-    const result = await deleteBookingById(id);
 
-    return response.status(200).send(result);
+    const { id } = req.params;
+
+    const booking = await Booking.findByIdAndUpdate(id, req.body);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' })
+    }
+
+    return res.status(200).send({ message: 'Booking updated successfully' });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    res.status(500).send({ message: error.message })
+  }
+}
+
+export const deleteBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await deleteBookingById(id);
+
+    if (!result) {
+      return res.status(404).json({ message: 'Booking not found' })
+    }
+
+    return res.status(200).send(result);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
   }
 }
 
@@ -97,7 +116,7 @@ export const deleteBookingById = async (id) => {
     const result = await Booking.findByIdAndDelete(id);
 
     if (!result) {
-      throw new Error('Booking not found');
+      return null;
     }
 
     return { message: 'Booking deleted successfully' };

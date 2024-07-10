@@ -13,9 +13,9 @@ export const payment = async (req, res) => {
       return_url: "http://localhost:5173/",
       confirm: true,
     });
-    console.log("paid")
     res.status(200).json(paymentIntent);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error)
+    res.status(500).json({ error: "An error occurred" });
   }
 }
