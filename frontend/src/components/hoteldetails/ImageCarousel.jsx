@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 const ImageCarousel = ({ hotelDetails }) => {
   console.log(hotelDetails)
   const { image_details: { prefix, suffix }, hires_image_index } = hotelDetails;
+  if (!hires_image_index) {
+    return null;
+  }
   const imageIndexes = hires_image_index.split(',').map(index => parseInt(index, 10));
 
   return (
