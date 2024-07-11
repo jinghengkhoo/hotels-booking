@@ -125,7 +125,7 @@ describe('Hotel Controller', () => {
     });
   });
 
-  describe('GET /api/hotels/:id/rooms', () => {
+  describe('GET /api/hotels/:id/price', () => {
     it('should return cached data if available', async () => {
       const cachedData = { completed: true, rooms: [] };
       roomCache.get.mockReturnValue(cachedData);
@@ -185,7 +185,7 @@ describe('Hotel Controller', () => {
       });
 
       expect(response.status).toBe(500);
-      expect(response.body).toEqual({ error: 'Failed to fetch prices data' });
+      expect(response.body).toEqual({ error: 'Failed to fetch rooms data' });
     });
   });
 });
