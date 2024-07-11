@@ -7,7 +7,11 @@ import Profile from "./components/Profile";
 import HotelSearch from "./components/HotelSearch";
 import HotelDetails from "./components/HotelDetails";
 import BookingFormWrapper from "./components/BookingForm";
+<<<<<<< Updated upstream
 import AdminLogin from "./components/AdminLogin";
+=======
+import Hello from "./components/Hello";
+>>>>>>> Stashed changes
 
 const App = () => {
   return (
@@ -20,7 +24,11 @@ const App = () => {
         <Route path="/hotels" element={<HotelSearch />} />
         <Route path="/hotels/:id" element={<HotelDetails />} />
         <Route path="/book/:id" element={<BookingFormWrapper />} />
+<<<<<<< Updated upstream
         <Route path="/admin" element={<AdminLogin />} />
+=======
+        <Route path="/hello" element={<Hello />} />
+>>>>>>> Stashed changes
       </Routes>
     </AuthProvider>
   );

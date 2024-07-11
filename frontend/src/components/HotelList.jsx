@@ -156,7 +156,13 @@ const HotelList = ({
           </div>
         </div>
       </div>
+<<<<<<< Updated upstream
     </div>
+=======
+
+    </div>
+
+>>>>>>> Stashed changes
   );
 };
 

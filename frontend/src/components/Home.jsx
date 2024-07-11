@@ -7,7 +7,6 @@ import Footer from "./Footer"; // Ensure the path is correct
 const Home = () => {
   return (
     <div>
-      <NavBar />
       <DestinationSearch />
       <Features />
       <DestinationCarousel />

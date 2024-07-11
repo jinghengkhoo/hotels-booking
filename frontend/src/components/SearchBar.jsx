@@ -79,13 +79,17 @@ const SearchBar = () => {
 
   return (
     <div className="flex justify-center items-center py-8 font-montserrat">
+<<<<<<< Updated upstream
       <form className="bg-primary p-4 rounded-lg shadow-md flex space-x-4" onSubmit={handleFormSubmit}>
+=======
+      <form className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleFormSubmit}>
+>>>>>>> Stashed changes
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 ml-4 font-bold">Location</label>
           <div className="flex items-center rounded-md p-1 pt-0">
             <input
               placeholder="where to next?"
-              className="w-full px-3 py-2 bg-primary border-none focus:outline-none"
+              className="w-full px-3 py-2 bg-base-100 mt-4 border-none focus:outline-none"
               {...getInputProps()}
               type="text"
               name="destination"
@@ -93,7 +97,7 @@ const SearchBar = () => {
             />
           </div>
           <ul
-            className={`absolute w-56 bg-primary shadow-md max-h-80 overflow-scroll p-0 z-10 mt-1 ${!(isOpen && suggestions.length) && 'hidden'}`}
+            className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${!(isOpen && suggestions.length) && 'hidden'}`}
             {...getMenuProps()}
           >
             {isOpen &&
@@ -110,16 +114,15 @@ const SearchBar = () => {
         </div>
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Date Start</label>
-          <div className="flex items-center py-1">
-            <CustomDatePicker className="bg-primary" selectedDate={startDate} onChange={setStartDate} />
+          <div className="bg-base-100 flex items-center mt-4 py-1">
+            <CustomDatePicker className="bg-base-100 flex items-center py-1" selectedDate={startDate} onChange={setStartDate} />
           </div>
         </div>
-        <div className="flex items-center border border-gray-300 rounded-md p-2">
-          <FontAwesomeIcon
-            icon={faCalendarAlt}
-            className="text-gray-500 mr-2"
-          />
-          <CustomDatePicker selectedDate={endDate} onChange={setEndDate} />
+        <div className="flex flex-col">
+          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Date End</label>
+          <div className="bg-base-100 flex items-center mt-4 py-1">
+            <CustomDatePicker className="bg-base-100 flex items-center py-1" selectedDate={endDate} onChange={setEndDate} />
+          </div>
         </div>
 
         <div className="flex flex-col">
@@ -128,7 +131,7 @@ const SearchBar = () => {
             <select
               value={guests}
               onChange={(e) => setGuests(e.target.value)}
-              className="w-full py-2 bg-primary focus:outline-none"
+              className="w-full py-2 bg-base-100 focus:outline-none"
             >
               {[...Array(10).keys()].map((i) => (
                 <option key={i + 1} value={i + 1}>
@@ -145,7 +148,7 @@ const SearchBar = () => {
             <select
               value={rooms}
               onChange={(e) => setRooms(e.target.value)}
-              className="w-full py-2 bg-primary focus:outline-none"
+              className="w-full py-2 bg-base-100 focus:outline-none"
             >
               {[...Array(10).keys()].map((i) => (
                 <option key={i + 1} value={i + 1}>
@@ -155,7 +158,7 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        <button type="submit" className="bg-neutral text-white px-16 m-2 rounded-md shadow-md hover:bg-blue-600">
+        <button type="submit" className="bg-accent text-white px-16 m-2 rounded-md shadow-md hover:bg-accent">
           Search
         </button>
       </form>

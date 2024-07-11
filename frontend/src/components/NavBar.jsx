@@ -4,7 +4,7 @@ import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ textColor }) => {
   const { user, logout } = useContext(AuthContext);
   const [currency, setCurrency] = useState('USD');
 
@@ -12,12 +12,15 @@ const NavBar = () => {
     setCurrency(newCurrency);
   };
 
+  // Determine the text color class
+  const textColorClass = textColor === 'white' ? 'text-white' : 'text-black';
+
   return (
-    <div className="navbar bg-base-300 text-blue py-4">
+    <div className={`navbar bg-transparent z-20 py-4 ${textColorClass}`}>
       <div className="flex justify-left items-center w-1/4 pl-16">
         <button className="btn btn-ghost">
           <FontAwesomeIcon icon={faBars} className="mr-2" />
-          <span className="font-semibold">MENU</span>
+          <span className="font-normal">MENU</span>
         </button>
       </div>
       <div className="container mx-auto flex justify-center w-1/2">
@@ -30,7 +33,7 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex="0"
-            className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow"
+            className="menu text-black dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
           >
             <li>
               <a onClick={() => handleCurrencyChange("USD")}>USD</a>
@@ -57,7 +60,13 @@ const NavBar = () => {
             ) : (
               <>
                 <Link to="/login">
+<<<<<<< Updated upstream
                   <button className="btn btn-ghost">Login/Register</button>
+=======
+                  <button className="btn btn-ghost">
+                    <span className="font-normal">Login/Register</span>
+                  </button>
+>>>>>>> Stashed changes
                 </Link>
               </>
             )}

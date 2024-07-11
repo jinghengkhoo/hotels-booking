@@ -1,24 +1,24 @@
 import "react-datepicker/dist/react-datepicker.css";
-import singaporeImage from "../../assets/singapore.jpg"; // Correct import for the image
-import SearchBar from "../SearchBar"; // Ensure the path is correct
+import singaporeImage from "../../assets/singapore.jpg";
+import SearchBar from "../SearchBar";
+import NavBar from "../NavBar";
+import React from "react";
 
 const DestinationSearch = () => {
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center h-3/4"
-      style={{ backgroundImage: `url(${singaporeImage})` }}
-    >
-      <div className="absolute inset-0 bg-black opacity-20 mt-20"></div>
-      <div className="mt-64">
-        <div className="relative z-10 text-white text-center p-8">
-          <h1 className="text-4xl font-bold">
-            Visit the best places in the world with us.
-          </h1>
-          <p className="text-xl mt-2">Book your hotel with us now.</p>
+    <div className="min-h-screen flex flex-col bg-base-100">
+      <main
+        className="w-full flex flex-col items-center bg-cover bg-center relative"
+        style={{ backgroundImage: `url(${singaporeImage})`, height: '80vh' }}
+      >
+        <NavBar textColor="white" />
+        <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end items-start py-10 px-48">
+          <h2 className="text-4xl font-bold text-white mb-4">Singapore, Singapore</h2>
+          <p className="text-lg text-white mb-6">Get ready for your next adventure →</p>
         </div>
-        <div className="relative z-10">
-          <SearchBar />
-        </div>
+      </main>
+      <div className="relative z-10 w-full max-w-screen-lg mx-auto -mt-16 px-4">
+        <SearchBar />
       </div>
     </div>
   );
