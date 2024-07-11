@@ -9,13 +9,15 @@ const HotelDetails = () => {
   const hotelID = id;
   const location = useLocation();
   const navigate = useNavigate();
-  const { destinationId, startDate, endDate, guests, rooms, enhancedHotels } =
+  const { destinationId, startDate, endDate, guests, rooms } =
     location.state || {};
   const [roomDetails, setRoomDetails] = useState(null);
+  const [hotelDetails, setHotelDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingHotel, setLoadingHotel] = useState(true);
 
   useEffect(() => {
-    const fetchHotelDetails = async () => {
+    const fetchRoomDetails = async () => {
       try {
         const response = await axios.get(
           `http://localhost:5555/api/hotels/${id}/price`,
@@ -32,20 +34,36 @@ const HotelDetails = () => {
             },
           }
         );
-
         if (response.data.completed) {
           setRoomDetails(response.data);
           setLoading(false);
         } else {
-          setTimeout(fetchHotelDetails, 500); // Retry after 0.5 seconds
+          setTimeout(fetchRoomDetails, 500); // Retry after 0.5 seconds
         }
+      } catch (error) {
+        console.error("Error fetching room details:", error);
+      }
+    };
+
+    fetchRoomDetails();
+  }, [id, destinationId, startDate, endDate, guests, rooms]);
+
+  useEffect(() => {
+    const fetchHotelDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5555/api/hotels/${id}`
+        );
+        console.log(response.data);
+        setHotelDetails(response.data);
+        setLoadingHotel(false);
       } catch (error) {
         console.error("Error fetching hotel details:", error);
       }
     };
 
     fetchHotelDetails();
-  }, [id, destinationId, startDate, endDate, guests, rooms]);
+  }, [id]);
 
   const handleSelectRoom = (roomId, roomPrice, roomDescription) => {
     navigate(`/book/${roomId}`, {
@@ -60,21 +78,21 @@ const HotelDetails = () => {
     });
   };
 
-  if (loading) {
+  if (loading || loadingHotel) {
     return <LoadingIcon />;
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl mb-4">{enhancedHotels.name}</h2>
+      <h2 className="text-2xl mb-4">{hotelDetails.name}</h2>
       <div className="mb-4">
-        <Map lat={enhancedHotels.latitude} lng={enhancedHotels.longitude} />
+        <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
       </div>
       <div className="mb-4">
-        <p>{enhancedHotels.description}</p>
-        <p>Address: {enhancedHotels.address}</p>
-        <p>Star Rating: {enhancedHotels.rating}</p>
-        <p>Guest Rating: {enhancedHotels.trustyou?.score?.overall ?? "N/A"}</p>
+        <p>{hotelDetails.description}</p>
+        <p>Address: {hotelDetails.address}</p>
+        <p>Star Rating: {hotelDetails.rating}</p>
+        <p>Guest Rating: {hotelDetails.trustyou?.score?.overall ?? "N/A"}</p>
       </div>
       <h3 className="text-xl mb-2">Available Rooms</h3>
       <div className="grid grid-cols-1 gap-4">
