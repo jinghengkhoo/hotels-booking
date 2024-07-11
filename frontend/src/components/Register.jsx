@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { validateEmail, validatePassword } from "../utils/validationMethods";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,22 +12,6 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const { email, password, confirmPassword } = formData;
-
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
-
-  const validatePassword = (password) => {
-    const minLength = 8;
-    const hasNumber = /\d/;
-    const hasSpecialChar = /[!@#$%^&*]/;
-    return (
-      password.length >= minLength &&
-      hasNumber.test(password) &&
-      hasSpecialChar.test(password)
-    );
-  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
