@@ -35,14 +35,14 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="bg-primary py-16 px-8">
+    <div className="bg-neutral py-20 px-8">
       <div className="container mx-auto">
         <div className="flex flex-wrap justify-center">
           {features.map((feature, index) => (
             <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
               <div className="text-center">
-                <FontAwesomeIcon icon={feature.icon} className="text-4xl text-secondary mb-4" />
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <FontAwesomeIcon icon={feature.icon} className="text-4xl text-accent mb-4" />
+                <h3 className="text-xl text-accent font-bold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>
             </div>
