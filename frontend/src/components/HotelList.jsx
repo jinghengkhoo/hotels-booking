@@ -106,50 +106,56 @@ const HotelList = ({
     setHasMore(displayedHotels.length + moreHotels.length < hotels.length);
   };
 
-  const handleSelectHotel = (hotelId) => {
-    navigate(`/hotels/${hotelId}`, {
+  const handleSelectHotel = (hotelID) => {
+    const selectedHotel = enhancedHotels.find(hotel => hotel.id === hotelID);
+    navigate(`/hotels/${hotelID}`, {
       state: {
         destinationId,
         startDate,
         endDate,
         guests,
         rooms,
-        enhancedHotels,
+        hotelDetails: selectedHotel,
       },
     });
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4">
-      <HotelFilter onFilterChange={handleFilterChange} />
-      {loading ? (
-        <LoadingIcon />
-      ) : (
-        <InfiniteScroll
-          dataLength={displayedHotels.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          scrollThreshold={0.1}
-          loader={<h4>Loading more hotels...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        >
-          <div className="grid grid-cols-1 gap-4">
-            {displayedHotels.map((hotel) => (
-              hotel.name && (
-                <HotelItem
-                  key={hotel.id}
-                  hotel={hotel}
-                  onSelect={handleSelectHotel}
-                />
-              )
-            ))}
+    <div >
+      <div className="mb-4 mt-4">
+        <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-5 gap-4 pt-4">
+          <div className="col-start-1 lg:col-start-2 col-span-1">
+            <HotelFilter onFilterChange={handleFilterChange} />
           </div>
-        </InfiniteScroll>
-      )}
+          <div className="col-start-1 lg:col-start-3 lg:col-span-2">
+            {loading ? (
+              <LoadingIcon />
+            ) : (
+              <InfiniteScroll
+                dataLength={displayedHotels.length}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<h4>Loading more hotels...</h4>}
+                endMessage={
+                  <p style={{ textAlign: "center", padding: "20px" }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+              >
+                <div className="grid grid-cols-1 gap-4">
+                  {displayedHotels.map((hotel) => (
+                    <HotelItem
+                      key={hotel.id}
+                      hotel={hotel}
+                      onSelect={handleSelectHotel}
+                    />
+                  ))}
+                </div>
+              </InfiniteScroll>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

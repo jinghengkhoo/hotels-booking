@@ -3,12 +3,19 @@ import axios from "axios";
 import HotelList from "./HotelList";
 import LoadingIcon from "./LoadingIcon";
 import { useLocation } from "react-router-dom";
+import NavBar from "./NavBar";
+import SearchBar from "./SearchBar";
 
 const HotelSearch = () => {
+  const sortList = [
+    "Highest Price", "Lowest Price", "Best Ratings", "Lowest Ratings"
+  ]
+
   const { state } = useLocation();
   const { destinationId, startDate, endDate, guests, rooms } = state;
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortState, setSortState] = useState(sortList[0]);
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -36,6 +43,7 @@ const HotelSearch = () => {
         } else {
           setTimeout(fetchHotels, 500); // Retry after 0.5 seconds
         }
+
       } catch (error) {
         console.error("Error fetching hotel data:", error);
       }
@@ -44,8 +52,36 @@ const HotelSearch = () => {
     fetchHotels();
   }, [destinationId, startDate, endDate, guests, rooms]);
 
+  const handleDropDownClick = (item) => {
+    setSortState(sortList[item]);
+
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-100">
+      <NavBar />
+      <SearchBar />
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
+        <p className="col-span-1 lg:col-start-2 lg:col-span-2 text-center lg:text-left">All prices displayed here are the grand total, inclusive of taxes & fees</p>
+        <div className="col-span-1 lg:col-start-4 justify-self-center lg:justify-self-end">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn right-0 z-10 w-50 rounded-full bg-white ring-1 ring-black ring-opacity-5">
+              <p>Sort By: {sortState}</p>
+            </div>
+            <ul tabIndex={0} className="dropdown-content dropdown-right menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <li><a onClick={() => handleDropDownClick(0)}>{sortList[0]}</a></li>
+              <li><a onClick={() => handleDropDownClick(1)}>{sortList[1]}</a></li>
+              <li><a onClick={() => handleDropDownClick(2)}>{sortList[2]}</a></li>
+              <li><a onClick={() => handleDropDownClick(3)}>{sortList[3]}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {loading ? (
         <LoadingIcon />
       ) : (
@@ -63,3 +99,4 @@ const HotelSearch = () => {
 };
 
 export default HotelSearch;
+

@@ -15,9 +15,11 @@ do routes properly for frontend
 form validation
 
 ### Feature 2
+half-stars for hotel rating
 
 ### Feature 3
 fix map and long description (use mapbox)
+rooms should be load all/load some while scrolling, not load more button
 
 ### Feature 4
 form validation

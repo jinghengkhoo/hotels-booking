@@ -1,4 +1,3 @@
-// src/components/DatePicker.js
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +18,8 @@ const CustomDatePicker = ({ selectedDate, onChange }) => {
       selected={startDate}
       onChange={handleChange}
       dateFormat="yyyy-MM-dd"
-      className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      className="mt-1 block w-full bg-base-100  rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      placeholder="where to next?"
     />
   );
 };

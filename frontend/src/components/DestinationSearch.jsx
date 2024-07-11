@@ -98,9 +98,8 @@ const DestinationSearch = () => {
             </div>
 
             <ul
-              className={`absolute w-72 bg-white mt-1 shadow-md max-h-80 overflow-scroll p-0 z-10 ${
-                !(isOpen && suggestions.length) && "hidden"
-              }`}
+              className={`absolute w-72 bg-white mt-1 shadow-md max-h-80 overflow-scroll p-0 z-10 ${!(isOpen && suggestions.length) && "hidden"
+                }`}
               {...getMenuProps()}
             >
               {isOpen &&
@@ -108,11 +107,10 @@ const DestinationSearch = () => {
                   <li
                     key={item.id}
                     {...getItemProps({ item, index })}
-                    className={`cursor-pointer px-4 py-2 ${
-                      highlightedIndex === index
+                    className={`cursor-pointer px-4 py-2 ${highlightedIndex === index
                         ? "bg-blue-500 text-white"
                         : "bg-white text-black"
-                    }`}
+                      }`}
                   >
                     {item.term}
                   </li>
@@ -132,7 +130,7 @@ const DestinationSearch = () => {
           <label className="block text-gray-700">Guests</label>
           <select
             value={guests}
-            onChange={(e) => setGuests(Number(e.target.value))}
+            onChange={(e) => setGuests(e.target.value)}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           >
             {[...Array(10).keys()].map((i) => (
@@ -146,7 +144,7 @@ const DestinationSearch = () => {
           <label className="block text-gray-700">Rooms</label>
           <select
             value={rooms}
-            onChange={(e) => setRooms(Number(e.target.value))}
+            onChange={(e) => setRooms(e.target.value)}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           >
             {[...Array(10).keys()].map((i) => (

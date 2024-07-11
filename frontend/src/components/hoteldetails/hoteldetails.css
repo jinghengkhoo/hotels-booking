@@ -1,0 +1,11 @@
+.carousel-container {
+    max-width: vw; /* Set the maximum width of the carousel container */
+    margin: auto; /* Center the carousel container */
+  }
+  
+.carousel-container .carousel .slide img {
+    width: 100%; /* Make images fill the container width */
+    height: 400px; /* Set a fixed height for the images */
+    object-fit: cover; /* Ensure the images cover the entire area without distortion */
+}
+  
