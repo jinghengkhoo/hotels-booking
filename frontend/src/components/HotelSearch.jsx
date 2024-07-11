@@ -53,26 +53,21 @@ const HotelSearch = () => {
   }, [destinationId, startDate, endDate, guests, rooms]);
 
   const handleDropDownClick = (item) => {
-      setSortState(sortList[item]);
+    setSortState(sortList[item]);
 
     const elem = document.activeElement;
     if (elem) {
       elem?.blur();
     }
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-      <NavBar/>
-      <SearchBar/>
+      <NavBar />
+      <SearchBar />
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
         <p className="col-span-1 lg:col-start-2 lg:col-span-2 text-center lg:text-left">All prices displayed here are the grand total, inclusive of taxes & fees</p>
         <div className="col-span-1 lg:col-start-4 justify-self-center lg:justify-self-end">
-          {/* <label className="swap w-40 border border-base-content rounded-full h-10">
-            <input type="checkbox" />
-            <div className="swap-on text-center">Sort By: Price</div>
-            <div className="swap-off text-center">Sort By: Ratings</div>
-          </label> */}
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn right-0 z-10 w-50 rounded-full bg-white ring-1 ring-black ring-opacity-5">
               <p>Sort By: {sortState}</p>

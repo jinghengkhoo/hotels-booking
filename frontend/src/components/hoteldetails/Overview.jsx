@@ -1,7 +1,6 @@
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationPin,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 
 const Overview = ({ hotelDetails }) => {
   return (
@@ -21,14 +20,21 @@ const Overview = ({ hotelDetails }) => {
         <div>
           <h1 className="text-3xl font-bold">{hotelDetails.name}</h1>
           <p className="text-gray-500">
-          <FontAwesomeIcon icon={faLocationPin} className="h-4 w-3 inline-block mr-1 text-blue-500" />
+            <FontAwesomeIcon icon={faLocationPin} className="h-4 w-3 inline-block mr-1 text-blue-500" />
             {hotelDetails.address}
           </p>
         </div>
         <button className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600">See Rates</button>
       </div>
-      </div>
+    </div>
   );
+};
+
+Overview.propTypes = {
+  hotelDetails: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Overview;

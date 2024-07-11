@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch,
-  faCalendarAlt,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import CustomDatePicker from "./DatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
@@ -14,8 +10,8 @@ const SearchBar = () => {
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [guests, setGuests] = useState(1);
   const [rooms, setRooms] = useState(1);
   const navigate = useNavigate();
@@ -84,8 +80,6 @@ const SearchBar = () => {
   return (
     <div className="flex justify-center items-center py-8 font-montserrat">
       <form className="bg-primary p-4 rounded-lg shadow-md flex space-x-4" onSubmit={handleFormSubmit}>
-
-        {/*Location snippet */}
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 ml-4 font-bold">Location</label>
           <div className="flex items-center rounded-md p-1 pt-0">
@@ -114,7 +108,6 @@ const SearchBar = () => {
               ))}
           </ul>
         </div>
-        {/*Date snippet */}
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Date Start</label>
           <div className="flex items-center py-1">
@@ -145,7 +138,7 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-
+        
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Number of Rooms</label>
           <div className="flex items-center rounded-md">

@@ -1,5 +1,5 @@
-// src/components/hoteldetails/RoomDisplay.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import RoomItem from './RoomItem';
 
 const RoomDisplay = ({ roomDetails, endDate, onSelectRoom }) => {
@@ -25,6 +25,16 @@ const RoomDisplay = ({ roomDetails, endDate, onSelectRoom }) => {
       )}
     </div>
   );
+};
+
+RoomDisplay.propTypes = {
+  roomDetails: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  endDate: PropTypes.string.isRequired,
+  onSelectRoom: PropTypes.func.isRequired,
 };
 
 export default RoomDisplay;

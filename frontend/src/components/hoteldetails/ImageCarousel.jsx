@@ -3,6 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import PropTypes from 'prop-types';
 
 const ImageCarousel = ({ hotelDetails }) => {
+  console.log(hotelDetails)
   const { image_details: { prefix, suffix }, hires_image_index } = hotelDetails;
   const imageIndexes = hires_image_index.split(',').map(index => parseInt(index, 10));
 

@@ -9,7 +9,9 @@ const PropertyDescription = ({ hotelDetails }) => {
 };
 
 PropertyDescription.propTypes = {
-  description: PropTypes.string.isRequired,
+  hotelDetails: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default PropertyDescription;

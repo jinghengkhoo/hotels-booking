@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const RoomItem = ({ room, endDate, onSelectRoom }) => {
   const getBreakfastInfo = (info) => {
     if (info === 'hotel_detail_room_only') {
@@ -47,6 +49,25 @@ const RoomItem = ({ room, endDate, onSelectRoom }) => {
       </div>
     </div>
   );
+};
+
+RoomItem.propTypes = {
+  room: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    roomDescription: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    roomAdditionalInfo: PropTypes.shape({
+      breakfastInfo: PropTypes.string,
+    }).isRequired,
+    free_cancellation: PropTypes.bool,
+    lowest_price: PropTypes.number.isRequired,
+  }).isRequired,
+  endDate: PropTypes.string.isRequired,
+  onSelectRoom: PropTypes.func.isRequired,
 };
 
 export default RoomItem;

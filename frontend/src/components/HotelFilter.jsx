@@ -1,12 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Slider from 'rc-slider';
-import ReactDOM from 'react-dom';
 import 'rc-slider/assets/index.css';
-import React from 'react';
-
-// const createSliderWithTooltip = Slider.createSliderWithTooltip;
-// const Range = createSliderWithTooltip(Slider.Range);
 
 const HotelFilter = ({ onFilterChange }) => {
   const [starRatings, setStarRatings] = useState([]);
@@ -23,7 +18,7 @@ const HotelFilter = ({ onFilterChange }) => {
     console.log(priceRange);
     console.log(minPrice);
     console.log(maxPrice);
-    
+
     onFilterChange({
       starRatings,
       minGuestRating,
@@ -34,7 +29,7 @@ const HotelFilter = ({ onFilterChange }) => {
 
   };
 
-  const resetFilter = () =>{
+  const resetFilter = () => {
     setStarRatings([]);
     setMinGuestRating(0);
     setMaxPrice(permMaxPrice);
@@ -48,10 +43,9 @@ const HotelFilter = ({ onFilterChange }) => {
       checked ? [...prev, value] : prev.filter((rating) => rating !== value)
     );
   };
-  
+
   const handleSliderChange = sliderValues => {
     setPriceRange(sliderValues);
-    // console.log("0: ", sliderValues[0], "1: ", sliderValues[1]);
     setMaxPrice(sliderValues[1]);
     setMinPrice(sliderValues[0]);
   };
@@ -77,21 +71,6 @@ const HotelFilter = ({ onFilterChange }) => {
                 </label>
               ))}
             </div>
-            {/* <select
-              multiple
-              value={starRatings}
-              onChange={(e) =>
-                setStarRatings(
-                  [...e.target.selectedOptions].map((option) => option.value)
-                )
-              }
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-              <option value="1">1 Star</option>
-              <option value="2">2 Stars</option>
-              <option value="3">3 Stars</option>
-              <option value="4">4 Stars</option>
-              <option value="5">5 Stars</option>
-            </select> */}
           </div>
           <div>
             <label className="block text-gray-700">Guest Rating</label>
@@ -102,24 +81,6 @@ const HotelFilter = ({ onFilterChange }) => {
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          {/* <div>
-            <label className="block text-gray-700">Price Range</label>
-            <div className="flex space-x-2">
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-              <span className="mt-3">to</span>
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-          </div> */}
 
           <div className="mb-4">
             <label className="block mt-4">Price Range:</label>
@@ -137,7 +98,7 @@ const HotelFilter = ({ onFilterChange }) => {
               <span>${maxPrice}</span>
             </div>
           </div>
-        
+
         </div>
 
         <button
