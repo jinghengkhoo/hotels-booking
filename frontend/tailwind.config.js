@@ -5,28 +5,39 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        openSans: ['Open Sans', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
+    },
   },
+
+
   plugins: [
     require('daisyui'), // add the plugin
   ],
 
   // daisyUI config (optional - here are the default values)
   daisyui: {
-    themes: [
-      { mytheme: {
-        "primary": "#FF7F50",
-        "secondary": "#191970",
+    themes: ["light", "dark", "cupcake", "sunset", {
+      mytheme: {
+        "primary": "#FFFAF0",
+        "secondary": "#715865",
         "accent": "#ffa07a",
         "neutral": "#1e3a8a",
         "base-100": "#ffffff",
         "info": "#FFD700",
         "success": "#bef264",
         "warning": "#fde047",
-        "error": "#ef4444"
+        "error": "#ef4444",
+        "buttons": "#715865",
       }
-    },
-      "light", "dark"], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "dark", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
