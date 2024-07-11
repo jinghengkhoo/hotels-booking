@@ -81,6 +81,7 @@ const Register = () => {
               onChange={onChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
+              placeholder="Type an Email Address..."
             />
           </div>
           <div className="mb-4">
@@ -92,6 +93,7 @@ const Register = () => {
               onChange={onChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
+              placeholder="Type Password..."
             />
           </div>
           <div className="mb-4">
@@ -103,6 +105,7 @@ const Register = () => {
               onChange={onChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
+              placeholder="Type Password Again..."
             />
           </div>
           {error && <div className="mb-4 text-red-600">{error}</div>}
