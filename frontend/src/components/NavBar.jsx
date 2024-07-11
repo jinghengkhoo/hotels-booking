@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
@@ -60,13 +61,9 @@ const NavBar = ({ textColor }) => {
             ) : (
               <>
                 <Link to="/login">
-<<<<<<< Updated upstream
-                  <button className="btn btn-ghost">Login/Register</button>
-=======
                   <button className="btn btn-ghost">
                     <span className="font-normal">Login/Register</span>
                   </button>
->>>>>>> Stashed changes
                 </Link>
               </>
             )}
@@ -75,6 +72,10 @@ const NavBar = ({ textColor }) => {
       </div>
     </div>
   );
+};
+
+NavBar.propTypes = {
+  textColor: PropTypes.oneOf(['white', 'black']).isRequired,
 };
 
 export default NavBar;

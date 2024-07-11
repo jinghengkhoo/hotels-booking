@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import CustomDatePicker from "./DatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
@@ -79,11 +77,7 @@ const SearchBar = () => {
 
   return (
     <div className="flex justify-center items-center py-8 font-montserrat">
-<<<<<<< Updated upstream
-      <form className="bg-primary p-4 rounded-lg shadow-md flex space-x-4" onSubmit={handleFormSubmit}>
-=======
       <form className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleFormSubmit}>
->>>>>>> Stashed changes
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 ml-4 font-bold">Location</label>
           <div className="flex items-center rounded-md p-1 pt-0">
