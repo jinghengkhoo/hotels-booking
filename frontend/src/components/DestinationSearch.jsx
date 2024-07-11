@@ -98,7 +98,7 @@ const DestinationSearch = () => {
         <h2 className="text-2xl mb-6">Search Destination</h2>
         <div className="mb-4">
           <label className="block text-gray-700">
-            Destination {destinationId} {destination}
+            Destination {/*{destinationId} {destination}*/}
           </label>
           <div className="relative">
             <div className="flex shadow-sm bg-white gap-0.5">
@@ -135,7 +135,9 @@ const DestinationSearch = () => {
           </div>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Start Date {startDate}</label>
+          <label className="block text-gray-700">
+            Start Date {/*{startDate}*/}
+          </label>
           <CustomDatePicker
             minDate={new Date()}
             selectedDate={startDate}
@@ -143,7 +145,9 @@ const DestinationSearch = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">End Date {endDate}</label>
+          <label className="block text-gray-700">
+            End Date {/*{endDate}*/}
+          </label>
           <CustomDatePicker
             minDate={startDate}
             selectedDate={endDate}
