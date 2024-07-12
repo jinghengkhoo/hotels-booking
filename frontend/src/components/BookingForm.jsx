@@ -261,6 +261,7 @@ const BookingForm = () => {
           value={formData.adults}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          min="1"
           required
         />
       </div>
@@ -272,6 +273,7 @@ const BookingForm = () => {
           value={formData.children}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          min="0"
           required
         />
       </div>
