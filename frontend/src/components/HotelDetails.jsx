@@ -70,7 +70,7 @@ const HotelDetails = () => {
   }
 
   return (
-    <div>
+    <div className="bg-base-100">
       <TopBar />
       <Overview hotelDetails={hotelDetails} />
       <ImageCarousel hotelDetails={hotelDetails} />

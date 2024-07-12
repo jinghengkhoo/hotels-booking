@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import HotelFilter from "./HotelFilter";
 import HotelItem from "./HotelItem";
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingIcon from "./LoadingIcon";
+import LoadingIcon from "../LoadingIcon";
 
 const HotelList = ({
   hotels,

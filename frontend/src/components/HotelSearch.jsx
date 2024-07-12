@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import HotelList from "./HotelList";
+import HotelList from "./hotelsearchpage/HotelList";
 import LoadingIcon from "./LoadingIcon";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -62,7 +62,7 @@ const HotelSearch = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-base-100">
       <NavBar />
       <SearchBar />
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">

@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import BookingFormUI from "./bookingpage/BookingFormUI";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
@@ -171,138 +172,330 @@ const BookingForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-gray-700">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Phone Number</label>
-        <input
-          type="tel"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Email Address</label>
-        <input
-          type="email"
-          name="emailAddress"
-          value={formData.emailAddress}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Adults</label>
-        <input
-          type="number"
-          name="adults"
-          value={formData.adults}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Children</label>
-        <input
-          type="number"
-          name="children"
-          value={formData.children}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Special Requests to Hotel</label>
-        <textarea
-          name="messageToHotel"
-          value={formData.messageToHotel}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Salutation</label>
-        <input
-          type="text"
-          name="salutation"
-          value={formData.salutation}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Billing Address Line 1</label>
-        <input
-          type="text"
-          name="billingAddressOne"
-          value={formData.billingAddressOne}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Billing Address Line 2</label>
-        <input
-          type="text"
-          name="billingAddressTwo"
-          value={formData.billingAddressTwo}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">
-          Billing Address Postal Code
-        </label>
-        <input
-          type="number"
-          name="billingAddressPostalCode"
-          value={formData.billingAddressPostalCode}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Credit Card Information</label>
-        <CardElement className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-      </div>
-      <button
-        type="submit"
-        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-      >
-        Submit Booking
-      </button>
-    </form>
+   <div className="bg-base-200">
+     <Elements stripe={stripePromise}>
+      <BookingFormUI
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        location={location}
+      />
+    </Elements>
+   </div>
+    // <div className="p-6 max-w-xl mx-auto bg-white shadow-md rounded-md">
+    //   <form onSubmit={handleSubmit} className="space-y-4">
+    //     <div className="grid grid-cols-2 gap-4">
+    //       <div>
+    //         <label className="block text-gray-700">Salutation</label>
+    //         <input
+    //           type="text"
+    //           name="salutation"
+    //           value={formData.salutation}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //         />
+    //       </div>
+    //       <div>
+    //         <label className="block text-gray-700">First Name</label>
+    //         <input
+    //           type="text"
+    //           name="firstName"
+    //           value={formData.firstName}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           required
+    //         />
+    //       </div>
+    //       <div>
+    //         <label className="block text-gray-700">Last Name</label>
+    //         <input
+    //           type="text"
+    //           name="lastName"
+    //           value={formData.lastName}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           required
+    //         />
+    //       </div>
+    //       <div>
+    //         <label className="block text-gray-700">Country Code</label>
+    //         <select
+    //           name="countryCode"
+    //           value={formData.countryCode}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           required
+    //         >
+    //           <option value="+01">+01</option>
+    //           <option value="+91">+91</option>
+    //           <option value="+44">+44</option>
+    //         </select>
+    //       </div>
+    //       <div>
+    //         <label className="block text-gray-700">Phone Number</label>
+    //         <input
+    //           type="tel"
+    //           name="phoneNumber"
+    //           value={formData.phoneNumber}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           required
+    //         />
+    //       </div>
+    //       <div>
+    //         <label className="block text-gray-700">Email Address</label>
+    //         <input
+    //           type="email"
+    //           name="emailAddress"
+    //           value={formData.emailAddress}
+    //           onChange={handleChange}
+    //           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           required
+    //         />
+    //       </div>
+    //     </div>
+    //     <div>
+    //       <label className="block text-gray-700">Message to Hotel</label>
+    //       <textarea
+    //         name="messageToHotel"
+    //         value={formData.messageToHotel}
+    //         onChange={handleChange}
+    //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //       />
+    //     </div>
+    //     <div>
+    //       <h3 className="text-xl font-bold mb-4">Payment Details</h3>
+    //       <div className="grid grid-cols-2 gap-4">
+    //         <div>
+    //           <label className="block text-gray-700">Card Number</label>
+    //           <input
+    //             type="text"
+    //             name="cardNumber"
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             placeholder="1234 5678 1234 5678"
+    //             required
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">Name on Card</label>
+    //           <input
+    //             type="text"
+    //             name="nameOnCard"
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             required
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">Expiry Date</label>
+    //           <input
+    //             type="text"
+    //             name="expiryDate"
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             placeholder="MM / YY"
+    //             required
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">CVV/CVC</label>
+    //           <input
+    //             type="text"
+    //             name="cvv"
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             placeholder="123"
+    //             required
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">Billing Address Line 1</label>
+    //           <input
+    //             type="text"
+    //             name="billingAddressOne"
+    //             value={formData.billingAddressOne}
+    //             onChange={handleChange}
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             required
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">Billing Address Line 2</label>
+    //           <input
+    //             type="text"
+    //             name="billingAddressTwo"
+    //             value={formData.billingAddressTwo}
+    //             onChange={handleChange}
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //           />
+    //         </div>
+    //         <div>
+    //           <label className="block text-gray-700">Billing Address Postal Code</label>
+    //           <input
+    //             type="number"
+    //             name="billingAddressPostalCode"
+    //             value={formData.billingAddressPostalCode}
+    //             onChange={handleChange}
+    //             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+    //             required
+    //           />
+    //         </div>
+    //       </div>
+    //     </div>
+    //     {/* the following is for stripe payment */}
+    //     <div>
+    //       <label className="block text-gray-700">Credit Card Information</label>
+    //       <CardElement className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+    //     </div>
+    //     <div className="space-y-2">
+    //       <label className="block text-gray-700">
+    //         <input type="checkbox" className="mr-2" required />
+    //         I agree to the Cancellation Policy, Terms of Use, and Privacy Policy.
+    //       </label>
+    //       <label className="block text-gray-700">
+    //         <input type="checkbox" className="mr-2" required />
+    //         I have confirmed that my guest and payment details are correct.
+    //       </label>
+    //     </div>
+    //     <button
+    //       type="submit"
+    //       className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+    //     >
+    //       Make Booking
+    //     </button>
+    //   </form>
+    // </div>
   );
+  // return (
+  //   <form onSubmit={handleSubmit} className="space-y-4">
+  //     <div>
+  //       <label className="block text-gray-700">First Name</label>
+  //       <input
+  //         type="text"
+  //         name="firstName"
+  //         value={formData.firstName}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Last Name</label>
+  //       <input
+  //         type="text"
+  //         name="lastName"
+  //         value={formData.lastName}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Phone Number</label>
+  //       <input
+  //         type="tel"
+  //         name="phoneNumber"
+  //         value={formData.phoneNumber}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Email Address</label>
+  //       <input
+  //         type="email"
+  //         name="emailAddress"
+  //         value={formData.emailAddress}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Adults</label>
+  //       <input
+  //         type="number"
+  //         name="adults"
+  //         value={formData.adults}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Children</label>
+  //       <input
+  //         type="number"
+  //         name="children"
+  //         value={formData.children}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Special Requests to Hotel</label>
+  //       <textarea
+  //         name="messageToHotel"
+  //         value={formData.messageToHotel}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Salutation</label>
+  //       <input
+  //         type="text"
+  //         name="salutation"
+  //         value={formData.salutation}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Billing Address Line 1</label>
+  //       <input
+  //         type="text"
+  //         name="billingAddressOne"
+  //         value={formData.billingAddressOne}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Billing Address Line 2</label>
+  //       <input
+  //         type="text"
+  //         name="billingAddressTwo"
+  //         value={formData.billingAddressTwo}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">
+  //         Billing Address Postal Code
+  //       </label>
+  //       <input
+  //         type="number"
+  //         name="billingAddressPostalCode"
+  //         value={formData.billingAddressPostalCode}
+  //         onChange={handleChange}
+  //         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+  //         required
+  //       />
+  //     </div>
+  //     <div>
+  //       <label className="block text-gray-700">Credit Card Information</label>
+  //       <CardElement className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+  //     </div>
+  //     <button
+  //       type="submit"
+  //       className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+  //     >
+  //       Submit Booking
+  //     </button>
+  //   </form>
+  // );
 };
 
 const BookingFormWrapper = () => (

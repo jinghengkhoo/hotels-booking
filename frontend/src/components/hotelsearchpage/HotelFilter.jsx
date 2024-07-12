@@ -52,17 +52,17 @@ const HotelFilter = ({ onFilterChange }) => {
 
   return (
     <div className="card">
-      <div className="justify-start card-body card-bordered bg-base-100 rounded-badge shadow-m min-w-20">
-        <h3 className="text-xl mb-2 font-bold">Filters</h3>
+      <div className="justify-start card-body card-bordered bg-base-100 rounded-xl shadow-lg min-w-20">
+        <h3 className="text-xl mb-2 font-bold text-base-content">Filters</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label className="block text-gray-700">Star Rating</label>
+            <label className="block text-base-content">Star Rating</label>
             <div className="form-control grid grid-flow-row-dense grid-cols-1 gap-4 p-4">
               {Array.from({ length: 5 }, (_, i) => (
                 <label className="flex cursor-pointer" key={i}>
                   <input
                     type="checkbox"
-                    className="checkbox checkbox-secondary"
+                    className="checkbox checkbox-primary"
                     value={5 - i}
                     checked={starRatings.includes((5 - i).toString())}
                     onChange={handleCheckBox}
@@ -73,7 +73,7 @@ const HotelFilter = ({ onFilterChange }) => {
             </div>
           </div>
           <div>
-            <label className="block text-gray-700">Guest Rating</label>
+            <label className="block text-base-content">Guest Rating</label>
             <input
               type="number"
               value={minGuestRating}
@@ -83,7 +83,7 @@ const HotelFilter = ({ onFilterChange }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mt-4">Price Range:</label>
+            <label className="block mt-4 text-base-content">Price Range:</label>
             <Slider
               range
               min={permMinPrice}
@@ -103,13 +103,13 @@ const HotelFilter = ({ onFilterChange }) => {
 
         <button
           onClick={handleFilterChange}
-          className="btn btn-neutral">
+          className="btn btn-primary rounded-xl">
           Apply Filters
         </button>
 
         <button
           onClick={resetFilter}
-          className="btn">
+          className="btn btn-secondary rounded-xl">
           Reset Filters
         </button>
       </div>

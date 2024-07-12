@@ -17,7 +17,7 @@ const RoomDisplay = ({ roomDetails, endDate, onSelectRoom }) => {
       {visibleRooms < roomDetails.length && (
         <div className="text-center">
           <button
-            className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 mt-4"
+            className="btn btn-primary px-6 py-2 rounded-md shadow-md mt-4"
             onClick={loadMoreRooms}>
             Load More
           </button>

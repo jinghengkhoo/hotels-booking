@@ -152,7 +152,7 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        <button type="submit" className="bg-accent text-white px-16 m-2 rounded-md shadow-md hover:bg-accent">
+        <button type="submit" className="bg-primary text-white px-16 m-2 rounded-md shadow-md hover:bg-accent">
           Search
         </button>
       </form>

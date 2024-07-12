@@ -22,7 +22,7 @@ const HotelItem = ({ hotel, onSelect }) => {
   }
 
   return (
-    <div className="card card-compact lg:card-side bg-white rounded-xl shadow-md overflow-hidden">
+    <div className="card card-compact lg:card-side bg-base-100 rounded-xl shadow-lg overflow-hidden border border-base-200">
       <div className="lg:shrink-0">
         <img className="h-48 w-full object-cover lg:h-full lg:w-48" src={getImageURL()} alt={hotel.name} />
       </div>
@@ -35,7 +35,7 @@ const HotelItem = ({ hotel, onSelect }) => {
         <div className="card-actions justify-end">
           <button
             onClick={() => onSelect(hotel.id)}
-            className="btn btn-neutral font-semibold text-l tracking-wide">
+            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl">
             Check availability
           </button>
         </div>
