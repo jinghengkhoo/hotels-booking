@@ -14,4 +14,19 @@ const validatePassword = (password) => {
   );
 };
 
-export { validateEmail, validatePassword };
+const validatePhoneNumber = (phoneNumber) => {
+  const hasEightDigits = /\d{8}$/;
+  return hasEightDigits.test(phoneNumber) && phoneNumber > 0;
+};
+
+const validatePostalCode = (postalCode) => {
+  const hasSixDigits = /\d{6}$/;
+  return hasSixDigits.test(postalCode) && postalCode > 0;
+};
+
+export {
+  validateEmail,
+  validatePassword,
+  validatePhoneNumber,
+  validatePostalCode,
+};
