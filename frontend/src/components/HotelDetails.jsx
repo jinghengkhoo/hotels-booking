@@ -54,7 +54,6 @@ const HotelDetails = () => {
         const response = await axios.get(
           `http://localhost:5555/api/hotels/${id}`
         );
-        console.log(response.data);
         setHotelDetails(response.data);
         setLoadingHotel(false);
       } catch (error) {

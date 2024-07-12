@@ -34,23 +34,21 @@ const DestinationSearch = () => {
     if (!destinationId) {
       setError("Please select a valid destination.");
       return 0;
-    }
-    if (!startDate) {
+    } else if (!startDate) {
       setError("Please select a start date.");
       return 0;
-    }
-    if (!endDate) {
+    } else if (!endDate) {
       setError("Please select an end date.");
       return 0;
     }
-    if (guests <= 0) {
-      setError("Please select the number of guests.");
-      return 0;
-    }
-    if (rooms <= 0) {
-      setError("Please select the number of rooms.");
-      return 0;
-    }
+    // else if (guests <= 0) {
+    //   setError("Please select the number of guests.");
+    //   return 0;
+    // }
+    // else if (rooms <= 0) {
+    //   setError("Please select the number of rooms.");
+    //   return 0;
+    // }
 
     return 1;
   };
