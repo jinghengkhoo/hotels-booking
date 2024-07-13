@@ -1,8 +1,3 @@
-import React from "react";
-import GoogleIcon from "../../assets/icons/google.svg?react";
-import AppleIcon from "../../assets/icons/apple.svg?react";
-import FacebookIcon from "../../assets/icons/facebook.svg?react";
-
 
 const LoginFormUI = ({ formData, onChange, onSubmit }) => {
   const { email, password } = formData;
@@ -45,22 +40,6 @@ const LoginFormUI = ({ formData, onChange, onSubmit }) => {
               Continue
             </button>
           </form>
-          <div className="flex items-center my-4">
-            <div className="flex-grow h-px bg-base-200"></div>
-            <span className="flex-shrink text-gray-500 mx-4">or continue with</span>
-            <div className="flex-grow h-px bg-base-200"></div>
-          </div>
-          <div className="flex justify-center space-x-4">
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-              <GoogleIcon className="w-5 h-5 inline mr-2" /> Google
-            </button>
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-            <AppleIcon className="w-5 h-5 inline mr-2" /> Apple
-            </button>
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-              <FacebookIcon className="w-5 h-5 inline mr-2" /> Facebook
-            </button>
-          </div>
           <div>
           <p className="mt-8 text-sm text-center text-gray-500">
               Don't have an account?{" "}
