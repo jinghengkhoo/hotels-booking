@@ -17,7 +17,7 @@ const DestinationSearch = () => {
           <p className="text-lg text-white mb-6">Get ready for your next adventure →</p>
         </div>
       </main>
-      <div className="relative z-10 w-full max-w-screen-lg mx-auto -mt-16 px-4">
+      <div className="relative z-10 w-full max-w-screen-lg mx-auto mt-16 px-4">
         <SearchBar />
       </div>
     </div>

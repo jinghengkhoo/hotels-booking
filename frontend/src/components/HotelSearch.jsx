@@ -63,7 +63,7 @@ const HotelSearch = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-      <NavBar />
+      <NavBar textColor="black" />
       <SearchBar />
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
         <p className="col-span-1 lg:col-start-2 lg:col-span-2 text-center lg:text-left">All prices displayed here are the grand total, inclusive of taxes & fees</p>

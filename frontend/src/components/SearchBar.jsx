@@ -135,7 +135,7 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        
+
         <div className="flex flex-col">
           <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Number of Rooms</label>
           <div className="flex items-center rounded-md">
@@ -152,9 +152,11 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        <button type="submit" className="bg-accent text-white px-16 m-2 rounded-md shadow-md hover:bg-accent">
-          Search
-        </button>
+        <div className="flex my-2">
+          <button type="submit" className="bg-accent text-white px-8 mx-3 my-5 rounded-md shadow-md hover:bg-accent">
+            Search
+          </button>
+        </div>
       </form>
     </div >
   );
