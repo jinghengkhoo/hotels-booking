@@ -8,6 +8,7 @@ import ImageCarousel from "./hoteldetails/ImageCarousel";
 import PropertyDescription from "./hoteldetails/PropertyDescription";
 import './hoteldetails/hoteldetails.css';
 import RoomDisplay from "./hoteldetails/RoomDisplay";
+import Map from "./Map";
 
 
 const HotelDetails = () => {
@@ -37,7 +38,6 @@ const HotelDetails = () => {
             },
           }
         );
-
         if (response.data.completed) {
           setRoomDetails(response.data.rooms);
           setLoading(false);
@@ -45,7 +45,7 @@ const HotelDetails = () => {
           setTimeout(fetchRoomDetails, 500); // Retry after 0.5 seconds
         }
       } catch (error) {
-        console.error("Error fetching hotel details:", error);
+        console.error("Error fetching room details:", error);
       }
     };
 
@@ -65,7 +65,7 @@ const HotelDetails = () => {
     });
   };
 
-  if (loading) {
+  if (loading || loading) {
     return <LoadingIcon />;
   }
 
@@ -73,6 +73,9 @@ const HotelDetails = () => {
     <div className="bg-base-100">
       <TopBar />
       <Overview hotelDetails={hotelDetails} />
+      <div className="mb-4">
+        <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
+      </div>
       <ImageCarousel hotelDetails={hotelDetails} />
       <PropertyDescription hotelDetails={hotelDetails} />
       <RoomDisplay roomDetails={roomDetails} endDate={endDate} onSelectRoom={handleSelectRoom} />
