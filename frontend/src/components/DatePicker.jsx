@@ -1,20 +1,26 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { subDays } from "date-fns";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
 
-const CustomDatePicker = ({ selectedDate, onChange }) => {
+const CustomDatePicker = ({ selectedDate, onChange, minDate }) => {
   const [startDate, setStartDate] = useState(selectedDate);
 
   const handleChange = (date) => {
     setStartDate(date);
-    const formattedDate = format(date, "yyyy-MM-dd");
-    onChange(formattedDate);
+    if (date) {
+      const formattedDate = format(date, "yyyy-MM-dd");
+      onChange(formattedDate);
+    } else {
+      onChange(null);
+    }
   };
 
   return (
     <DatePicker
+      isClearable
+      minDate={subDays(minDate, 0)}
       selected={startDate}
       onChange={handleChange}
       dateFormat="yyyy-MM-dd"

@@ -28,26 +28,29 @@ const DestinationSearch = () => {
     }
   }, [destination]);
 
+  const [error, setError] = useState("");
+
   const validateForm = () => {
-    const newErrors = {};
-
     if (!destinationId) {
-      newErrors.destinationId = "Please select a valid destination.";
+      setError("Please select a valid destination.");
+      return 0;
+    } else if (!startDate) {
+      setError("Please select a start date.");
+      return 0;
+    } else if (!endDate) {
+      setError("Please select an end date.");
+      return 0;
     }
-    if (!startDate) {
-      newErrors.startDate = "Please select a start date.";
-    }
-    if (!endDate) {
-      newErrors.endDate = "Please select an end date.";
-    }
-    if (guests <= 0) {
-      newErrors.guests = "Please select the number of guests.";
-    }
-    if (rooms <= 0) {
-      newErrors.rooms = "Please select the number of rooms.";
-    }
+    // else if (guests <= 0) {
+    //   setError("Please select the number of guests.");
+    //   return 0;
+    // }
+    // else if (rooms <= 0) {
+    //   setError("Please select the number of rooms.");
+    //   return 0;
+    // }
 
-    return Object.keys(newErrors).length === 0;
+    return 1;
   };
 
   const handleFormSubmit = (e) => {
@@ -59,6 +62,8 @@ const DestinationSearch = () => {
     }
   };
 
+  const [selectedDest, setSelectedDest] = useState(0);
+
   const {
     isOpen,
     getMenuProps,
@@ -68,10 +73,15 @@ const DestinationSearch = () => {
   } = useCombobox({
     onInputValueChange: ({ inputValue }) => {
       setDestination(inputValue);
+      if (selectedDest) {
+        setDestinationId("");
+        setSelectedDest(0);
+      }
     },
     onSelectedItemChange: ({ selectedItem }) => {
       setDestination(selectedItem ? selectedItem.term : "");
       setDestinationId(selectedItem ? selectedItem.uid : "");
+      setSelectedDest(1);
     },
     items: suggestions,
     itemToString: (item) => (item ? item.term : ""),
@@ -85,7 +95,9 @@ const DestinationSearch = () => {
       >
         <h2 className="text-2xl mb-6">Search Destination</h2>
         <div className="mb-4">
-          <label className="block text-gray-700">Destination</label>
+          <label className="block text-gray-700">
+            Destination {/*{destinationId} {destination}*/}
+          </label>
           <div className="relative">
             <div className="flex shadow-sm bg-white gap-0.5">
               <input
@@ -119,12 +131,24 @@ const DestinationSearch = () => {
           </div>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Start Date</label>
-          <CustomDatePicker selectedDate={startDate} onChange={setStartDate} />
+          <label className="block text-gray-700">
+            Start Date {/*{startDate}*/}
+          </label>
+          <CustomDatePicker
+            minDate={new Date()}
+            selectedDate={startDate}
+            onChange={setStartDate}
+          />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">End Date</label>
-          <CustomDatePicker selectedDate={endDate} onChange={setEndDate} />
+          <label className="block text-gray-700">
+            End Date {/*{endDate}*/}
+          </label>
+          <CustomDatePicker
+            minDate={startDate}
+            selectedDate={endDate}
+            onChange={setEndDate}
+          />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700">Guests</label>
@@ -154,6 +178,7 @@ const DestinationSearch = () => {
             ))}
           </select>
         </div>
+        {error && <div className="mb-4 text-red-600">{error}</div>}
         <button
           type="submit"
           className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"

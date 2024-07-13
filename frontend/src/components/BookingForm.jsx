@@ -9,6 +9,11 @@ import {
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {
+  validateEmail,
+  validatePhoneNumber,
+  validatePostalCode,
+} from "../utils/validationMethods";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
@@ -20,6 +25,7 @@ const BookingForm = () => {
   const elements = useElements();
 
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
 
   const {
     hotelID,
@@ -71,10 +77,36 @@ const BookingForm = () => {
     };
 
     fetchUserProfile();
-  });
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validateBookingForm = () => {
+    if (!formData.firstName) {
+      setErrorMsg("Please Enter a First Name");
+      return 0;
+    } else if (!formData.lastName) {
+      setErrorMsg("Please Enter a Last Name");
+      return 0;
+    } else if (!validatePhoneNumber(formData.phoneNumber)) {
+      setErrorMsg("Please Enter a Valid Singapore Number");
+      return 0;
+    } else if (!validateEmail(formData.emailAddress)) {
+      setErrorMsg("Please Enter a Valid Email Address");
+      return 0;
+    } else if (!(formData.adults > 0)) {
+      setErrorMsg("Booking requires at least 1 Adult");
+      return 0;
+    } else if (!formData.billingAddressOne) {
+      setErrorMsg("Please Enter Billing Address");
+      return 0;
+    } else if (!validatePostalCode(formData.billingAddressPostalCode)) {
+      setErrorMsg("Please Enter a Valid Postal Code");
+      return 0;
+    }
+    return 1;
   };
 
   const handleSubmit = async (e) => {
@@ -97,9 +129,14 @@ const BookingForm = () => {
       billingAddressTwo,
       billingAddressPostalCode,
     } = formData;
+    setErrorMsg("");
 
     // Stripe payment processing
     const cardElement = elements.getElement(CardElement);
+
+    if (!validateBookingForm()) {
+      return;
+    }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -118,7 +155,7 @@ const BookingForm = () => {
 
     if (error) {
       console.error(error);
-      alert(error.message);
+      setErrorMsg(error.message);
       return;
     }
 
@@ -195,7 +232,7 @@ const BookingForm = () => {
         />
       </div>
       <div>
-        <label className="block text-gray-700">Phone Number</label>
+        <label className="block text-gray-700">Phone Number (+65) </label>
         <input
           type="tel"
           name="phoneNumber"
@@ -224,6 +261,7 @@ const BookingForm = () => {
           value={formData.adults}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          min="1"
           required
         />
       </div>
@@ -235,6 +273,7 @@ const BookingForm = () => {
           value={formData.children}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          min="0"
           required
         />
       </div>
@@ -288,6 +327,7 @@ const BookingForm = () => {
           value={formData.billingAddressPostalCode}
           onChange={handleChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          min="0"
           required
         />
       </div>
@@ -295,12 +335,16 @@ const BookingForm = () => {
         <label className="block text-gray-700">Credit Card Information</label>
         <CardElement className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
       </div>
-      <button
-        type="submit"
-        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-      >
-        Submit Booking
-      </button>
+
+      <div>
+        {errorMsg && <div className="mb-4 text-red-600">{errorMsg}</div>}
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        >
+          Submit Booking
+        </button>
+      </div>
     </form>
   );
 };
