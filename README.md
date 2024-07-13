@@ -7,10 +7,6 @@
 copy backend/.env_exmaple to backend/.env and edit
 copy frontend/.env_exmaple to frontend/.env and edit
 
-#### 2. download client data
-
-download and add destinations.json file to backend/res
-
 ## TODO:
 
 ### Misc
@@ -22,10 +18,12 @@ do routes properly for frontend
 form validation
 
 ### Feature 2
+half-stars for hotel rating
 
 ### Feature 3
 
 fix map and long description (use mapbox)
+rooms should be load all/load some while scrolling, not load more button
 
 ### Feature 4
 
@@ -34,7 +32,7 @@ form validation
 ### functional reqs:
 
 https  
-testing  
+frontend testing  
 speed
 UI
 

@@ -4,6 +4,7 @@ import axios from "axios";
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState({
+    _id: "",
     email: "",
     password: "",
     bookingIDs: [],
@@ -41,11 +42,8 @@ const Profile = () => {
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:5555/api/user/profile",
-        userData,
-        {
-          withCredentials: true,
-        }
+        `http://localhost:5555/api/user/${userData._id}`,
+        userData
       );
       setUserData(response.data);
       setEditMode(false);

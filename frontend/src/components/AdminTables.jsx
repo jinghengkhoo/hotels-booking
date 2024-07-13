@@ -10,21 +10,19 @@ const AdminTables = () => {
       <div className="mb-6">
         <div className="flex justify-around">
           <button
-            className={`px-4 py-2 font-semibold ${
-              selectedTab === "bookings"
+            className={`px-4 py-2 font-semibold ${selectedTab === "bookings"
                 ? "text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-600"
-            }`}
+              }`}
             onClick={() => setSelectedTab("bookings")}
           >
             Bookings
           </button>
           <button
-            className={`px-4 py-2 font-semibold ${
-              selectedTab === "users"
+            className={`px-4 py-2 font-semibold ${selectedTab === "users"
                 ? "text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-600"
-            }`}
+              }`}
             onClick={() => setSelectedTab("users")}
           >
             Users

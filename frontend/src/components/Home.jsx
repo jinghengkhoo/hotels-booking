@@ -1,34 +1,15 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
-import DestinationSearch from "./DestinationSearch";
+import DestinationSearch from "./homepage/DestinationSearch";
+import Features from "./homepage/Features";
+import DestinationCarousel from "./homepage/DestinationCarousel";
+import Footer from "./Footer"; // Ensure the path is correct
 
 const Home = () => {
-  const { user, logout } = useContext(AuthContext);
-
   return (
     <div>
-      <div>
-        {user ? (
-          <>
-            <p>Logged in as {user.email}</p>
-            <Link to="/profile">
-              <button>Profile</button>
-            </Link>
-            <button onClick={logout}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <button>Login</button>
-            </Link>
-            <Link to="/register">
-              <button>Register</button>
-            </Link>
-          </>
-        )}
-      </div>
       <DestinationSearch />
+      <Features />
+      <DestinationCarousel />
+      <Footer />
     </div>
   );
 };

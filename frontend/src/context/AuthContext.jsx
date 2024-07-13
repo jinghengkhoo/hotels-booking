@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const res = await axios.get("http://localhost:5555/api/user/profile", {
+        const res = await axios.get("http://localhost:5555/api/user/", {
           withCredentials: true,
         });
         setUser(res.data);

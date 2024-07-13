@@ -5,8 +5,45 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        openSans: ['Open Sans', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+      },
+    },
   },
-  plugins: [],
+
+
+  plugins: [
+    require('daisyui'), // add the plugin
+  ],
+
+  // daisyUI config (optional - here are the default values)
+  daisyui: {
+    themes: ["light", "dark", "cupcake", "sunset", {
+      mytheme: {
+        "primary": "#3F5Cb8",
+        "secondary": "#FF6969",
+        "accent": "#131842",
+        "neutral": "#f1f5f5",
+        "base-100": "#ffffff",
+        "info": "#758694",
+        "success": "#488000",
+        "warning": "#cc6508",
+        "error": "#b40000",
+      },
+    }], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    darkTheme: "dark", // name of one of the included themes for dark mode
+    base: true, // applies background color and foreground color for root element by default
+    styled: true, // include daisyUI colors and design decisions for all components
+    utils: true, // adds responsive and modifier utility classes
+    prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
+    logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
+    themeRoot: ":root", // The element that receives theme color CSS variables
+  },
 }
 
