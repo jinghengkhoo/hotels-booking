@@ -15,7 +15,6 @@ const HotelFilter = ({ onFilterChange }) => {
 
   const handleFilterChange = () => {
     console.log(starRatings);
-    console.log(priceRange);
     console.log(minPrice);
     console.log(maxPrice);
 
