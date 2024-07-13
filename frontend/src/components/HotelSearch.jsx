@@ -65,11 +65,11 @@ const HotelSearch = () => {
     <div className="min-h-screen flex flex-col bg-base-100">
       <NavBar />
       <SearchBar />
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
-        <p className="col-span-1 lg:col-start-2 lg:col-span-2 text-center lg:text-left">All prices displayed here are the grand total, inclusive of taxes & fees</p>
-        <div className="col-span-1 lg:col-start-4 justify-self-center lg:justify-self-end">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 items-center">
+        <p className="col-span-1 xl:col-start-2 xl:col-span-2 text-center xl:text-left sm:ml-12 sm:mr-12 lg:ml-0 lg:mr-0">All prices displayed here are the grand total, inclusive of taxes & fees</p>
+        <div className="col-span-1 xl:col-start-4 justify-self-center xl:justify-self-end">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn right-0 z-10 w-50 rounded-full bg-white ring-1 ring-black ring-opacity-5">
+            <div tabIndex={0} role="button" className="btn right-0 z-10 w-50 rounded-full bg-base-100 ring-1 ring-black ring-opacity-5">
               <p>Sort By: {sortState}</p>
             </div>
             <ul tabIndex={0} className="dropdown-content dropdown-right menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">

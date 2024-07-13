@@ -122,12 +122,12 @@ const HotelList = ({
 
   return (
     <div >
-      <div className="mb-4 mt-4">
-        <div className="grid grid-flow-row-dense grid-cols-1 lg:grid-cols-5 gap-4 pt-4">
-          <div className="col-start-1 lg:col-start-2 col-span-1">
+      <div className="m-4 ml-12 mr-12">
+        <div className="grid grid-flow-row-dense grid-cols-1 2xl:grid-cols-5 gap-4 pt-4">
+          <div className="col-start-1 2xl:col-start-2 col-span-1">
             <HotelFilter onFilterChange={handleFilterChange} />
           </div>
-          <div className="col-start-1 lg:col-start-3 lg:col-span-2">
+          <div className="col-start-1 2xl:col-start-3 2xl:col-span-2">
             {loading ? (
               <LoadingIcon />
             ) : (

@@ -4,7 +4,7 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
   const { email, password } = formData;
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="bg-base-100 rounded-lg shadow-xl flex max-w-4xl w-full">
+      <div className="bg-base-100 rounded-lg shadow-xl flex max-w-4xl justify-center items-center">
         <div className="flex flex-col items-center justify-center w-1/2 rounded-l-lg">
           <img
             src="../../src/assets/register.jpg"
@@ -60,24 +60,6 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
               </button>
             </div>
           </form>
-          {/* <div className="flex items-center my-4">
-            <div className="flex-grow h-px bg-base-200"></div>
-            <span className="flex-shrink text-gray-500 mx-4">
-              or continue with
-            </span>
-            <div className="flex-grow h-px bg-base-200"></div>
-          </div>
-          <div className="flex justify-center space-x-4">
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-              <GoogleIcon className="w-5 h-5 inline mr-2" /> Google
-            </button>
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-              <AppleIcon className="w-5 h-5 inline mr-2" /> Apple
-            </button>
-            <button className="btn btn-base-200 font-semibold py-2 px-4 rounded-lg shadow-md">
-              <FacebookIcon className="w-5 h-5 inline mr-2" /> Facebook
-            </button>
-          </div> */}
           <p className="mt-4 text-sm text-center text-gray-500">
             By creating an account, you agree to our{" "}
             <a href="#" className="text-blue-600">

@@ -1,4 +1,3 @@
-
 const LoginFormUI = ({ formData, onChange, onSubmit }) => {
   const { email, password } = formData;
   return (

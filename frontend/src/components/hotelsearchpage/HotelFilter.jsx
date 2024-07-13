@@ -52,12 +52,12 @@ const HotelFilter = ({ onFilterChange }) => {
 
   return (
     <div className="card">
-      <div className="justify-start card-body card-bordered bg-base-100 rounded-xl shadow-lg min-w-20">
+      <div className="justify-start card-body card-bordered bg-base-100 rounded-xl shadow-lg">
         <h3 className="text-xl mb-2 font-bold text-base-content">Filters</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
             <label className="block text-base-content">Star Rating</label>
-            <div className="form-control grid grid-flow-row-dense grid-cols-1 gap-4 p-4">
+            <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
               {Array.from({ length: 5 }, (_, i) => (
                 <label className="flex cursor-pointer" key={i}>
                   <input
@@ -67,7 +67,7 @@ const HotelFilter = ({ onFilterChange }) => {
                     checked={starRatings.includes((5 - i).toString())}
                     onChange={handleCheckBox}
                   />
-                  <p className="flex-initial ml-5">{5 - i} stars</p>
+                  <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
                 </label>
               ))}
             </div>
@@ -78,7 +78,7 @@ const HotelFilter = ({ onFilterChange }) => {
               type="number"
               value={minGuestRating}
               onChange={(e) => setMinGuestRating(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
             />
           </div>
 
