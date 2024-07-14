@@ -1,10 +1,23 @@
+import { useNavigate } from "react-router-dom";
+
 const LoginFormUI = ({ formData, onChange, onSubmit }) => {
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    navigate("/register");
+  };
+
   const { email, password } = formData;
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="bg-base-100 rounded-lg shadow-xl flex max-w-4xl w-full">
         <div className="flex flex-col items-center justify-center w-1/2 rounded-l-lg">
-          <img src="../../src/assets/login.jpg" alt="Illustration" className="h-full object-cover rounded-l-lg shadow-xl"/>
+          <img
+            src="../../src/assets/login.jpg"
+            alt="Illustration"
+            className="h-full object-cover rounded-l-lg shadow-xl"
+          />
         </div>
         <div className="p-8 w-1/2">
           <h2 className="text-2xl font-bold mb-4">Continue your adventure</h2>
@@ -40,11 +53,11 @@ const LoginFormUI = ({ formData, onChange, onSubmit }) => {
             </button>
           </form>
           <div>
-          <p className="mt-8 text-sm text-center text-gray-500">
+            <p className="mt-8 text-sm text-center text-gray-500">
               Don't have an account?{" "}
-               <a href="#" className="text-primary">
+              <button onClick={handleFormSubmit} className="text-primary">
                 Sign up
-              </a>
+              </button>
             </p>
           </div>
         </div>

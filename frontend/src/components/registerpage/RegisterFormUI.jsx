@@ -1,15 +1,23 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
-  const { email, password } = formData;
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
+  const { email, password, confirmPassword } = formData;
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="bg-base-100 rounded-lg shadow-xl flex max-w-4xl justify-center items-center">
-        <div className="flex flex-col items-center justify-center w-1/2 rounded-l-lg">
+      <div className="bg-base-100 rounded-lg shadow-xl flex max-w-5xl justify-center items-center">
+        <div className="flex flex-col items-center justify-center w-1/2 rounded-l-lg h-1/2">
           <img
             src="../../src/assets/register.jpg"
             alt="Illustration"
-            className="h-full object-cover rounded-l-lg shadow-xl"
+            className="h-100 object-cover rounded-l-lg shadow-xl"
           />
         </div>
         <div className="p-8 w-1/2">
@@ -50,6 +58,17 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
                 required
               />
             </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={onChange}
+                className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                required
+              />
+            </div>
             <div>
               {error && <div className="mb-4 text-red-600">{error}</div>}
               <button
@@ -62,20 +81,20 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
           </form>
           <p className="mt-4 text-sm text-center text-gray-500">
             By creating an account, you agree to our{" "}
-            <a href="#" className="text-blue-600">
+            <a href="" className="text-blue-600">
               Privacy Policy
             </a>{" "}
             and{" "}
-            <a href="#" className="text-blue-600">
+            <a href="" className="text-blue-600">
               Terms of Service
             </a>
             .
           </p>
           <p className="mt-4 text-sm text-center text-gray-500">
             Already have an account?{" "}
-            <a href="#" className="text-primary">
+            <button onClick={handleFormSubmit} className="text-primary">
               Sign in
-            </a>
+            </button>
           </p>
         </div>
       </div>
@@ -83,14 +102,15 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
   );
 };
 
-RegisterFormUI.propTypes = {
-  error: PropTypes.string,
-  formData: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+// RegisterFormUI.propTypes = {
+//   error: PropTypes.string,
+//   formData: PropTypes.shape({
+//     email: PropTypes.string.isRequired,
+//     password: PropTypes.string.isRequired,
+//     confirmPassword: PropTypes.string.isRequired,
+//   }).isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default RegisterFormUI;

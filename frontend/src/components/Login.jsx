@@ -10,6 +10,7 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+
   const { setUser } = useContext(AuthContext);
 
   const { email, password } = formData;
