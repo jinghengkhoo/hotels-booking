@@ -1,25 +1,33 @@
 import PropTypes from "prop-types";
+import './staricons.css';
 
 const HotelItem = ({ hotel, onSelect }) => {
   const getImageURL = () => {
     return hotel.image_details.prefix.concat(hotel.default_image_index, hotel.image_details.suffix);
   };
-
-  const DrawStarRating = (rating) => {
+  
+  const DrawStarRating = () => {
+    const fullStar = '★';
+  
+    const getStarClass = (star) => {
+      if (hotel.rating >= star) {
+        return 'full';
+      } else if (hotel.rating >= star - 0.5) {
+        return 'half';
+      } else {
+        return 'empty';
+      }
+    };
     return (
       <div>
-        {[1, 2, 3, 4, 5].map((star) => {
-          return (
-            <span
-              key={star}
-              style={{ color: rating >= star ? 'gold' : 'gray', }}>
-              ★{' '}
-            </span>
-          )
-        })}
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className={`star ${getStarClass(star)}`}>
+            {fullStar}
+          </span>
+        ))}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="card card-compact lg:card-side bg-base-100 rounded-xl shadow-lg overflow-hidden border border-base-200">
@@ -29,7 +37,7 @@ const HotelItem = ({ hotel, onSelect }) => {
       <div className="card-body">
         <h3 className="text-xl font-semibold">{hotel.name}</h3>
         <p className="text-base">{hotel.address}</p>
-        <div className="text-base">{DrawStarRating(hotel.rating)}</div>
+        <div className="text-base">{DrawStarRating()}</div>
         <p className="text-base">Guest Rating: {hotel.trustyou.score.overall}</p>
         <p className="text-right font-semibold tracking-wide text-2xl">${hotel.price}</p>
         <div className="card-actions justify-end">

@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingIcon from "./LoadingIcon";
-import TopBar from "./hoteldetails/TopBar";
 import Overview from "./hoteldetails/Overview";
 import ImageCarousel from "./hoteldetails/ImageCarousel";
 import PropertyDescription from "./hoteldetails/PropertyDescription";
 import './hoteldetails/hoteldetails.css';
 import RoomDisplay from "./hoteldetails/RoomDisplay";
 import Map from "./Map";
+import SearchBar from './SearchBar';
+import NavBar from "./NavBar";
 
 
 const HotelDetails = () => {
@@ -70,14 +71,13 @@ const HotelDetails = () => {
   }
 
   return (
-    <div className="bg-base-100">
-      <TopBar />
+    <div className="font-montserrat">
+      <NavBar />
+      <SearchBar />
       <Overview hotelDetails={hotelDetails} />
       <div className="mb-4">
         <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
       </div>
-      <ImageCarousel hotelDetails={hotelDetails} />
-      <PropertyDescription hotelDetails={hotelDetails} />
       <RoomDisplay roomDetails={roomDetails} endDate={endDate} onSelectRoom={handleSelectRoom} />
     </div>
   );

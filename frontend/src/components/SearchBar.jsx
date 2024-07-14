@@ -195,13 +195,15 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        {error && <div className="mb-4 text-red-600">{error}</div>}
-        <button
-          type="submit"
-          className="bg-primary text-white px-16 m-2 rounded-md shadow-md hover:bg-accent"
-        >
-          Search
-        </button>
+        <div className="flex my-2">
+          {error && <div className="mb-4 text-red-600">{error}</div>}
+          <button
+            type="submit"
+            className="bg-accent text-white px-8 mx-3 my-5 rounded-md shadow-md hover:bg-accent"
+          >
+            Search
+          </button>
+        </div>
       </form>
     </div>
   );

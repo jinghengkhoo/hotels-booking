@@ -25,7 +25,11 @@ const NavBar = ({ textColor }) => {
         </button>
       </div>
       <div className="container mx-auto flex justify-center w-1/2">
-        <div className="text-center font-bold text-xl">travelust</div>
+        <Link to="/">
+          <button className="btn btn-ghost">
+            <span className="text-center font-bold text-xl">travelust</span>
+          </button>
+        </Link>
       </div>
       <div className="flex justify-end items-center space-x-4 pr-4 w-1/4">
         <div className="dropdown dropdown-end justify-end">

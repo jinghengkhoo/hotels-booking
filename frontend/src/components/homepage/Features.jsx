@@ -41,9 +41,9 @@ const Features = () => {
           {features.map((feature, index) => (
             <div key={index} className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
               <div className="text-center">
-                <FontAwesomeIcon icon={feature.icon} className="text-4xl text-primary mb-4" />
-                <h3 className="text-xl text-primary font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <FontAwesomeIcon icon={feature.icon} className="text-4xl text-accent mb-10" />
+                <h3 className="text-2xl text-accent font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-600 text-lg mt-4">{feature.description}</p>
               </div>
             </div>
           ))}
