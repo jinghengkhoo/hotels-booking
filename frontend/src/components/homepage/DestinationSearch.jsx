@@ -10,7 +10,6 @@ const destinations = [
   { image: singaporeImage, text: "Singapore, Singapore" },
   { image: kyotoImage, text: "Kyoto, Japan" },
   { image: parisImage, text: "Paris, France" },
-  // Add more destinations as needed
 ];
 
 const DestinationSearch = () => {
