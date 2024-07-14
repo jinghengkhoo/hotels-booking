@@ -15,7 +15,6 @@ const HotelFilter = ({ onFilterChange }) => {
 
   const handleFilterChange = () => {
     console.log(starRatings);
-    console.log(priceRange);
     console.log(minPrice);
     console.log(maxPrice);
 
@@ -52,38 +51,38 @@ const HotelFilter = ({ onFilterChange }) => {
 
   return (
     <div className="card">
-      <div className="justify-start card-body card-bordered bg-base-100 rounded-badge shadow-m min-w-20">
-        <h3 className="text-xl mb-2 font-bold">Filters</h3>
+      <div className="justify-start card-body card-bordered bg-base-100 rounded-xl shadow-lg">
+        <h3 className="text-xl mb-2 font-bold text-base-content">Filters</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label className="block text-gray-700">Star Rating</label>
-            <div className="form-control grid grid-flow-row-dense grid-cols-1 gap-4 p-4">
+            <label className="block text-base-content">Star Rating</label>
+            <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
               {Array.from({ length: 5 }, (_, i) => (
                 <label className="flex cursor-pointer" key={i}>
                   <input
                     type="checkbox"
-                    className="checkbox checkbox-secondary"
+                    className="checkbox checkbox-primary"
                     value={5 - i}
                     checked={starRatings.includes((5 - i).toString())}
                     onChange={handleCheckBox}
                   />
-                  <p className="flex-initial ml-5">{5 - i} stars</p>
+                  <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
                 </label>
               ))}
             </div>
           </div>
           <div>
-            <label className="block text-gray-700">Guest Rating</label>
+            <label className="block text-base-content">Guest Rating</label>
             <input
               type="number"
               value={minGuestRating}
               onChange={(e) => setMinGuestRating(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block mt-4">Price Range:</label>
+            <label className="block mt-4 text-base-content">Price Range:</label>
             <Slider
               range
               min={permMinPrice}
@@ -103,13 +102,13 @@ const HotelFilter = ({ onFilterChange }) => {
 
         <button
           onClick={handleFilterChange}
-          className="btn btn-neutral">
+          className="btn btn-primary rounded-xl">
           Apply Filters
         </button>
 
         <button
           onClick={resetFilter}
-          className="btn">
+          className="btn btn-secondary rounded-xl">
           Reset Filters
         </button>
       </div>

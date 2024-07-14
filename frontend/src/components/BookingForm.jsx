@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import BookingFormUI from "./bookingpage/BookingFormUI";
 import {
   validateEmail,
   validatePhoneNumber,
@@ -208,144 +209,17 @@ const BookingForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-gray-700">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
+    <div className="bg-base-200">
+      <Elements stripe={stripePromise}>
+        <BookingFormUI
+          errorMsg={errorMsg}
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          location={location}
         />
-      </div>
-      <div>
-        <label className="block text-gray-700">Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Phone Number (+65) </label>
-        <input
-          type="tel"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Email Address</label>
-        <input
-          type="email"
-          name="emailAddress"
-          value={formData.emailAddress}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Adults</label>
-        <input
-          type="number"
-          name="adults"
-          value={formData.adults}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          min="1"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Children</label>
-        <input
-          type="number"
-          name="children"
-          value={formData.children}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          min="0"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Special Requests to Hotel</label>
-        <textarea
-          name="messageToHotel"
-          value={formData.messageToHotel}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Salutation</label>
-        <input
-          type="text"
-          name="salutation"
-          value={formData.salutation}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Billing Address Line 1</label>
-        <input
-          type="text"
-          name="billingAddressOne"
-          value={formData.billingAddressOne}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Billing Address Line 2</label>
-        <input
-          type="text"
-          name="billingAddressTwo"
-          value={formData.billingAddressTwo}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">
-          Billing Address Postal Code
-        </label>
-        <input
-          type="number"
-          name="billingAddressPostalCode"
-          value={formData.billingAddressPostalCode}
-          onChange={handleChange}
-          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          min="0"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700">Credit Card Information</label>
-        <CardElement className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-      </div>
-
-      <div>
-        {errorMsg && <div className="mb-4 text-red-600">{errorMsg}</div>}
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-        >
-          Submit Booking
-        </button>
-      </div>
-    </form>
+      </Elements>
+    </div>
   );
 };
 

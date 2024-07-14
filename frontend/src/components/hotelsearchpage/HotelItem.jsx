@@ -1,41 +1,49 @@
 import PropTypes from "prop-types";
+import './staricons.css';
 
 const HotelItem = ({ hotel, onSelect }) => {
   const getImageURL = () => {
     return hotel.image_details.prefix.concat(hotel.default_image_index, hotel.image_details.suffix);
   };
-
-  const DrawStarRating = (rating) => {
+  
+  const DrawStarRating = () => {
+    const fullStar = '★';
+  
+    const getStarClass = (star) => {
+      if (hotel.rating >= star) {
+        return 'full';
+      } else if (hotel.rating >= star - 0.5) {
+        return 'half';
+      } else {
+        return 'empty';
+      }
+    };
     return (
       <div>
-        {[1, 2, 3, 4, 5].map((star) => {
-          return (
-            <span
-              key={star}
-              style={{ color: rating >= star ? 'gold' : 'gray', }}>
-              ★{' '}
-            </span>
-          )
-        })}
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className={`star ${getStarClass(star)}`}>
+            {fullStar}
+          </span>
+        ))}
       </div>
-    )
-  }
+    );
+  };
 
   return (
-    <div className="card card-compact lg:card-side bg-white rounded-xl shadow-md overflow-hidden">
+    <div className="card card-compact lg:card-side bg-base-100 rounded-xl shadow-lg overflow-hidden border border-base-200">
       <div className="lg:shrink-0">
         <img className="h-48 w-full object-cover lg:h-full lg:w-48" src={getImageURL()} alt={hotel.name} />
       </div>
       <div className="card-body">
         <h3 className="text-xl font-semibold">{hotel.name}</h3>
         <p className="text-base">{hotel.address}</p>
-        <div className="text-base">{DrawStarRating(hotel.rating)}</div>
+        <div className="text-base">{DrawStarRating()}</div>
         <p className="text-base">Guest Rating: {hotel.trustyou.score.overall}</p>
         <p className="text-right font-semibold tracking-wide text-2xl">${hotel.price}</p>
         <div className="card-actions justify-end">
           <button
             onClick={() => onSelect(hotel.id)}
-            className="btn btn-neutral font-semibold text-l tracking-wide">
+            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl">
             Check availability
           </button>
         </div>
