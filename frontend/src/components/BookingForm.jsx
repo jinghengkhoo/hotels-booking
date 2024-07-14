@@ -97,9 +97,9 @@ const BookingForm = () => {
     } else if (!validateEmail(formData.emailAddress)) {
       setErrorMsg("Please Enter a Valid Email Address");
       return 0;
-    } else if (!(formData.adults > 0)) {
-      setErrorMsg("Booking requires at least 1 Adult");
-      return 0;
+      // } else if (!(formData.adults > 0)) {
+      //   setErrorMsg("Booking requires at least 1 Adult");
+      //   return 0;
     } else if (!formData.billingAddressOne) {
       setErrorMsg("Please Enter Billing Address");
       return 0;

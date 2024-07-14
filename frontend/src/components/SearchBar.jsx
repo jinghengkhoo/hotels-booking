@@ -8,8 +8,8 @@ const SearchBar = () => {
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [guests, setGuests] = useState(1);
   const [rooms, setRooms] = useState(1);
   const navigate = useNavigate();
@@ -27,26 +27,29 @@ const SearchBar = () => {
     }
   }, [destination]);
 
+  const [error, setError] = useState("");
+
   const validateForm = () => {
-    const newErrors = {};
-
     if (!destinationId) {
-      newErrors.destinationId = "Please select a valid destination.";
+      setError("Please select a valid destination.");
+      return 0;
+    } else if (!startDate) {
+      setError("Please select a start date.");
+      return 0;
+    } else if (!endDate) {
+      setError("Please select an end date.");
+      return 0;
     }
-    if (!startDate) {
-      newErrors.startDate = "Please select a start date.";
-    }
-    if (!endDate) {
-      newErrors.endDate = "Please select an end date.";
-    }
-    if (guests <= 0) {
-      newErrors.guests = "Please select the number of guests.";
-    }
-    if (rooms <= 0) {
-      newErrors.rooms = "Please select the number of rooms.";
-    }
+    // else if (guests <= 0) {
+    //   setError("Please select the number of guests.");
+    //   return 0;
+    // }
+    // else if (rooms <= 0) {
+    //   setError("Please select the number of rooms.");
+    //   return 0;
+    // }
 
-    return Object.keys(newErrors).length === 0;
+    return 1;
   };
 
   const handleFormSubmit = (e) => {
@@ -57,6 +60,9 @@ const SearchBar = () => {
       });
     }
   };
+
+  const [selectedDest, setSelectedDest] = useState(0);
+
   const {
     isOpen,
     getMenuProps,
@@ -66,10 +72,15 @@ const SearchBar = () => {
   } = useCombobox({
     onInputValueChange: ({ inputValue }) => {
       setDestination(inputValue);
+      if (selectedDest) {
+        setDestinationId("");
+        setSelectedDest(0);
+      }
     },
     onSelectedItemChange: ({ selectedItem }) => {
       setDestination(selectedItem ? selectedItem.term : "");
       setDestinationId(selectedItem ? selectedItem.uid : "");
+      setSelectedDest(1);
     },
     items: suggestions,
     itemToString: (item) => (item ? item.term : ""),
@@ -77,9 +88,17 @@ const SearchBar = () => {
 
   return (
     <div className="flex justify-center items-center py-8 font-montserrat">
-      <form className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4" onSubmit={handleFormSubmit}>
+      <form
+        className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
+        onSubmit={handleFormSubmit}
+      >
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 ml-4 font-bold">Location</label>
+          <label
+            htmlFor="destination"
+            className="text-gray-700 mt-4 ml-4 font-bold"
+          >
+            Location
+          </label>
           <div className="flex items-center rounded-md p-1 pt-0">
             <input
               placeholder="where to next?"
@@ -91,7 +110,9 @@ const SearchBar = () => {
             />
           </div>
           <ul
-            className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${!(isOpen && suggestions.length) && 'hidden'}`}
+            className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${
+              !(isOpen && suggestions.length) && "hidden"
+            }`}
             {...getMenuProps()}
           >
             {isOpen &&
@@ -99,7 +120,11 @@ const SearchBar = () => {
                 <li
                   key={item.id}
                   {...getItemProps({ item, index })}
-                  className={`cursor-pointer px-4 py-2 ${highlightedIndex === index ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                  className={`cursor-pointer px-4 py-2 ${
+                    highlightedIndex === index
+                      ? "bg-blue-500 text-white"
+                      : "bg-white text-black"
+                  }`}
                 >
                   {item.term}
                 </li>
@@ -107,20 +132,36 @@ const SearchBar = () => {
           </ul>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Date Start</label>
+          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+            Date Start
+          </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
-            <CustomDatePicker className="bg-base-100 flex items-center py-1" selectedDate={startDate} onChange={setStartDate} />
+            <CustomDatePicker
+              className="bg-base-100 flex items-center py-1"
+              minDate={new Date()}
+              selectedDate={startDate}
+              onChange={setStartDate}
+            />
           </div>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Date End</label>
+          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+            Date End
+          </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
-            <CustomDatePicker className="bg-base-100 flex items-center py-1" selectedDate={endDate} onChange={setEndDate} />
+            <CustomDatePicker
+              className="bg-base-100 flex items-center py-1"
+              minDate={startDate}
+              selectedDate={endDate}
+              onChange={setEndDate}
+            />
           </div>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Number of Travellers</label>
+          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+            Number of Travellers
+          </label>
           <div className="flex items-center rounded-md">
             <select
               value={guests}
@@ -135,9 +176,11 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        
+
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">Number of Rooms</label>
+          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+            Number of Rooms
+          </label>
           <div className="flex items-center rounded-md">
             <select
               value={rooms}
@@ -152,11 +195,15 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        <button type="submit" className="bg-primary text-white px-16 m-2 rounded-md shadow-md hover:bg-accent">
+        {error && <div className="mb-4 text-red-600">{error}</div>}
+        <button
+          type="submit"
+          className="bg-primary text-white px-16 m-2 rounded-md shadow-md hover:bg-accent"
+        >
           Search
         </button>
       </form>
-    </div >
+    </div>
   );
 };
 
