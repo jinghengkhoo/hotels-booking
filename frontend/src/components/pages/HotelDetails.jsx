@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import LoadingIcon from "./LoadingIcon";
-import Overview from "./hoteldetails/Overview";
-import ImageCarousel from "./hoteldetails/ImageCarousel";
-import PropertyDescription from "./hoteldetails/PropertyDescription";
-import './hoteldetails/hoteldetails.css';
-import RoomDisplay from "./hoteldetails/RoomDisplay";
-import Map from "./Map";
-import SearchBar from './SearchBar';
-import NavBar from "./NavBar";
-
+import LoadingIcon from "../LoadingIcon";
+import Overview from "../hoteldetails/Overview";
+import ImageCarousel from "../hoteldetails/ImageCarousel";
+import PropertyDescription from "../hoteldetails/PropertyDescription";
+import "../hoteldetails/hoteldetails.css";
+import RoomDisplay from "../hoteldetails/RoomDisplay";
+import Map from "../Map";
+import SearchBar from "../SearchBar";
+import NavBar from "../NavBar";
 
 const HotelDetails = () => {
   const { id } = useParams();
   const hotelID = id;
   const location = useLocation();
   const navigate = useNavigate();
-  const { destinationId, startDate, endDate, guests, rooms, hotelDetails } = location.state || {};
+  const { destinationId, startDate, endDate, guests, rooms, hotelDetails } =
+    location.state || {};
   const [roomDetails, setRoomDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -78,7 +78,11 @@ const HotelDetails = () => {
       <div className="mb-4">
         <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
       </div>
-      <RoomDisplay roomDetails={roomDetails} endDate={endDate} onSelectRoom={handleSelectRoom} />
+      <RoomDisplay
+        roomDetails={roomDetails}
+        endDate={endDate}
+        onSelectRoom={handleSelectRoom}
+      />
     </div>
   );
 };

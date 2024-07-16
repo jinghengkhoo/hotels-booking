@@ -9,12 +9,12 @@ import {
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import BookingFormUI from "./bookingpage/BookingFormUI";
+import BookingFormUI from "../bookingpage/BookingFormUI";
 import {
   validateEmail,
   validatePhoneNumber,
   validatePostalCode,
-} from "../utils/validationMethods";
+} from "../../utils/validationMethods";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 

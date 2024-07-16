@@ -7,14 +7,14 @@ import { Link } from "react-router-dom";
 
 const NavBar = ({ textColor }) => {
   const { user, logout } = useContext(AuthContext);
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState("USD");
 
   const handleCurrencyChange = (newCurrency) => {
     setCurrency(newCurrency);
   };
 
   // Determine the text color class
-  const textColorClass = textColor === 'white' ? 'text-white' : 'text-black';
+  const textColorClass = textColor === "white" ? "text-white" : "text-black";
 
   return (
     <div className={`navbar bg-transparent z-20 py-4 ${textColorClass}`}>
@@ -26,8 +26,8 @@ const NavBar = ({ textColor }) => {
       </div>
       <div className="container mx-auto flex justify-center w-1/2">
         <Link to="/">
-          <button className="btn btn-ghost">
-            <span className="text-center font-bold text-xl">travelust</span>
+          <button className="btn btn-ghost text-center font-bold text-xl">
+            Travelust
           </button>
         </Link>
       </div>
@@ -58,18 +58,18 @@ const NavBar = ({ textColor }) => {
           <FontAwesomeIcon icon={faUser} className="mr-2" />
           <span>
             {user ? (
-              <>
+              <div>
                 <p>{user.email}</p>
                 <button onClick={logout}>Logout</button>
-              </>
+              </div>
             ) : (
-              <>
+              <div>
                 <Link to="/login">
                   <button className="btn btn-ghost">
                     <span className="font-normal">Login/Register</span>
                   </button>
                 </Link>
-              </>
+              </div>
             )}
           </span>
         </div>
@@ -79,7 +79,7 @@ const NavBar = ({ textColor }) => {
 };
 
 NavBar.propTypes = {
-  textColor: PropTypes.oneOf(['white', 'black']).isRequired,
+  textColor: PropTypes.oneOf(["white", "black"]).isRequired,
 };
 
 export default NavBar;

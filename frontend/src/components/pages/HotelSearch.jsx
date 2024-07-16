@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import HotelList from "./hotelsearchpage/HotelList";
-import LoadingIcon from "./LoadingIcon";
+import HotelList from "../hotelsearchpage/HotelList";
+import LoadingIcon from "../LoadingIcon";
 import { useLocation } from "react-router-dom";
-import NavBar from "./NavBar";
-import SearchBar from "./SearchBar";
+import NavBar from "../NavBar";
+import SearchBar from "../SearchBar";
 
 const HotelSearch = () => {
   const sortList = [

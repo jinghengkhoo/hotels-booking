@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import RegisterFormUI from "./registerpage/RegisterFormUI";
-import { validateEmail, validatePassword } from "../utils/validationMethods";
+import RegisterFormUI from "../registerpage/RegisterFormUI";
+import { validateEmail, validatePassword } from "../../utils/validationMethods";
 
 const Register = () => {
   const [formData, setFormData] = useState({

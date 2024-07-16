@@ -88,11 +88,11 @@ const DestinationCarousel = () => {
           &gt;
         </button>
       </div>
-      <div className="text-center mt-8">
+      {/* <div className="text-center mt-8">
         <button className="text-primary hover:text-accent font-semibold">
           See All Destinations
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import AdminTables from "./AdminTables";
+import AdminTables from "../AdminTables";
 
 const AdminLogin = () => {
   const [username, setUsername] = useState("");

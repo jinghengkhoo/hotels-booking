@@ -93,10 +93,7 @@ const SearchBar = () => {
         onSubmit={handleFormSubmit}
       >
         <div className="flex flex-col">
-          <label
-            htmlFor="destination"
-            className="text-gray-700 mt-4 ml-4 font-bold"
-          >
+          <label id="destination" className="text-gray-700 mt-4 ml-4 font-bold">
             Location
           </label>
           <div className="flex items-center rounded-md p-1 pt-0">
@@ -132,7 +129,7 @@ const SearchBar = () => {
           </ul>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+          <label id="startDate" className="text-gray-700 mt-4 font-bold">
             Date Start
           </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
@@ -145,7 +142,7 @@ const SearchBar = () => {
           </div>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+          <label id="endDate" className="text-gray-700 mt-4 font-bold">
             Date End
           </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
@@ -159,8 +156,8 @@ const SearchBar = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
-            Number of Travellers
+          <label id="guests" className="text-gray-700 mt-4 font-bold">
+            Number of Travelers
           </label>
           <div className="flex items-center rounded-md">
             <select
@@ -168,7 +165,7 @@ const SearchBar = () => {
               onChange={(e) => setGuests(e.target.value)}
               className="w-full py-2 bg-base-100 focus:outline-none"
             >
-              {[...Array(10).keys()].map((i) => (
+              {[...Array(25).keys()].map((i) => (
                 <option key={i + 1} value={i + 1}>
                   {i + 1} {i + 1 === 1 ? "Guest" : "Guests"}
                 </option>
@@ -178,7 +175,7 @@ const SearchBar = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="destination" className="text-gray-700 mt-4 font-bold">
+          <label id="rooms" className="text-gray-700 mt-4 font-bold">
             Number of Rooms
           </label>
           <div className="flex items-center rounded-md">
@@ -195,14 +192,14 @@ const SearchBar = () => {
             </select>
           </div>
         </div>
-        <div className="flex my-2">
-          {error && <div className="mb-4 text-red-600">{error}</div>}
+        <div className="flex flex-col my-2">
           <button
             type="submit"
             className="bg-accent text-white px-8 mx-3 my-5 rounded-md shadow-md hover:bg-accent"
           >
             Search
           </button>
+          {error && <div className="mb-4 text-m text-red-600">{error}</div>}
         </div>
       </form>
     </div>

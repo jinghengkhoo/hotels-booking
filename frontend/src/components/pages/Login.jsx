@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import LoginFormUI from "./loginpage/LoginFormUI";
+import { AuthContext } from "../../context/AuthContext";
+import LoginFormUI from "../loginpage/LoginFormUI";
 
 const Login = () => {
   const [formData, setFormData] = useState({
