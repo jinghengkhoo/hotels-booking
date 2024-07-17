@@ -21,6 +21,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+	if (req.secure || process.env.NODE_ENV === 'development') {
+		next();
+	} else {
+		const redirectUrl = `https://localhost:${PORT}${req.url}`;
+		res.redirect(301, redirectUrl);
+	}
+});
+
 app.get('/', (request, response) => {
   return response.status(200).send("Hi")
 });
