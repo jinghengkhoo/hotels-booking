@@ -60,6 +60,7 @@ const HotelDetails = () => {
         endDate,
         roomPrice,
         roomDescription,
+        currency
       },
     });
   };
