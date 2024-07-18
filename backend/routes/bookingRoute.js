@@ -1,12 +1,31 @@
 import express from "express";
-import { newBooking, getAllBookings, getBooking, updateBooking, deleteBooking } from "../controllers/bookingController.js";
+import {
+  newBooking,
+  getAllBookings,
+  getBooking,
+  updateBooking,
+  deleteBooking,
+} from "../controllers/bookingController.js";
+import { addUserBooking } from "../controllers/userController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/', newBooking);
-router.get('', getAllBookings);
-router.get('/:id', getBooking);
-router.put('/:id', updateBooking);
-router.delete('/:id', deleteBooking);
+router.post("/", async (req, res) => {
+  try {
+    const { bookingData, userData } = req.body;
+    const booking_id = await newBooking(bookingData, res);
+    userData["booking_id"] = booking_id;
+    await addUserBooking(userData, res);
+    console.log("functions completed");
+    return res.status(200).send("Both Booking and User updated");
+  } catch (error) {
+    return res.status(500).send("An error occurred");
+  }
+});
+
+router.get("/", getAllBookings);
+router.get("/:id", getBooking);
+router.put("/:id", updateBooking);
+router.delete("/:id", deleteBooking);
 
 export default router;

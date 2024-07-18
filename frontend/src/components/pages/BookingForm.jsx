@@ -35,7 +35,7 @@ const BookingForm = () => {
     endDate,
     roomPrice,
     roomDescription,
-    currency
+    currency,
   } = location.state;
 
   const [formData, setFormData] = useState({
@@ -217,7 +217,11 @@ const BookingForm = () => {
       billingAddressPostalCode,
     };
 
-    await axios.post("http://localhost:5555/api/bookings", bookingData);
+    const userData = { email: emailAddress };
+
+    const apiInput = { bookingData, userData };
+
+    await axios.post("http://localhost:5555/api/bookings", apiInput);
     alert("Booking successful!");
     navigate("/");
   };
