@@ -6,6 +6,7 @@ const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const AdminLogin = () => {
       await axios.post("http://localhost:5555/api/admin/login", admin);
       setLoggedIn(true);
     } catch (err) {
+      setError("Incorrect Admin Details");
       console.error(err.response.data);
     }
   };
@@ -52,6 +54,7 @@ const AdminLogin = () => {
                 required
               />
             </div>
+            {error && <div className="mb-4 text-red-600">{error}</div>}
             <button
               type="submit"
               className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"

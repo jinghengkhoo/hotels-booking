@@ -13,16 +13,29 @@ const NavBar = ({ textColor }) => {
     setCurrency(newCurrency);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   // Determine the text color class
   const textColorClass = textColor === "white" ? "text-white" : "text-black";
 
   return (
     <div className={`navbar bg-transparent z-20 py-4 ${textColorClass}`}>
-      <div className="flex justify-left items-center w-1/4 pl-16">
-        <button className="btn btn-ghost">
+      <div className="flex justify-left items-center w-1/4 pl-16 relative">
+        <button className="btn btn-ghost" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faBars} className="mr-2" />
           <span className="font-normal">MENU</span>
         </button>
+        {isOpen && user != null && (
+          <div className="absolute top-full mt-1 ml-5">
+            <Link to="/profile" onClick={toggleMenu}>
+              Profile
+            </Link>
+          </div>
+        )}
       </div>
       <div className="container mx-auto flex justify-center w-1/2">
         <Link to="/">

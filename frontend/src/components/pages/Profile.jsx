@@ -1,8 +1,19 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { MdOutlineDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import {
+  validateEmail,
+  validatePhoneNumber,
+  validatePostalCode,
+} from "../../utils/validationMethods.js";
+import { AuthContext } from "../../context/AuthContext";
+import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import { Link } from "react-router-dom";
+import ProfileFormUI from "../profilepage/ProfileFormUI.jsx";
 
 const Profile = () => {
-  const [editMode, setEditMode] = useState(false);
+  const { logout } = useContext(AuthContext);
   const [userData, setUserData] = useState({
     _id: "",
     email: "",
@@ -13,10 +24,13 @@ const Profile = () => {
     lastName: "",
     phoneNumber: "",
     billingAddressOne: "",
-
     billingAddressTwo: "",
     billingAddressPostalCode: 0,
   });
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
+
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,7 +54,37 @@ const Profile = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    if (
+      !validatePhoneNumber(userData.phoneNumber) &&
+      userData.phoneNumber != null &&
+      userData.phoneNumber != ""
+    ) {
+      setErrorMsg("Please Enter a Valid Singapore Number");
+      return 0;
+    } else if (!validateEmail(userData.email)) {
+      setErrorMsg("Please Enter a Valid Email Address");
+      return 0;
+    } else if (
+      !userData.billingAddressOne &&
+      userData.billingAddressOne != ""
+    ) {
+      setErrorMsg("Please Enter Billing Address");
+      return 0;
+    } else if (
+      !validatePostalCode(userData.billingAddressPostalCode) &&
+      userData.billingAddressPostalCode != 0
+    ) {
+      setErrorMsg("Please Enter a Valid Postal Code");
+      return 0;
+    }
+    return 1;
+  };
+
   const handleSave = async () => {
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await axios.put(
         `http://localhost:5555/api/user/${userData._id}`,
@@ -48,177 +92,63 @@ const Profile = () => {
       );
       setUserData(response.data);
       setEditMode(false);
+      setErrorMsg("");
     } catch (error) {
       console.error("Error updating user details", error);
     }
   };
 
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const handleDeleteClick = (user) => {
+    setSelectedUser(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedUser(null);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5555/api/user/${selectedUser._id}`);
+      handleDeleteModalClose();
+      logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">Profile</h1>
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Email:
-          </label>
-          {editMode ? (
-            <input
-              type="email"
-              name="email"
-              value={userData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.email}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Salutation:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="salutation"
-              value={userData.salutation}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.salutation}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            First Name:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="firstName"
-              value={userData.firstName}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.firstName}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Last Name:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="lastName"
-              value={userData.lastName}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.lastName}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Phone Number:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="phoneNumber"
-              value={userData.phoneNumber}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.phoneNumber}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Billing Address One:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="billingAddressOne"
-              value={userData.billingAddressOne}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressOne}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Billing Address Two:
-          </label>
-          {editMode ? (
-            <input
-              type="text"
-              name="billingAddressTwo"
-              value={userData.billingAddressTwo}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressTwo}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Billing Address Postal Code:
-          </label>
-          {editMode ? (
-            <input
-              type="number"
-              name="billingAddressPostalCode"
-              value={userData.billingAddressPostalCode}
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressPostalCode}
-            </span>
-          )}
-        </div>
-        <div>
-          {editMode ? (
-            <button
-              onClick={handleSave}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Save
-            </button>
-          ) : (
-            <button
-              onClick={() => setEditMode(true)}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Edit
-            </button>
-          )}
-        </div>
+    <div>
+      <Link to="/">
+        <button className="btn btn-ghost text-center font-bold text-xl">
+          Travelust
+        </button>
+      </Link>
+      <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md relative">
+        <ProfileFormUI
+          userData={userData}
+          errorMsg={errorMsg}
+          editMode={editMode}
+          handleChange={handleChange}
+          handleSave={handleSave}
+          editModeTrue={() => setEditMode(true)}
+        />
+        <MdOutlineDelete
+          className="text-4xl text-red-600 cursor-pointer absolute bottom-6 right-10"
+          onClick={() => handleDeleteClick(userData)}
+        />
       </div>
+      {isDeleteModalOpen && selectedUser && (
+        <DeleteConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={handleDeleteModalClose}
+          onDelete={handleDelete}
+        />
+      )}
     </div>
   );
 };

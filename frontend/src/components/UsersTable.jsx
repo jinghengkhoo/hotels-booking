@@ -50,7 +50,10 @@ const UsersTable = () => {
 
   const handleSave = async (updatedUser) => {
     try {
-      await axios.put(`http://localhost:5555/api/user/${updatedUser._id}`, updatedUser);
+      await axios.put(
+        `http://localhost:5555/api/user/${updatedUser._id}`,
+        updatedUser
+      );
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === updatedUser._id ? updatedUser : user
