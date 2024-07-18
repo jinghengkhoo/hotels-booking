@@ -210,15 +210,13 @@ const BookingForm = () => {
 
   return (
     <div className="bg-base-200">
-      <Elements stripe={stripePromise}>
-        <BookingFormUI
-          errorMsg={errorMsg}
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          location={location}
-        />
-      </Elements>
+      <BookingFormUI
+        errorMsg={errorMsg}
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        location={location}
+      />
     </div>
   );
 };
