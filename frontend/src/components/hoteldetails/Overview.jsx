@@ -68,7 +68,7 @@ const Overview = ({ hotelDetails, roomDetails }) => {
                 ? "border-b-2 border-accent"
                 : "border-transparent"
             } hover:border-gray-200"`}
-            onclick={() => setSelectedTab("reviews")}
+            onClick={() => setSelectedTab("reviews")}
           >
             Reviews
           </button>

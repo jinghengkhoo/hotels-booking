@@ -66,7 +66,6 @@ const BookingForm = () => {
           lastName: userProfile.lastName || "",
           phoneNumber: userProfile.phoneNumber || "",
           emailAddress: userProfile.email || "",
-          messageToHotel: "",
           salutation: userProfile.salutation || "",
           billingAddressOne: userProfile.billingAddressOne || "",
           billingAddressTwo: userProfile.billingAddressTwo || "",
@@ -166,10 +165,30 @@ const BookingForm = () => {
       payment_method: paymentMethod.id,
     };
 
-    const { data: paymentIntent } = await axios.post(
-      "http://localhost:5555/api/payment",
-      paymentData
-    );
+    console.log({ paymentData });
+
+    try {
+      const { data: paymentIntent } = await axios.post(
+        "http://localhost:5555/api/payment",
+        paymentData
+      );
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("API response error:", error.response.data);
+        console.error("Status code:", error.response.status);
+        console.error("Headers:", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("API request error:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error in setup:", error.message);
+      }
+      console.error("Error config:", error.config);
+      return;
+    }
 
     const confirmPayment = await stripe.confirmCardPayment(
       paymentIntent.client_secret
@@ -202,6 +221,7 @@ const BookingForm = () => {
       billingAddressTwo,
       billingAddressPostalCode,
     };
+    console.log("error here");
 
     await axios.post("http://localhost:5555/api/bookings", bookingData);
     alert("Booking successful!");
@@ -210,15 +230,13 @@ const BookingForm = () => {
 
   return (
     <div className="bg-base-200">
-      <Elements stripe={stripePromise}>
-        <BookingFormUI
-          errorMsg={errorMsg}
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          location={location}
-        />
-      </Elements>
+      <BookingFormUI
+        errorMsg={errorMsg}
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        location={location}
+      />
     </div>
   );
 };

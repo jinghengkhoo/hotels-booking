@@ -1,5 +1,6 @@
 import { CardElement } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
+import BookingDetails from "./BookingDetails";
 
 const BookingFormUI = ({
   errorMsg,
@@ -8,12 +9,6 @@ const BookingFormUI = ({
   handleSubmit,
   location,
 }) => {
-  const { startDate, endDate, roomPrice, roomDescription } = location.state;
-
-  const totalNights = Math.floor(
-    (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
-  );
-
   return (
     <div className="p-6 max-w-7xl mx-auto bg-base-100 shadow-md rounded-md grid grid-cols-3 gap-4">
       <form onSubmit={handleSubmit} className="space-y-4 col-span-2">
@@ -191,47 +186,7 @@ const BookingFormUI = ({
         </div>
       </form>
       <div className="border-l-2 border-base-200 col-span-1 my-4">
-        <div className="p-4 bg-base-100 rounded-md col-span-1">
-          <div className="bg-primary text-white py-2 px-4 rounded-t-md">
-            <h3 className="text-lg font-bold">Your Booking Details</h3>
-          </div>
-          <div className="bg-base-100 p-4 rounded-b-md mb-4 border shadow-md">
-            <p>
-              <strong>Check-in:</strong>{" "}
-              {new Date(startDate).toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            <p>
-              <strong>Check-out:</strong>{" "}
-              {new Date(endDate).toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            <p>
-              <strong>Total length of stay:</strong> {totalNights} night
-              {totalNights > 1 ? "s" : ""}
-            </p>
-          </div>
-          <div className="bg-primary text-white py-2 px-4 rounded-t-md">
-            <h3 className="text-lg font-bold">Your Price Summary</h3>
-          </div>
-          <div className="bg-base-100 p-4 rounded-b-md border shadow-md">
-            <p>
-              <strong>{roomDescription}</strong>
-            </p>
-            <p>
-              <strong>Price:</strong> ${roomPrice.toFixed(2)}
-            </p>
-            <p className="text-sm mt-1">Includes taxes and fees</p>
-          </div>
-        </div>
+        <BookingDetails location={location} />
       </div>
     </div>
   );
