@@ -46,12 +46,11 @@ const HotelList = ({
             country_code: "SG",
             guests: Array(rooms).fill(guests).join("|"),
             partner_id: 1,
-          }
+          },
         });
       } catch (error) {
         console.error("Failed to update background data:", error);
       }
-
     };
 
     displayedHotels.forEach(pollRoomData);
@@ -107,7 +106,7 @@ const HotelList = ({
   };
 
   const handleSelectHotel = (hotelID) => {
-    const selectedHotel = enhancedHotels.find(hotel => hotel.id === hotelID);
+    const selectedHotel = enhancedHotels.find((hotel) => hotel.id === hotelID);
     navigate(`/hotels/${hotelID}`, {
       state: {
         destinationId,
@@ -121,7 +120,7 @@ const HotelList = ({
   };
 
   return (
-    <div >
+    <div>
       <div className="m-4 ml-12 mr-12">
         <div className="grid grid-flow-row-dense grid-cols-1 2xl:grid-cols-5 gap-4 pt-4">
           <div className="col-start-1 2xl:col-start-2 col-span-1">

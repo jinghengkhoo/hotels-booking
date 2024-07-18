@@ -15,12 +15,12 @@ const validatePassword = (password) => {
 };
 
 const validatePhoneNumber = (phoneNumber) => {
-  const hasEightDigits = /\d{8}$/;
+  const hasEightDigits = /^[0-9]{8,8}$/;
   return hasEightDigits.test(phoneNumber) && phoneNumber > 0;
 };
 
 const validatePostalCode = (postalCode) => {
-  const hasSixDigits = /\d{6}$/;
+  const hasSixDigits = /^[0-9]{6,6}$/;
   return hasSixDigits.test(postalCode) && postalCode > 0;
 };
 
