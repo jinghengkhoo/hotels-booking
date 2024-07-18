@@ -14,6 +14,7 @@ const HotelList = ({
   endDate,
   guests,
   rooms,
+  currency
 }) => {
   const [displayedHotels, setDisplayedHotels] = useState([]);
   const [enhancedHotels, setEnhancedHotels] = useState([]);
@@ -42,7 +43,7 @@ const HotelList = ({
             checkin: startDate,
             checkout: endDate,
             lang: "en_US",
-            currency: "SGD",
+            currency: currency,
             country_code: "SG",
             guests: Array(rooms).fill(guests).join("|"),
             partner_id: 1,
@@ -54,7 +55,7 @@ const HotelList = ({
     };
 
     displayedHotels.forEach(pollRoomData);
-  }, [displayedHotels, destinationId, endDate, startDate, guests, rooms]);
+  }, [displayedHotels, destinationId, endDate, startDate, guests, rooms, currency]);
 
   const fetchAdditionalData = async (hotelList) => {
     const hotelPromises = hotelList.map(async (hotel) => {
@@ -115,6 +116,7 @@ const HotelList = ({
         guests,
         rooms,
         hotelDetails: selectedHotel,
+        currency,
       },
     });
   };
@@ -147,6 +149,7 @@ const HotelList = ({
                       key={hotel.id}
                       hotel={hotel}
                       onSelect={handleSelectHotel}
+                      currency={currency}
                     />
                   ))}
                 </div>
@@ -169,6 +172,7 @@ HotelList.propTypes = {
   destinationId: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   guests: PropTypes.number.isRequired,
   rooms: PropTypes.number.isRequired,
 };

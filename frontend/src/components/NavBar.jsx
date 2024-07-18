@@ -5,12 +5,13 @@ import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ textColor }) => {
+const NavBar = ({ textColor, currency, setCurrency }) => {
   const { user, logout } = useContext(AuthContext);
-  const [currency, setCurrency] = useState("USD");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleCurrencyChange = (newCurrency) => {
     setCurrency(newCurrency);
+    setIsDropdownOpen(false);
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -45,27 +46,37 @@ const NavBar = ({ textColor }) => {
         </Link>
       </div>
       <div className="flex justify-end items-center space-x-4 pr-4 w-1/4">
-        <div className="dropdown dropdown-end justify-end">
-          <div tabIndex="0" role="button" className="btn btn-ghost rounded-btn">
+        <div
+          className="dropdown dropdown-end justify-end"
+          onMouseLeave={() => setIsDropdownOpen(false)}
+        >
+          <div
+            tabIndex="0"
+            role="button"
+            className="btn btn-ghost rounded-btn"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
             {currency}
           </div>
-          <ul
-            tabIndex="0"
-            className="menu text-black dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-          >
-            <li>
-              <a onClick={() => handleCurrencyChange("USD")}>USD</a>
-            </li>
-            <li>
-              <a onClick={() => handleCurrencyChange("SGD")}>SGD</a>
-            </li>
-            <li>
-              <a onClick={() => handleCurrencyChange("EUR")}>EUR</a>
-            </li>
-            <li>
-              <a onClick={() => handleCurrencyChange("GBP")}>GBP</a>
-            </li>
-          </ul>
+          {isDropdownOpen && (
+            <ul
+              tabIndex="0"
+              className="menu text-black dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+            >
+              <li>
+                <a onClick={() => handleCurrencyChange("SGD")}>SGD</a>
+              </li>
+              <li>
+                <a onClick={() => handleCurrencyChange("USD")}>USD</a>
+              </li>
+              <li>
+                <a onClick={() => handleCurrencyChange("EUR")}>EUR</a>
+              </li>
+              <li>
+                <a onClick={() => handleCurrencyChange("GBP")}>GBP</a>
+              </li>
+            </ul>
+          )}
         </div>
         <div className="flex items-center">
           <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -93,6 +104,8 @@ const NavBar = ({ textColor }) => {
 
 NavBar.propTypes = {
   textColor: PropTypes.oneOf(["white", "black"]).isRequired,
+  currency: PropTypes.string.isRequired,
+  setCurrency: PropTypes.func,
 };
 
 export default NavBar;

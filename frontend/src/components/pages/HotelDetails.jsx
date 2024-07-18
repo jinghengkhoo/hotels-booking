@@ -14,7 +14,7 @@ const HotelDetails = () => {
   const hotelID = id;
   const location = useLocation();
   const navigate = useNavigate();
-  const { destinationId, startDate, endDate, guests, rooms, hotelDetails } =
+  const { destinationId, startDate, endDate, guests, rooms, hotelDetails, currency } =
     location.state || {};
   const [roomDetails, setRoomDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const HotelDetails = () => {
               checkin: startDate,
               checkout: endDate,
               lang: "en_US",
-              currency: "SGD",
+              currency: currency,
               country_code: "SG",
               guests: Array(rooms).fill(guests).join("|"),
               partner_id: 1,
@@ -49,7 +49,7 @@ const HotelDetails = () => {
     };
 
     fetchRoomDetails();
-  }, [id, destinationId, startDate, endDate, guests, rooms]);
+  }, [id, destinationId, startDate, endDate, guests, rooms, currency]);
 
   const handleSelectRoom = (roomId, roomPrice, roomDescription) => {
     navigate(`/book/${roomId}`, {
@@ -70,8 +70,8 @@ const HotelDetails = () => {
 
   return (
     <div className="font-montserrat">
-      <NavBar textColor="black" />
-      <SearchBar />
+      <NavBar textColor="black" currency={currency} />
+      <SearchBar currency={currency} />
       <Overview hotelDetails={hotelDetails} />
       <div className="mb-4">
         <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
@@ -80,6 +80,7 @@ const HotelDetails = () => {
         roomDetails={roomDetails}
         endDate={endDate}
         onSelectRoom={handleSelectRoom}
+        currency={currency}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const RoomItem = ({ room, endDate, onSelectRoom }) => {
+const RoomItem = ({ room, endDate, onSelectRoom, currency }) => {
   const getBreakfastInfo = (info) => {
     if (info === 'hotel_detail_room_only') {
       return 'Room Only';
@@ -34,7 +34,7 @@ const RoomItem = ({ room, endDate, onSelectRoom }) => {
             </div>
             <div className="text-right flex flex-col items-end">
               <p className="text-2xl font-bold text-gray-800 mb-1">
-                SGD {room.lowest_price.toFixed(2)}
+                {currency} {room.lowest_price.toFixed(2)}
               </p>
               <span className="text-sm text-gray-600 mb-4">per room per night</span>
               <button
@@ -68,6 +68,7 @@ RoomItem.propTypes = {
   }).isRequired,
   endDate: PropTypes.string.isRequired,
   onSelectRoom: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired
 };
 
 export default RoomItem;

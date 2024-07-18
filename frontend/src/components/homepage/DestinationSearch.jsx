@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import SearchBar from "../SearchBar";
 import NavBar from "../NavBar";
@@ -15,6 +15,7 @@ const destinations = [
 const DestinationSearch = () => {
   const [currentDestinationIndex, setCurrentDestinationIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currency, setCurrency] = useState("SGD");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,7 +37,7 @@ const DestinationSearch = () => {
         className={`w-full flex flex-col items-center bg-cover bg-center relative main-background ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
         style={{ backgroundImage: `url(${currentDestination.image})`, height: '80vh' }}
       >
-        <NavBar textColor="white" />
+        <NavBar textColor="white" currency={currency} setCurrency={setCurrency} />
         <div className="absolute inset-0 bg-black bg-opacity-20 py-10 px-48">
           <div className={`absolute bottom-0 left-0 mb-10 ml-48 text-transition ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <h2 className="text-4xl font-bold text-white mb-4">{currentDestination.text}</h2>
@@ -45,7 +46,7 @@ const DestinationSearch = () => {
         </div>
       </main>
       <div className="relative z-10 w-full max-w-screen-lg mx-auto mt-[-4rem] px-4">
-        <SearchBar />
+        <SearchBar currency={currency} />
       </div>
     </div>
   );

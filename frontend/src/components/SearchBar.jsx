@@ -3,8 +3,9 @@ import CustomDatePicker from "./CustomDatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const SearchBar = () => {
+const SearchBar = ({ currency }) => {
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -56,7 +57,7 @@ const SearchBar = () => {
     e.preventDefault();
     if (validateForm()) {
       navigate("/hotels", {
-        state: { destinationId, startDate, endDate, guests, rooms },
+        state: { destinationId, startDate, endDate, guests, rooms, currency },
       });
     }
   };
@@ -105,9 +106,8 @@ const SearchBar = () => {
             />
           </div>
           <ul
-            className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${
-              !(isOpen && suggestions.length) && "hidden"
-            }`}
+            className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${!(isOpen && suggestions.length) && "hidden"
+              }`}
             {...getMenuProps()}
           >
             {isOpen &&
@@ -115,11 +115,10 @@ const SearchBar = () => {
                 <li
                   key={item.id}
                   {...getItemProps({ item, index })}
-                  className={`cursor-pointer px-4 py-2 ${
-                    highlightedIndex === index
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-black"
-                  }`}
+                  className={`cursor-pointer px-4 py-2 ${highlightedIndex === index
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-black"
+                    }`}
                 >
                   {item.term}
                 </li>
@@ -204,5 +203,9 @@ const SearchBar = () => {
     </div>
   );
 };
+
+SearchBar.propTypes = {
+  currency: PropTypes.string.isRequired,
+}
 
 export default SearchBar;

@@ -15,7 +15,7 @@ const HotelSearch = () => {
   ];
 
   const { state } = useLocation();
-  const { destinationId, startDate, endDate, guests, rooms } = state;
+  const { destinationId, startDate, endDate, guests, rooms, currency } = state;
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortState, setSortState] = useState(sortList[0]);
@@ -32,7 +32,7 @@ const HotelSearch = () => {
               checkin: startDate,
               checkout: endDate,
               lang: "en_US",
-              currency: "SGD",
+              currency: currency,
               country_code: "SG",
               guests: Array(rooms).fill(guests).join("|"),
               partner_id: 1,
@@ -65,8 +65,8 @@ const HotelSearch = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-      <NavBar textColor="black" />
-      <SearchBar />
+      <NavBar textColor="black" currency={currency} />
+      <SearchBar  currency={currency}/>
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
         <p className="col-span-1 lg:col-start-2 lg:col-span-2 text-center lg:text-left">
           All prices displayed here are the grand total, inclusive of taxes &
@@ -112,6 +112,7 @@ const HotelSearch = () => {
           endDate={endDate}
           guests={guests}
           rooms={rooms}
+          currency={currency}
         />
       )}
     </div>

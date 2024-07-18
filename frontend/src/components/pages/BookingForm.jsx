@@ -35,6 +35,7 @@ const BookingForm = () => {
     endDate,
     roomPrice,
     roomDescription,
+    currency
   } = location.state;
 
   const [formData, setFormData] = useState({
@@ -174,7 +175,7 @@ const BookingForm = () => {
 
     const paymentData = {
       amount: Math.floor(roomPrice * 100), // Convert to cents
-      currency: "sgd",
+      currency: currency.toLowerCase(),
       payment_method: paymentMethod.id,
     };
 
