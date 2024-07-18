@@ -137,10 +137,12 @@ const Profile = () => {
           handleSave={handleSave}
           editModeTrue={() => setEditMode(true)}
         />
-        <MdOutlineDelete
-          className="text-4xl text-red-600 cursor-pointer absolute bottom-6 right-10"
+        <button
+          className="px-4 py-2 text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 absolute bottom-6 right-10"
           onClick={() => handleDeleteClick(userData)}
-        />
+        >
+          Delete Account
+        </button>
       </div>
       {isDeleteModalOpen && selectedUser && (
         <DeleteConfirmationModal
