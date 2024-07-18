@@ -19,7 +19,6 @@ const UsersTable = () => {
     axios
       .get("http://localhost:5555/api/user/all")
       .then((response) => {
-        console.log(response.data.data);
         setUsers(response.data.data);
         setLoading(false);
       })

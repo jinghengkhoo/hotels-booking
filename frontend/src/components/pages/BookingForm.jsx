@@ -140,6 +140,9 @@ const BookingForm = () => {
     if (!billingAddressTwo) {
       billingAddressTwo = " ";
     }
+    if (!children) {
+      children = 0;
+    }
 
     // Stripe payment processing
     const cardElement = elements.getElement(CardElement);
