@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { MdOutlineDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {
   validateEmail,
@@ -11,6 +10,8 @@ import { AuthContext } from "../../context/AuthContext";
 import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import { Link } from "react-router-dom";
 import ProfileFormUI from "../profilepage/ProfileFormUI.jsx";
+import ProfileBookingsTable from "../profilepage/ProfileBookingsTable.jsx";
+import LoadingIcon from "../LoadingIcon";
 
 const Profile = () => {
   const { logout } = useContext(AuthContext);
@@ -31,6 +32,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,6 +44,7 @@ const Profile = () => {
           }
         );
         setUserData(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user details", error);
       }
@@ -151,6 +154,7 @@ const Profile = () => {
           onDelete={handleDelete}
         />
       )}
+      {loading ? <LoadingIcon /> : <ProfileBookingsTable userData={userData} />}
     </div>
   );
 };

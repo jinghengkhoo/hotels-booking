@@ -5,6 +5,7 @@ import {
   getBooking,
   updateBooking,
   deleteBooking,
+  getListOfBookings,
 } from "../controllers/bookingController.js";
 import { addUserBooking } from "../controllers/userController.js";
 
@@ -24,6 +25,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", getAllBookings);
+router.get("/ids", getListOfBookings);
 router.get("/:id", getBooking);
 router.put("/:id", updateBooking);
 router.delete("/:id", deleteBooking);

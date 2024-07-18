@@ -88,6 +88,25 @@ export const getBooking = async (req, res) => {
   }
 };
 
+export const getListOfBookings = async (req, res) => {
+  try {
+    const bookingIDs = req.query.ids;
+    const bookingsDetails = [];
+    await Promise.all(
+      bookingIDs.map(async (id) => {
+        const booking = await Booking.findById(id);
+        if (booking) {
+          bookingsDetails.push(booking);
+        }
+      })
+    );
+    return res.status(200).json({ bookingsDetails });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+};
+
 export const updateBooking = async (req, res) => {
   try {
     const { id } = req.params;
