@@ -1,14 +1,6 @@
-// import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
-  const navigate = useNavigate();
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    navigate("/login");
-  };
-
+const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
   const { email, password, confirmPassword } = formData;
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -92,7 +84,7 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
           </p>
           <p className="mt-4 text-sm text-center text-gray-500">
             Already have an account?{" "}
-            <button onClick={handleFormSubmit} className="text-primary">
+            <button onClick={login} className="text-primary">
               Sign in
             </button>
           </p>
@@ -102,15 +94,15 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit }) => {
   );
 };
 
-// RegisterFormUI.propTypes = {
-//   error: PropTypes.string,
-//   formData: PropTypes.shape({
-//     email: PropTypes.string.isRequired,
-//     password: PropTypes.string.isRequired,
-//     confirmPassword: PropTypes.string.isRequired,
-//   }).isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
-// };
+RegisterFormUI.propTypes = {
+  error: PropTypes.string,
+  formData: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirmPassword: PropTypes.string.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default RegisterFormUI;

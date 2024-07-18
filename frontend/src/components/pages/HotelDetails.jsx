@@ -3,8 +3,6 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingIcon from "../LoadingIcon";
 import Overview from "../hoteldetails/Overview";
-import ImageCarousel from "../hoteldetails/ImageCarousel";
-import PropertyDescription from "../hoteldetails/PropertyDescription";
 import "../hoteldetails/hoteldetails.css";
 import RoomDisplay from "../hoteldetails/RoomDisplay";
 import Map from "../Map";
@@ -72,7 +70,7 @@ const HotelDetails = () => {
 
   return (
     <div className="font-montserrat">
-      <NavBar />
+      <NavBar textColor="black" />
       <SearchBar />
       <Overview hotelDetails={hotelDetails} />
       <div className="mb-4">

@@ -1,13 +1,4 @@
-import { useNavigate } from "react-router-dom";
-
-const LoginFormUI = ({ formData, onChange, onSubmit }) => {
-  const navigate = useNavigate();
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    navigate("/register");
-  };
-
+const LoginFormUI = ({ error, formData, onChange, onSubmit, register }) => {
   const { email, password } = formData;
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -45,6 +36,7 @@ const LoginFormUI = ({ formData, onChange, onSubmit }) => {
                 required
               />
             </div>
+            {error && <div className="mb-4 text-red-600">{error}</div>}
             <button
               type="submit"
               className="w-full py-2 px-4 btn btn-primary text-lg font-semibold rounded-lg shadow-md"
@@ -55,7 +47,7 @@ const LoginFormUI = ({ formData, onChange, onSubmit }) => {
           <div>
             <p className="mt-8 text-sm text-center text-gray-500">
               Don't have an account?{" "}
-              <button onClick={handleFormSubmit} className="text-primary">
+              <button onClick={register} className="text-primary">
                 Sign up
               </button>
             </p>

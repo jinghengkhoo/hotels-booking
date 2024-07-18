@@ -13,6 +13,7 @@ const Profile = () => {
     lastName: "",
     phoneNumber: "",
     billingAddressOne: "",
+
     billingAddressTwo: "",
     billingAddressPostalCode: 0,
   });

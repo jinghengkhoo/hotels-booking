@@ -4,8 +4,12 @@ import { subDays } from "date-fns";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
 
-const CustomDatePicker = ({ selectedDate, onChange, minDate }) => {
+const CustomDatePicker = ({ selectedDate, onChange, minDate, maxDate }) => {
   const [startDate, setStartDate] = useState(selectedDate);
+
+  if (!minDate) {
+    minDate = new Date();
+  }
 
   const handleChange = (date) => {
     setStartDate(date);
@@ -21,6 +25,7 @@ const CustomDatePicker = ({ selectedDate, onChange, minDate }) => {
     <DatePicker
       isClearable
       minDate={subDays(minDate, 0)}
+      maxDate={subDays(maxDate, 0)}
       selected={startDate}
       onChange={handleChange}
       dateFormat="yyyy-MM-dd"

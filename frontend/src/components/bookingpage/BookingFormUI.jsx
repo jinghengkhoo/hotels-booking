@@ -29,6 +29,17 @@ const BookingFormUI = ({
             />
           </div>
           <div>
+            <label className="block text-base-content">Email Address</label>
+            <input
+              type="email"
+              name="emailAddress"
+              value={formData.emailAddress}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              required
+            />
+          </div>
+          <div>
             <label className="block text-base-content">First Name</label>
             <input
               type="text"
@@ -76,17 +87,31 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label className="block text-base-content">Email Address</label>
+            <label className="block text-base-content">Adults</label>
             <input
-              type="email"
-              name="emailAddress"
-              value={formData.emailAddress}
+              type="number"
+              name="adults"
+              value={formData.adults}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              min="1"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-base-content">Children</label>
+            <input
+              type="number"
+              name="children"
+              value={formData.children}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              min="0"
               required
             />
           </div>
         </div>
+
         <div>
           <label className="block text-base-content">Message to Hotel</label>
           <textarea
@@ -100,43 +125,10 @@ const BookingFormUI = ({
           <h3 className="text-xl font-bold mb-4">Payment Details</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-base-content">Card Number</label>
-              <input
-                type="text"
-                name="cardNumber"
-                className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                placeholder="1234 5678 1234 5678"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-base-content">Name on Card</label>
-              <input
-                type="text"
-                name="nameOnCard"
-                className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-base-content">Expiry Date</label>
-              <input
-                type="text"
-                name="expiryDate"
-                className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                placeholder="MM / YY"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-base-content">CVV/CVC</label>
-              <input
-                type="text"
-                name="cvv"
-                className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                placeholder="123"
-                required
-              />
+              <label className="block text-base-content">
+                Credit Card Information
+              </label>
+              <CardElement className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
             </div>
             <div>
               <label className="block text-base-content">
@@ -177,12 +169,6 @@ const BookingFormUI = ({
               />
             </div>
           </div>
-        </div>
-        <div>
-          <label className="block text-base-content">
-            Credit Card Information
-          </label>
-          <CardElement className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
         </div>
         <div className="space-y-2">
           <label className="block text-base-content">
@@ -260,6 +246,8 @@ BookingFormUI.propTypes = {
     countryCode: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
     emailAddress: PropTypes.string.isRequired,
+    adults: PropTypes.number.isRequired,
+    children: PropTypes.number.isRequired,
     messageToHotel: PropTypes.string,
     billingAddressOne: PropTypes.string.isRequired,
     billingAddressTwo: PropTypes.string,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CustomDatePicker from "./DatePicker";
+import CustomDatePicker from "./CustomDatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,8 @@ const SearchBar = () => {
   const [guests, setGuests] = useState(1);
   const [rooms, setRooms] = useState(1);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [selectedDest, setSelectedDest] = useState(0);
 
   useEffect(() => {
     if (destination.length > 0) {
@@ -27,8 +29,6 @@ const SearchBar = () => {
     }
   }, [destination]);
 
-  const [error, setError] = useState("");
-
   const validateForm = () => {
     if (!destinationId) {
       setError("Please select a valid destination.");
@@ -39,16 +39,16 @@ const SearchBar = () => {
     } else if (!endDate) {
       setError("Please select an end date.");
       return 0;
+    } else if (new Date(startDate) > new Date(endDate)) {
+      setError("Please select an end date after the selected start date.");
+      return 0;
+    } else if (guests <= 0) {
+      setError("Please select the number of guests.");
+      return 0;
+    } else if (rooms <= 0) {
+      setError("Please select the number of rooms.");
+      return 0;
     }
-    // else if (guests <= 0) {
-    //   setError("Please select the number of guests.");
-    //   return 0;
-    // }
-    // else if (rooms <= 0) {
-    //   setError("Please select the number of rooms.");
-    //   return 0;
-    // }
-
     return 1;
   };
 
@@ -60,8 +60,6 @@ const SearchBar = () => {
       });
     }
   };
-
-  const [selectedDest, setSelectedDest] = useState(0);
 
   const {
     isOpen,
@@ -136,6 +134,7 @@ const SearchBar = () => {
             <CustomDatePicker
               className="bg-base-100 flex items-center py-1"
               minDate={new Date()}
+              maxDate={endDate}
               selectedDate={startDate}
               onChange={setStartDate}
             />

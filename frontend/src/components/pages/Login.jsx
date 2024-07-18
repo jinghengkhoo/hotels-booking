@@ -3,16 +3,17 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import LoginFormUI from "../loginpage/LoginFormUI";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
-
-  const { setUser } = useContext(AuthContext);
-
   const { email, password } = formData;
 
   const onChange = (e) =>
@@ -38,12 +39,31 @@ const Login = () => {
       setUser(profile.data);
       navigate("/");
     } catch (err) {
+      setError("Invalid Account Details");
       console.error(err.response.data);
     }
   };
 
+  const onSignUp = (e) => {
+    e.preventDefault();
+    navigate("/register");
+  };
+
   return (
-    <LoginFormUI formData={formData} onChange={onChange} onSubmit={onSubmit} />
+    <div>
+      <Link to="/">
+        <button className="btn btn-ghost text-center font-bold text-xl">
+          Travelust
+        </button>
+      </Link>
+      <LoginFormUI
+        error={error}
+        formData={formData}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        register={onSignUp}
+      />
+    </div>
   );
 };
 
