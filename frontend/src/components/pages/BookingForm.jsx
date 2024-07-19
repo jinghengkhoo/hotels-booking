@@ -217,11 +217,7 @@ const BookingForm = () => {
       billingAddressPostalCode,
     };
 
-    const userData = { email: emailAddress };
-
-    const apiInput = { bookingData, userData };
-
-    await axios.post("http://localhost:5555/api/bookings", apiInput);
+    await axios.post("http://localhost:5555/api/bookings", bookingData);
     alert("Booking successful!");
     navigate("/");
   };

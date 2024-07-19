@@ -13,10 +13,11 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { bookingData, userData } = req.body;
-    const booking_id = await newBooking({ body: bookingData }, res);
-    userData["booking_id"] = booking_id;
-    await addUserBooking(userData, res);
+    const body = req.body;
+    const newBookingId = await newBooking({ body });
+    const userData = { booking_id: newBookingId, email: body.email };
+    console.log(userData);
+    await addUserBooking(userData);
     console.log("functions completed");
     return res.status(200).send("Both Booking and User updated");
   } catch (error) {
