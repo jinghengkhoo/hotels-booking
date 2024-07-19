@@ -47,6 +47,7 @@ const Profile = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user details", error);
+        setLoading(false);
       }
     };
 

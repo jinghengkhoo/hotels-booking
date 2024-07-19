@@ -18,12 +18,15 @@ const ProfileBookingsTable = (userData) => {
     const fetchBookingData = async () => {
       try {
         const bookingIDs = userData.userData.bookingIDs;
+        if (bookingIDs.length == 0) {
+          throw new Error("BookingIDs is null");
+        }
         const bookingDetails = await axios.get(
           "http://localhost:5555/api/bookings/ids",
           { params: { ids: bookingIDs } }
         );
         setBookings(bookingDetails.data.bookingsDetails);
-        console.log(bookingDetails.data.bookingsDetails);
+        // console.log(bookingDetails.data.bookingsDetails);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching booking details", error);
