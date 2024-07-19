@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const { bookingData, userData } = req.body;
-    const booking_id = await newBooking(bookingData, res);
+    const booking_id = await newBooking({ body: bookingData }, res);
     userData["booking_id"] = booking_id;
     await addUserBooking(userData, res);
     console.log("functions completed");

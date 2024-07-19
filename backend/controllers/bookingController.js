@@ -17,7 +17,7 @@ export const newBooking = async (req, res) => {
     ];
 
     for (const field of requiredFields) {
-      if (!req[field]) {
+      if (!req.body[field]) {
         return res
           .status(400)
           .send({ message: `Missing required field: ${field}` });
@@ -25,26 +25,26 @@ export const newBooking = async (req, res) => {
     }
 
     const newBooking = {
-      email: req.email,
-      roomID: req.roomID,
-      destinationID: req.destinationID,
-      hotelID: req.hotelID,
-      numberOfNights: req.numberOfNights,
-      startDate: req.startDate,
-      endDate: req.endDate,
-      adults: req.adults,
-      children: req.children,
-      messageToHotel: req.messageToHotel,
-      roomType: req.roomType,
-      price: req.price,
-      salutation: req.salutation,
-      firstName: req.firstName,
-      lastName: req.lastName,
-      phoneNumber: req.phoneNumber,
-      stripePaymentID: req.stripePaymentID,
-      billingAddressOne: req.billingAddressOne,
-      billingAddressTwo: req.billingAddressTwo,
-      billingAddressPostalCode: req.billingAddressPostalCode,
+      email: req.body.email,
+      roomID: req.body.roomID,
+      destinationID: req.body.destinationID,
+      hotelID: req.body.hotelID,
+      numberOfNights: req.body.numberOfNights,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      adults: req.body.adults,
+      children: req.body.children,
+      messageToHotel: req.body.messageToHotel,
+      roomType: req.body.roomType,
+      price: req.body.price,
+      salutation: req.body.salutation,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      stripePaymentID: req.body.stripePaymentID,
+      billingAddressOne: req.body.billingAddressOne,
+      billingAddressTwo: req.body.billingAddressTwo,
+      billingAddressPostalCode: req.body.billingAddressPostalCode,
     };
 
     const booking = await Booking.create(newBooking);
