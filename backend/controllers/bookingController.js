@@ -1,7 +1,37 @@
 import { Booking } from "../models/bookingModel.js";
+import { addUserBooking } from "../controllers/userController.js";
 
 export const newBooking = async (req, res) => {
+  const newBooking = {
+    email: req.body.email,
+    roomID: req.body.roomID,
+    destinationID: req.body.destinationID,
+    hotelID: req.body.hotelID,
+    numberOfNights: req.body.numberOfNights,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    adults: req.body.adults,
+    children: req.body.children,
+    messageToHotel: req.body.messageToHotel,
+    roomType: req.body.roomType,
+    price: req.body.price,
+    salutation: req.body.salutation,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phoneNumber: req.body.phoneNumber,
+    stripePaymentID: req.body.stripePaymentID,
+    billingAddressOne: req.body.billingAddressOne,
+    billingAddressTwo: req.body.billingAddressTwo,
+    billingAddressPostalCode: req.body.billingAddressPostalCode,
+  };
+
+  const booking = await Booking.create(newBooking);
+  return booking._id.toHexString();
+};
+
+export const createBooking = async (req, res) => {
   try {
+    const body = req.body;
     const requiredFields = [
       "email",
       "roomID",
@@ -17,46 +47,20 @@ export const newBooking = async (req, res) => {
     ];
 
     for (const field of requiredFields) {
-      if (!req.body[field]) {
+      if (!body[field]) {
         return res
           .status(400)
           .send({ message: `Missing required field: ${field}` });
       }
     }
-
-    const newBooking = {
-      email: req.body.email,
-      roomID: req.body.roomID,
-      destinationID: req.body.destinationID,
-      hotelID: req.body.hotelID,
-      numberOfNights: req.body.numberOfNights,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      adults: req.body.adults,
-      children: req.body.children,
-      messageToHotel: req.body.messageToHotel,
-      roomType: req.body.roomType,
-      price: req.body.price,
-      salutation: req.body.salutation,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      phoneNumber: req.body.phoneNumber,
-      stripePaymentID: req.body.stripePaymentID,
-      billingAddressOne: req.body.billingAddressOne,
-      billingAddressTwo: req.body.billingAddressTwo,
-      billingAddressPostalCode: req.body.billingAddressPostalCode,
-    };
-
-    const booking = await Booking.create(newBooking);
-
-    console.log("New Booking Entry");
-    return booking._id.toHexString();
-    // return res.status(200).send(booking);
+    const newBookingId = await newBooking({ body });
+    const userData = { booking_id: newBookingId, email: body.email };
+    await addUserBooking(userData);
+    return res.status(200).send({ message: "Both Booking and User updated" });
   } catch (error) {
-    console.log(error.message);
-    // return res.status(500).send({ message: error.message });
+    return res.status(500).send({ message: error.message });
   }
-};
+}
 
 export const getAllBookings = async (req, res) => {
   try {
