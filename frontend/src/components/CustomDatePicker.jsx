@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { React, useState } from "react";
 import DatePicker from "react-datepicker";
 import { subDays } from "date-fns";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
 
-const CustomDatePicker = ({ selectedDate, onChange, minDate, maxDate }) => {
+const CustomDatePicker = ({ selectedDate = null, onChange, minDate, maxDate }) => {
   const [startDate, setStartDate] = useState(selectedDate);
 
   if (!minDate) {
@@ -38,6 +38,8 @@ const CustomDatePicker = ({ selectedDate, onChange, minDate, maxDate }) => {
 CustomDatePicker.propTypes = {
   selectedDate: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 };
 
 export default CustomDatePicker;

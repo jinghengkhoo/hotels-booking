@@ -50,6 +50,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "msw": "^2.3.1",
     "postcss": "^8.4.38",
+    "react-test-renderer": "^18.3.1",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
   },

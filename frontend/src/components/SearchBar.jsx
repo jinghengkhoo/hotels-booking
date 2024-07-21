@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CustomDatePicker from "./CustomDatePicker";
 import { useCombobox } from "downshift";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const SearchBar = ({ currency }) => {
+const SearchBar = ({ currency, renderDatePicker = false }) => {
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -103,6 +103,7 @@ const SearchBar = ({ currency }) => {
               type="text"
               name="destination"
               id="destination"
+              data-testid="destination"
             />
           </div>
           <ul
@@ -130,13 +131,26 @@ const SearchBar = ({ currency }) => {
             Date Start
           </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
-            <CustomDatePicker
-              className="bg-base-100 flex items-center py-1"
-              minDate={new Date()}
-              maxDate={endDate}
-              selectedDate={startDate}
-              onChange={setStartDate}
-            />
+            {renderDatePicker ? (
+              <CustomDatePicker
+                className="bg-base-100 flex items-center py-1"
+                minDate={startDate}
+                maxDate={endDate}
+                selectedDate={startDate}
+                onChange={setStartDate}
+              />
+            ) : (
+              <input
+                type="text"
+                className="form-input bg-base-100 flex items-center py-1"
+                placeholder="YYYY-MM-DD"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                data-testid="startDate"
+                pattern="\d{4}-\d{2}-\d{2}"
+                required
+              />
+            )}
           </div>
         </div>
         <div className="flex flex-col">
@@ -144,12 +158,26 @@ const SearchBar = ({ currency }) => {
             Date End
           </label>
           <div className="bg-base-100 flex items-center mt-4 py-1">
-            <CustomDatePicker
-              className="bg-base-100 flex items-center py-1"
-              minDate={startDate}
-              selectedDate={endDate}
-              onChange={setEndDate}
-            />
+            {renderDatePicker ? (
+              <CustomDatePicker
+                className="bg-base-100 flex items-center py-1"
+                minDate={startDate}
+                selectedDate={endDate}
+                onChange={setEndDate}
+              />
+            ) : (
+              <input
+                type="text"
+                className="form-input bg-base-100 flex items-center py-1"
+                placeholder="YYYY-MM-DD"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                data-testid="endDate"
+                pattern="\d{4}-\d{2}-\d{2}"
+                required
+              />
+            )}
+
           </div>
         </div>
 
@@ -161,6 +189,7 @@ const SearchBar = ({ currency }) => {
             <select
               value={guests}
               onChange={(e) => setGuests(e.target.value)}
+              data-testid="guests"
               className="w-full py-2 bg-base-100 focus:outline-none"
             >
               {[...Array(25).keys()].map((i) => (
@@ -180,6 +209,7 @@ const SearchBar = ({ currency }) => {
             <select
               value={rooms}
               onChange={(e) => setRooms(e.target.value)}
+              data-testid="rooms"
               className="w-full py-2 bg-base-100 focus:outline-none"
             >
               {[...Array(10).keys()].map((i) => (
@@ -194,6 +224,7 @@ const SearchBar = ({ currency }) => {
           <button
             type="submit"
             className="bg-accent text-white px-8 mx-3 my-5 rounded-md shadow-md hover:bg-accent"
+            data-testid="submit-button"
           >
             Search
           </button>
