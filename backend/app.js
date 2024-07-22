@@ -1,13 +1,17 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import express from "express";
 import booksRoute from './routes/bookingRoute.js';
-import userRoute from './routes/userRoute.js'
-import hotelsRoute from './routes/hotelsRoute.js'
-import destinationsRoute from './routes/destinationsRoute.js'
-import paymentRoute from './routes/paymentRoute.js'
-import adminRoute from './routes/adminRoute.js'
+import userRoute from './routes/userRoute.js';
+import hotelsRoute from './routes/hotelsRoute.js';
+import destinationsRoute from './routes/destinationsRoute.js';
+import paymentRoute from './routes/paymentRoute.js';
+import adminRoute from './routes/adminRoute.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import fs from 'fs';
+
+const PORT = process.env.PORT;
+const NODE_ENV = process.env.NODE_ENV;
 
 const app = express();
 
@@ -15,23 +19,25 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  credentials: true,
+    origin: 'http://localhost:5173',
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
 
+const httpsConfigured = fs.existsSync("server.key") && fs.existsSync("server.cert");
+
 app.use((req, res, next) => {
-	if (req.secure || process.env.NODE_ENV === 'development') {
-		next();
-	} else {
-		const redirectUrl = `https://localhost:${PORT}${req.url}`;
-		res.redirect(301, redirectUrl);
-	}
+    if (req.secure || NODE_ENV === 'development' || !httpsConfigured) {
+        next();
+    } else {
+        const redirectUrl = `https://localhost:${PORT}${req.url}`;
+        res.redirect(301, redirectUrl);
+    }
 });
 
 app.get('/', (request, response) => {
-  return response.status(200).send("Hi")
+    return response.status(200).send("Hi");
 });
 
 app.use('/api/bookings', booksRoute);
