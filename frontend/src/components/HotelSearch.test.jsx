@@ -83,7 +83,6 @@
 //   });
 // });
 
-// src/__tests__/HotelSearch.test.jsx
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import HotelSearch from '../components/HotelSearch';

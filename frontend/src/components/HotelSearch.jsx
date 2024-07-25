@@ -47,7 +47,9 @@ const HotelSearch = () => {
         }
 
       } catch (error) {
-        console.error("Error fetching hotel data:", error);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error("Error fetching hotel data:", error);
+        }
         setError("Error fetching hotel data");
         setLoading(false);
       }
