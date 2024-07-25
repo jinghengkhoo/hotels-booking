@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import HotelList from "./HotelList";
@@ -16,6 +17,7 @@ const HotelSearch = () => {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortState, setSortState] = useState(sortList[0]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -46,6 +48,8 @@ const HotelSearch = () => {
 
       } catch (error) {
         console.error("Error fetching hotel data:", error);
+        setError("Error fetching hotel data");
+        setLoading(false);
       }
     };
 
@@ -84,6 +88,8 @@ const HotelSearch = () => {
 
       {loading ? (
         <LoadingIcon />
+      ) : error ? (
+        <div role="alert">{error}</div>
       ) : (
         <HotelList
           hotels={hotels}
