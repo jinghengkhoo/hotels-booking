@@ -11,7 +11,7 @@ import Register from '../pages/Register';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Login Component', () => {
+describe('login component', () => {
   const setUser = jest.fn();
 
   beforeEach(() => {
@@ -76,7 +76,7 @@ describe('Login Component', () => {
     const submitButton = screen.getByRole('button', { name: /continue/i });
 
     await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'wrongpassword');
+    await userEvent.type(passwordInput, 'password');
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -101,7 +101,6 @@ describe('Login Component', () => {
     // Check if the input fields are invalid
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
-
     expect(emailInput).toBeInvalid();
     expect(passwordInput).toBeInvalid();
   });
@@ -124,7 +123,6 @@ describe('Login Component', () => {
 
     // Check if the email input is invalid
     const emailInput = screen.getByLabelText(/email/i);
-
     expect(emailInput).toBeInvalid();
   });
 

@@ -11,7 +11,7 @@ import Register from '../pages/Register';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Register Component', () => {
+describe('register component', () => {
   const setUser = jest.fn();
 
   beforeEach(() => {
@@ -86,8 +86,8 @@ describe('Register Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /continue/i });
     await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'wrongpassword123$');
-    await userEvent.type(confirmPasswordInput, 'wrongpassword123$');
+    await userEvent.type(passwordInput, 'password123$');
+    await userEvent.type(confirmPasswordInput, 'password123$');
     await userEvent.type(nameInput, 'John');
     await userEvent.click(submitButton);
 
@@ -107,10 +107,9 @@ describe('Register Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /continue/i });
 
-    // Click the submit button without filling the fields
     await userEvent.click(submitButton);
 
-    // Check if the input fields are invalid
+    // Check if the input fields are invalid one by one
     const nameInput = screen.getByLabelText(/full name/i);
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByTestId("password-field");
@@ -118,24 +117,18 @@ describe('Register Component', () => {
 
     expect(nameInput).toBeInvalid();
 
-    await userEvent.type(nameInput, "Jon");
-
+    await userEvent.type(nameInput, "John");
     await userEvent.click(submitButton);
-
     expect(emailInput).toBeInvalid();
 
     await userEvent.type(emailInput, "test@email.com");
-
     await userEvent.click(submitButton);
-
     expect(passwordInput).toBeInvalid();
 
     await userEvent.type(passwordInput, "password123$");
-
     await userEvent.click(submitButton);
 
     expect(confirmPasswordInput).toBeInvalid();
-    
   });
 
   test('navigate to signup', async () => {
@@ -154,7 +147,7 @@ describe('Register Component', () => {
 
   test('password not strong enough', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'assword must be at least 8 characters long and include a number and a special character'
+      message: 'Password must be at least 8 characters long and include a number and a special character'
     });
 
     render(
@@ -172,8 +165,8 @@ describe('Register Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /continue/i });
     await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'wrongpassword123');
-    await userEvent.type(confirmPasswordInput, 'wrongpassword123');
+    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(confirmPasswordInput, 'password123');
     await userEvent.type(nameInput, 'John');
     await userEvent.click(submitButton);
 
@@ -202,8 +195,8 @@ describe('Register Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /continue/i });
     await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'wrongpassword123#');
-    await userEvent.type(confirmPasswordInput, 'wrongpassword123');
+    await userEvent.type(passwordInput, 'password123#');
+    await userEvent.type(confirmPasswordInput, 'password123');
     await userEvent.type(nameInput, 'John');
     await userEvent.click(submitButton);
 
@@ -212,8 +205,6 @@ describe('Register Component', () => {
     });
   });
 
-//   the frontend will already verify that the input given by the user for the email field
-//   is valid and thus the backend does not need to check for invalid email format.
 
   test('invalid email format', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
@@ -235,8 +226,8 @@ describe('Register Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /continue/i });
     await userEvent.type(emailInput, 'test@gmail');
-    await userEvent.type(passwordInput, 'wrongpassword123@');
-    await userEvent.type(confirmPasswordInput, 'wrongpassword123@');
+    await userEvent.type(passwordInput, 'password123@');
+    await userEvent.type(confirmPasswordInput, 'password123@');
     await userEvent.type(nameInput, 'John');
     await userEvent.click(submitButton);
 
