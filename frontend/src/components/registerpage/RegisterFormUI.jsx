@@ -19,8 +19,9 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
           <p className="mb-4">Create an account with your email</p>
           <form onSubmit={onSubmit}>
             <div className="mb-2">
-              <label className="block text-gray-700">Full Name</label>
+              <label htmlFor="name-field" className="block text-gray-700">Full Name</label>
               <input
+              id="name-field"
                 type="text"
                 name="fullName"
                 onChange={onChange}
@@ -29,8 +30,9 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-gray-700">Email</label>
+              <label htmlFor="email-field" className="block text-gray-700">Email</label>
               <input
+              id="email-field"
                 type="email"
                 name="email"
                 value={email}
@@ -40,24 +42,28 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Password</label>
+              <label htmlFor="password-field" className="block text-gray-700">Password</label>
               <input
+              id="password-field"
                 type="password"
                 name="password"
                 value={password}
                 onChange={onChange}
                 className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                data-testid="password-field"
                 required
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Confirm Password</label>
+              <label htmlFor="password-field-confirm" className="block text-gray-700">Confirm Password</label>
               <input
+              id="password-field-confirm"
                 type="password"
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={onChange}
                 className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                data-testid="password-field-confirm"
                 required
               />
             </div>

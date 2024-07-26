@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
 import "./staricons.css";
 
-const HotelItem = ({ hotel, onSelect }) => {
+const HotelItem = ({ hotel, onSelect, startDate, endDate }) => {
+  const totalNights = Math.floor(
+    (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+  );
+
   const getImageURL = () => {
     if (hotel.hires_image_index == null) {
       return "https://cdn-icons-png.freepik.com/512/11208/11208792.png?ga=GA1.1.457828302.1721268782";
@@ -51,14 +55,14 @@ const HotelItem = ({ hotel, onSelect }) => {
         <p className="text-base">
           Guest Rating: {hotel.trustyou.score.overall}
         </p>
+        <p className="text-right tracking-wide text-md text-gray-500">{totalNights} Night(s)</p>
         <p className="text-right font-semibold tracking-wide text-2xl">
           ${hotel.price}
         </p>
         <div className="card-actions justify-end">
           <button
             onClick={() => onSelect(hotel.id)}
-            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl"
-          >
+            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl">
             Check availability
           </button>
         </div>

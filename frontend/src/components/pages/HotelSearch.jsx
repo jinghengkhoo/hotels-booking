@@ -64,7 +64,7 @@ const HotelSearch = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-base-100">
       <NavBar textColor="black" currency={currency} />
       <SearchBar  currency={currency}/>
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">

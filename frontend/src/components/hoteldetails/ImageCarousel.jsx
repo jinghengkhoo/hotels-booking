@@ -16,28 +16,28 @@ const ImageCarousel = ({ hotelDetails }) => {
     .map((index) => parseInt(index, 10));
 
   return (
-    <div
-      className="carousel carousel-center space-x-4 p-4"
-      style={{ height: "400px" }}
-    >
-      <div className="carousel-item">
-        {imageIndexes.map((image, index) => (
-          <div key={index} style={{ height: "100%" }}>
-            <img src={`${prefix}${image}${suffix}`} alt={`Image ${index}`} />
-          </div>
-        ))}
-      </div>
-    </div>
-
-    // <div className="carousel-container">
-    //   <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay>
-    // {imageIndexes.map((image, index) => (
-    //   <div key={index}>
-    //     <img src={`${prefix}${image}${suffix}`} alt={`Image ${index}`} />
-    //   </div>
+    // <div
+    //   className="carousel carousel-center space-x-4 p-4"
+    //   style={{ height: "400px" }}
+    // >
+    //   <div className="carousel-item">
+    //     {imageIndexes.map((image, index) => (
+    //       <div key={index} style={{ height: "100%" }}>
+    //         <img src={`${prefix}${image}${suffix}`} alt={`Image ${index}`} />
+    //       </div>
     //     ))}
-    //   </Carousel>
+    //   </div>
     // </div>
+
+    <div className="carousel-container">
+      <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay>
+    {imageIndexes.map((image, index) => (
+      <div key={index}>
+        <img src={`${prefix}${image}${suffix}`} alt={`Image ${index}`} />
+      </div>
+        ))}
+      </Carousel>
+    </div>
   );
 };
 

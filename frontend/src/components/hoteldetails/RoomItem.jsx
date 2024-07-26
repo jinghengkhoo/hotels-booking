@@ -36,7 +36,6 @@ const RoomItem = ({ room, endDate, onSelectRoom, currency }) => {
               <p className="text-2xl font-bold text-gray-800 mb-1">
                 {currency} {room.lowest_price.toFixed(2)}
               </p>
-              <span className="text-sm text-gray-600 mb-4">per room per night</span>
               <button
                 className="btn btn-primary rounded-md"
                 onClick={() => onSelectRoom(room.key, room.lowest_price, room.roomDescription)}

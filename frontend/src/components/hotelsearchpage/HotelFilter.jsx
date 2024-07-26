@@ -55,25 +55,27 @@ const HotelFilter = ({ onFilterChange }) => {
         <h3 className="text-xl mb-2 font-bold text-base-content">Filters</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label className="block text-base-content">Star Rating</label>
-            <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
-              {Array.from({ length: 5 }, (_, i) => (
-                <label className="flex cursor-pointer" key={i}>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-primary"
-                    value={5 - i}
-                    checked={starRatings.includes((5 - i).toString())}
-                    onChange={handleCheckBox}
-                  />
-                  <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
-                </label>
-              ))}
-            </div>
+            <label htmlFor="star-rating-input" className="block text-base-content">Star Rating</label>
+              <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <label className="flex cursor-pointer" key={i}>
+                    <input
+                      id="star-rating-input"
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      value={5 - i}
+                      checked={starRatings.includes((5 - i).toString())}
+                      onChange={handleCheckBox}
+                    />
+                    <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
+                  </label>
+                ))}
+              </div>
           </div>
           <div>
-            <label className="block text-base-content">Guest Rating</label>
+            <label htmlFor="guest-rating-input" className="block text-base-content">Guest Rating</label>
             <input
+              id="guest-rating-input"
               type="number"
               value={minGuestRating}
               onChange={(e) => setMinGuestRating(e.target.value)}
@@ -82,7 +84,7 @@ const HotelFilter = ({ onFilterChange }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mt-4 text-base-content">Price Range:</label>
+            <label className="block mt-4 text-base-content">Price Range (per night): </label>
             <Slider
               range
               min={permMinPrice}

@@ -18,6 +18,7 @@
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.5.0",
     "axios": "^1.7.2",
+    "axios-mock-adapter": "^1.22.0",
     "downshift": "^9.0.6",
     "rc-slider": "^10.6.2",
     "react": "^18.3.1",
@@ -27,14 +28,16 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.1",
+    "testing-library": "^0.0.2",
     "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
-    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
@@ -61,7 +64,8 @@
     "testEnvironment": "jest-environment-jsdom",
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
+      "^rc-slider$": "<rootDir>/__mocks__/rc-slider.js"
     },
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"

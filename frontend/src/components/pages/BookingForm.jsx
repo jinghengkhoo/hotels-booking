@@ -223,7 +223,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="bg-base-200">
+    <div className="min-h-screen bg-base-200 flex items-center">
       <BookingFormUI
         errorMsg={errorMsg}
         formData={formData}

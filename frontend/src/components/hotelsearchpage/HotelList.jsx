@@ -76,6 +76,9 @@ const HotelList = ({
   };
 
   const handleFilterChange = async (filters) => {
+    const totalNights = Math.floor(
+      (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+    );
     const newFilteredHotels = enhancedHotels.filter((hotel) => {
       const starRating = hotel.rating ?? 0;
       const guestRating = hotel.trustyou?.score?.overall ?? 0;
@@ -84,8 +87,8 @@ const HotelList = ({
         filters.starRatings.includes(starRating.toString());
       const meetsGuestRating = guestRating >= filters.minGuestRating;
       const meetsPriceRange =
-        hotel.price >= filters.minPrice && hotel.price <= filters.maxPrice;
-      return meetsStarRating && meetsGuestRating && meetsPriceRange;
+        hotel.price >= (filters.minPrice*totalNights) && hotel.price <= (filters.maxPrice*totalNights);
+        return meetsStarRating && meetsGuestRating && meetsPriceRange;
     });
     const initialHotels = await fetchAdditionalData(
       newFilteredHotels.slice(0, 10)
@@ -143,13 +146,15 @@ const HotelList = ({
                   </p>
                 }
               >
-                <div className="grid grid-cols-1 gap-4">
+                <div id="hotels-list"className="grid grid-cols-1 gap-4">
                   {displayedHotels.map((hotel) => (
                     <HotelItem
                       key={hotel.id}
                       hotel={hotel}
                       onSelect={handleSelectHotel}
                       currency={currency}
+                      startDate={startDate}
+                      endDate={endDate}
                     />
                   ))}
                 </div>
@@ -178,3 +183,4 @@ HotelList.propTypes = {
 };
 
 export default HotelList;
+

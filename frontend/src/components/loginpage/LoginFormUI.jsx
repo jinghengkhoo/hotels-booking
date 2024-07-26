@@ -15,8 +15,9 @@ const LoginFormUI = ({ error, formData, onChange, onSubmit, register }) => {
           <p className="mb-4">Login with your email</p>
           <form onSubmit={onSubmit}>
             <div className="mb-2">
-              <label className="block text-gray-700">Email</label>
+              <label htmlFor="email-field" className="block text-gray-700">Email</label>
               <input
+                id="email-field"
                 type="email"
                 name="email"
                 value={email}
@@ -26,21 +27,21 @@ const LoginFormUI = ({ error, formData, onChange, onSubmit, register }) => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Password</label>
+              <label htmlFor="password-field" className="block text-gray-700">Password</label>
               <input
+                id="password-field"
                 type="password"
                 name="password"
                 value={password}
                 onChange={onChange}
                 className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                required
+                required  
               />
             </div>
             {error && <div className="mb-4 text-red-600">{error}</div>}
             <button
               type="submit"
-              className="w-full py-2 px-4 btn btn-primary text-lg font-semibold rounded-lg shadow-md"
-            >
+              className="w-full py-2 px-4 btn btn-primary text-lg font-semibold rounded-lg shadow-md">
               Continue
             </button>
           </form>
