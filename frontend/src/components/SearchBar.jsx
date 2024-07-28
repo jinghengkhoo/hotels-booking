@@ -9,8 +9,8 @@ const SearchBar = ({ currency, renderDatePicker = false }) => {
   const [destination, setDestination] = useState("");
   const [destinationId, setDestinationId] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [guests, setGuests] = useState(1);
   const [rooms, setRooms] = useState(1);
   const navigate = useNavigate();

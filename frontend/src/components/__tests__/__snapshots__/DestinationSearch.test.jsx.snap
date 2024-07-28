@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DestinationSearch matches snapshot 1`] = `
+<div
+  className="min-h-screen flex flex-col bg-base-100"
+>
+  <main
+    className="w-full flex flex-col items-center bg-cover bg-center relative main-background opacity-100"
+    style={
+      {
+        "backgroundImage": "url([object Object])",
+        "height": "80vh",
+      }
+    }
+  >
+    <div
+      data-testid="navbar"
+    >
+      NavBar Mock
+    </div>
+    <div
+      className="absolute inset-0 bg-black bg-opacity-20 py-10 px-48"
+    >
+      <div
+        className="absolute bottom-0 left-0 mb-10 ml-48 text-transition opacity-100"
+      >
+        <h2
+          className="text-4xl font-bold text-white mb-4"
+        >
+          Singapore, Singapore
+        </h2>
+        <p
+          className="text-lg text-white mb-6"
+        >
+          Get ready for your next adventure →
+        </p>
+      </div>
+    </div>
+  </main>
+  <div
+    className="relative z-10 w-full max-w-screen-lg mx-auto mt-[-4rem] px-4"
+  >
+    <div
+      data-testid="searchbar"
+    >
+      SearchBar Mock
+    </div>
+  </div>
+</div>
+`;

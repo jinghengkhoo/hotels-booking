@@ -69,7 +69,7 @@ exports[`SearchBar matches snapshot 1`] = `
           placeholder="YYYY-MM-DD"
           required={true}
           type="text"
-          value={null}
+          value=""
         />
       </div>
     </div>
@@ -93,7 +93,7 @@ exports[`SearchBar matches snapshot 1`] = `
           placeholder="YYYY-MM-DD"
           required={true}
           type="text"
-          value={null}
+          value=""
         />
       </div>
     </div>

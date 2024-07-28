@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const NavBar = ({ textColor, currency, setCurrency }) => {
   const { user, logout } = useContext(AuthContext);
