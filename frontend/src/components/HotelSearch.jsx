@@ -71,7 +71,7 @@ const HotelSearch = () => {
     <div className="min-h-screen flex flex-col bg-gray-100">
       <NavBar textColor="black" />
       <SearchBar />
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 items-center">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 items-center" data-testid="hotel-list">
         <p className="col-span-1 xl:col-start-2 xl:col-span-2 text-center xl:text-left sm:ml-12 sm:mr-12 lg:ml-0 lg:mr-0">All prices displayed here are the grand total, inclusive of taxes & fees</p>
         <div className="col-span-1 xl:col-start-4 justify-self-center xl:justify-self-end">
           <div className="dropdown">

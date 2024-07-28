@@ -3,8 +3,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { rest } from 'msw';
 import { setupServer } from 'msw';
-import HotelDetails from './HotelDetails';
-import LoadingIcon from './LoadingIcon';
+import HotelDetails from '../HotelDetails';
+import LoadingIcon from '../LoadingIcon';
 
 const hotelDetailsMock = {
   name: 'Mock Hotel',

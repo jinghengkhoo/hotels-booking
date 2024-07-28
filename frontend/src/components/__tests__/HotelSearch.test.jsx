@@ -1,32 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HotelSearch from '../components/HotelSearch';
+import HotelSearch from '../HotelSearch';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react';
 import axios from 'axios';
 
 // Mock components
-jest.mock('../components/HotelList', () => () => <div data-testid="hotel-list" />);
-jest.mock('../components/LoadingIcon', () => () => <div data-testid="loading-icon" />);
-jest.mock('../components/NavBar', () => () => <div data-testid="nav-bar" />);
-jest.mock('../components/SearchBar', () => () => <div data-testid="search-bar" />);
+jest.mock('../HotelList', () => () => <div data-testid="hotel-list" />);
+jest.mock('../LoadingIcon', () => () => <div data-testid="loading-icon" />);
+jest.mock('../NavBar', () => () => <div data-testid="nav-bar" />);
+jest.mock('../SearchBar', () => () => <div data-testid="search-bar" />);
 
 jest.mock('axios');
 
-const mockLocation = {
-	state: {
-	  destinationId: 'A6Dz',
-	  startDate: '2024-08-01',
-	  endDate: '2024-08-02',
-	  guests: 2,
-	  rooms: 1,
-	},
-  };
+const mockParameters = {
+  state: {
+    destination_id: 'WD0M',
+    checkin: '2024-08-01',
+    chekout: '2024-08-07',
+    lang: 'en_US',
+    currency: 'SGD',
+    guests: 2,
+    partner_id: 1
+  },
+};
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useLocation: () => mockLocation,
+  useLocation: () => mockParameters,
 }));
 
 describe('HotelSearch', () => {
@@ -34,9 +36,10 @@ describe('HotelSearch', () => {
     axios.get.mockResolvedValueOnce({
       data: {
         completed: true,
+        currency: 'SGD',
         hotels: [
-			{ id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
-			{ id: '2', name: 'Rome Times Hotel', price: 457.26 },
+          { id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
+          { id: '2', name: 'Rome Times Hotel', price: 457.26 },
         ],
       },
     });
