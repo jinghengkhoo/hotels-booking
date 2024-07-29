@@ -33,7 +33,7 @@ describe('login component', () => {
     expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
 });
 
-  test('handles form submission', async () => {
+  test('successful login', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
     mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
 
