@@ -43,38 +43,39 @@ beforeEach(() => {
   axios.get.mockResolvedValue({ data: mockRoomDetails });
 });
 
-test('renders Loading in HotelDetails', () => {
-  render(
-    <MemoryRouter initialEntries={[{
-      pathname: '/hotel/1',
-      state: mockState
-    }]}>
-      <Routes>
-        <Route path="/hotel/:id" element={<HotelDetails />} />
-      </Routes>
-    </MemoryRouter>
-  );
-
-  const loadingBarElement = screen.getByTestId('loadingicon');
-  expect(loadingBarElement).toBeInTheDocument();
-});
-
-test('renders HotelDetails component with given state', async () => {
-  await act(async () => {
+describe('HotelDetails', () => {
+  test('renders Loading in HotelDetails', () => {
     render(
-      <MemoryRouter initialEntries={[{ pathname: '/hotel/1', state: mockState }]}>
+      <MemoryRouter initialEntries={[{
+        pathname: '/hotel/1',
+        state: mockState
+      }]}>
         <Routes>
           <Route path="/hotel/:id" element={<HotelDetails />} />
         </Routes>
       </MemoryRouter>
     );
-  });
-  // Add assertions to verify if the component rendered correctly with the state
-  // expect(screen.getByText(/Hotel Mock/i)).toBeInTheDocument();
-  expect(screen.getByTestId('navbar')).toBeInTheDocument();
-  expect(screen.getByTestId('searchbar')).toBeInTheDocument();
-  expect(screen.getByTestId('overview')).toBeInTheDocument();
-  expect(screen.getByTestId('map')).toBeInTheDocument();
-  expect(screen.getByTestId('roomdisplay')).toBeInTheDocument();
-});
 
+    const loadingBarElement = screen.getByTestId('loadingicon');
+    expect(loadingBarElement).toBeInTheDocument();
+  });
+
+  test('renders HotelDetails component with given state', async () => {
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={[{ pathname: '/hotel/1', state: mockState }]}>
+          <Routes>
+            <Route path="/hotel/:id" element={<HotelDetails />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    });
+    // Add assertions to verify if the component rendered correctly with the state
+    // expect(screen.getByText(/Hotel Mock/i)).toBeInTheDocument();
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('searchbar')).toBeInTheDocument();
+    expect(screen.getByTestId('overview')).toBeInTheDocument();
+    expect(screen.getByTestId('map')).toBeInTheDocument();
+    expect(screen.getByTestId('roomdisplay')).toBeInTheDocument();
+  });
+});

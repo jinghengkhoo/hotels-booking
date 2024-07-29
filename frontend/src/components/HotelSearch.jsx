@@ -40,6 +40,7 @@ const HotelSearch = () => {
         );
 
         if (response.data.completed) {
+          console.log("Hotels fetched successfully:", response.data.hotels);
           setHotels(response.data.hotels);
           setLoading(false);
         } else {

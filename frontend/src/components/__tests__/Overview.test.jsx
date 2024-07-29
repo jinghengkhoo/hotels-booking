@@ -55,31 +55,30 @@ test('renders correct content based on selected tab', () => {
     const facilitiesTabElement = screen.getByText('Facilities');
     const reviewsTabElement = screen.getByText('Reviews');
 
-    // Click on the "Info & Prices" tab
     infoTabElement.click();
 
     // "Info & Prices" is rendered
     const infoContentElement = screen.getByText('Info & Prices');
     expect(infoContentElement).toBeInTheDocument();
 
-    // Click on the "Facilities" tab
+    // click "Facilities" tab
     facilitiesTabElement.click();
 
-    // Verify that the content for "Facilities" is rendered
+    // verify "Facilities" is rendered
     const facilitiesContentElement = screen.getByText('Facilities');
     expect(facilitiesContentElement).toBeInTheDocument();
 
-    // Click on the "Reviews" tab
+    // click "Reviews" tab
     reviewsTabElement.click();
 
-    // Verify that the content for "Reviews" is rendered
+    // verify "Reviews" is rendered
     const reviewsContentElement = screen.getByText('Reviews');
     expect(reviewsContentElement).toBeInTheDocument();
 
-    // Click on the "Overview" tab
+    // click "Overview" tab
     overviewTabElement.click();
 
-    // Verify that the default content for "Overview" is rendered
+    // verify that "Overview" is rendered
     const overviewContentElement = screen.getByText('Overview');
     expect(overviewContentElement).toBeInTheDocument();
 });
