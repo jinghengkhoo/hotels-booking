@@ -22,7 +22,7 @@ const HotelSearch = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        // console.log("sent")
+        console.log("sent")
         const response = await axios.get(
           "http://localhost:5555/api/hotels/prices",
           {

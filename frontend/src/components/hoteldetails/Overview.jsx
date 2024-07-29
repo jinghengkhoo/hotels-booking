@@ -8,6 +8,7 @@ import PropertyDescription from "./PropertyDescription";
 const Overview = ({ hotelDetails, roomDetails }) => {
   const [selectedTab, setSelectedTab] = useState("overview");
 
+  console.log("Hotel Details: ", hotelDetails);
   const renderContent = () => {
     switch (selectedTab) {
       case "overview":
@@ -33,41 +34,37 @@ const Overview = ({ hotelDetails, roomDetails }) => {
       <div className="flex justify-between items-center border-b-2 border-base-100 mb-4">
         <div className="flex justify-between flex-grow space-x-4">
           <button
-            className={`flex-grow text-center py-2 ${
-              selectedTab === "overview"
-                ? "border-b-2 border-accent"
-                : "border-transparent"
-            } hover:border-gray-200"`}
+            className={`flex-grow text-center py-2 ${selectedTab === "overview"
+              ? "border-b-2 border-accent"
+              : "border-transparent"
+              } hover:border-gray-200"`}
             onClick={() => setSelectedTab("overview")}
           >
             Overview
           </button>
           <button
-            className={`flex-grow text-center py-2 ${
-              selectedTab === "info"
-                ? "border-b-2 border-accent"
-                : "border-transparent"
-            } hover:border-gray-200"`}
+            className={`flex-grow text-center py-2 ${selectedTab === "info"
+              ? "border-b-2 border-accent"
+              : "border-transparent"
+              } hover:border-gray-200"`}
             onClick={() => setSelectedTab("info")}
           >
             Info & Prices
           </button>
           <button
-            className={`flex-grow text-center py-2 ${
-              selectedTab === "facilities"
-                ? "border-b-2 border-accent"
-                : "border-transparent"
-            } hover:border-gray-200"`}
+            className={`flex-grow text-center py-2 ${selectedTab === "facilities"
+              ? "border-b-2 border-accent"
+              : "border-transparent"
+              } hover:border-gray-200"`}
             onClick={() => setSelectedTab("facilities")}
           >
             Facilities
           </button>
           <button
-            className={`flex-grow text-center py-2 ${
-              selectedTab === "reviews"
-                ? "border-b-2 border-accent"
-                : "border-transparent"
-            } hover:border-gray-200"`}
+            className={`flex-grow text-center py-2 ${selectedTab === "reviews"
+              ? "border-b-2 border-accent"
+              : "border-transparent"
+              } hover:border-gray-200"`}
             onClick={() => setSelectedTab("reviews")}
           >
             Reviews

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingIcon from "./LoadingIcon";
@@ -12,7 +11,6 @@ import Map from "./Map";
 import SearchBar from './SearchBar';
 import NavBar from "./NavBar";
 
-
 const HotelDetails = () => {
   const { id } = useParams();
   const hotelID = id;
@@ -21,6 +19,9 @@ const HotelDetails = () => {
   const { destinationId, startDate, endDate, guests, rooms, hotelDetails } = location.state || {};
   const [roomDetails, setRoomDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  console.log("HELLO");
+  console.log("HotelDetails state: ", location.state);
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -41,7 +42,9 @@ const HotelDetails = () => {
           }
         );
         if (response.data.completed) {
+          console.log('Room details response: ', response.data);
           setRoomDetails(response.data.rooms);
+          console.log(response.data.rooms);
           setLoading(false);
         } else {
           setTimeout(fetchRoomDetails, 500); // Retry after 0.5 seconds
@@ -67,9 +70,12 @@ const HotelDetails = () => {
     });
   };
 
-  if (loading || loading) {
+  if (loading) {
     return <LoadingIcon />;
   }
+
+  console.log('Rendered hotelDetails:', hotelDetails);
+  console.log('Rendered roomDetails:', roomDetails);
 
   return (
     <div className="font-montserrat">
