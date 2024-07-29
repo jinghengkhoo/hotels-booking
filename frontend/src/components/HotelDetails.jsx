@@ -74,7 +74,7 @@ const HotelDetails = () => {
   return (
     <div className="font-montserrat">
       <NavBar />
-      <SearchBar />
+      <SearchBar data-testid="searchbar" />
       <Overview hotelDetails={hotelDetails} />
       <div className="mb-4">
         <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
