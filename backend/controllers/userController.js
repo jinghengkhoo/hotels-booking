@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { deleteBookingById } from "../controllers/bookingController.js";
 
-// Register User
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -60,7 +59,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Login User
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -104,7 +102,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Refresh Token
 export const refreshToken = (req, res) => {
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
@@ -231,10 +228,7 @@ export const addUserBooking = async (req, res) => {
       await user.save();
     }
 
-    // const userResponse = user.toObject();
-    // res.status(200).json(userResponse);
   } catch (err) {
     console.error(err.message);
-    // res.status(500).send("Server error");
   }
 };

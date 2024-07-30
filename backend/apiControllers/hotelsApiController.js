@@ -16,13 +16,19 @@ export const fetchPrices = async (params) => {
   if (cachedData) {
     return cachedData;
   } else {
-    const response = await axios.get('https://hotelapi.loyalty.dev/api/hotels/prices', { params });
+    try {
+      const response = await axios.get('https://hotelapi.loyalty.dev/api/hotels/prices', { params });
 
-    if (response.data.completed) {
-      hotelCache.set(cacheKey, response.data);
+      console.log(response)
+
+      if (response.data && response.data.completed) {
+        hotelCache.set(cacheKey, response.data);
+      }
+
+      return response.data;
+    } catch (error) {
+      throw new Error(`API Error: ${error.message}`);
     }
-
-    return response.data;
   }
 };
 
@@ -31,9 +37,15 @@ export const fetchHotel = async (id) => {
   if (cachedData) {
     return cachedData;
   } else {
-    const response = await axios.get(`https://hotelapi.loyalty.dev/api/hotels/${id}`);
-    hotelCache.set(id, response.data);
-    return response.data;
+    try {
+      const response = await axios.get(`https://hotelapi.loyalty.dev/api/hotels/${id}`);
+      if (response.data) {
+        hotelCache.set(id, response.data);
+      }
+      return response.data;
+    } catch (error) {
+      throw new Error(`API Error: ${error.message}`);
+    }
   }
 };
 
@@ -48,12 +60,16 @@ export const fetchRooms = async (id, params) => {
   if (cachedData) {
     return cachedData;
   } else {
-    const response = await axios.get(`https://hotelapi.loyalty.dev/api/hotels/${id}/price`, { params });
+    try {
+      const response = await axios.get(`https://hotelapi.loyalty.dev/api/hotels/${id}/price`, { params });
 
-    if (response.data.completed) {
-      roomCache.set(cacheKey, response.data);
+      if (response.data && response.data.completed) {
+        roomCache.set(cacheKey, response.data);
+      }
+
+      return response.data;
+    } catch (error) {
+      throw new Error(`API Error: ${error.message}`);
     }
-
-    return response.data;
   }
 };
