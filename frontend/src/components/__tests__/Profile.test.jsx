@@ -7,7 +7,6 @@ import Profile from "../pages/Profile.jsx";
 import axios from "axios";
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider, AuthContext } from "../../context/AuthContext";
-import { validateForm } from "../pages/Profile.jsx";
 
 jest.mock("axios");
 
