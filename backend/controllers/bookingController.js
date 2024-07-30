@@ -1,7 +1,13 @@
 import { Booking } from "../models/bookingModel.js";
 import { addUserBooking } from "../controllers/userController.js";
+import { bookingValidationSchema, updateBookingValidationSchema } from './validationSchemas.js';
 
 export const newBooking = async (req, res) => {
+  const { error } = bookingValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).send({ message: error.details[0].message });
+  }
+
   const newBooking = {
     email: req.body.email,
     roomID: req.body.roomID,
@@ -31,36 +37,19 @@ export const newBooking = async (req, res) => {
 
 export const createBooking = async (req, res) => {
   try {
-    const body = req.body;
-    const requiredFields = [
-      "email",
-      "roomID",
-      "destinationID",
-      "hotelID",
-      "numberOfNights",
-      "startDate",
-      "endDate",
-      "adults",
-      "firstName",
-      "lastName",
-      "stripePaymentID",
-    ];
-
-    for (const field of requiredFields) {
-      if (!body[field]) {
-        return res
-          .status(400)
-          .send({ message: `Missing required field: ${field}` });
-      }
+    const { error } = bookingValidationSchema.validate(req.body);
+    if (error) {
+      return res.status(400).send({ message: error.details[0].message });
     }
-    const newBookingId = await newBooking({ body });
-    const userData = { booking_id: newBookingId, email: body.email };
+
+    const newBookingId = await newBooking(req, res);
+    const userData = { booking_id: newBookingId, email: req.body.email };
     await addUserBooking(userData);
     return res.status(200).send({ message: "Both Booking and User updated" });
   } catch (error) {
     return res.status(500).send({ message: error.message });
   }
-}
+};
 
 export const getAllBookings = async (req, res) => {
   try {
@@ -113,21 +102,25 @@ export const getListOfBookings = async (req, res) => {
 
 export const updateBooking = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { error } = updateBookingValidationSchema.validate(req.body);
+    if (error) {
+      console.log(error)
+      return res.status(400).send({ message: error.details[0].message });
+    }
 
-    const booking = await Booking.findByIdAndUpdate(id, req.body);
+    const { id } = req.params;
+    const booking = await Booking.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
 
-    return res.status(200).send({ message: "Booking updated successfully" });
+    return res.status(200).send({ message: "Booking updated successfully", booking });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 };
-
 export const deleteBooking = async (req, res) => {
   try {
     const { id } = req.params;

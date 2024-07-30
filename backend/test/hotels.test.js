@@ -24,7 +24,7 @@ describe('Hotel Controller Tests', () => {
     it('should handle errors', async () => {
       fetchPrices.mockRejectedValue(new Error('Failed to fetch'));
 
-      const response = await request(app).get('/api/hotels/prices').query({ destination_id: 1 });
+      const response = await request(app).get('/api/hotels/prices').query({ destination_id: 'invalid_id' });
 
       expect(response.status).toBe(500);
       expect(response.body).toEqual({ error: 'Failed to fetch prices data' });
@@ -46,7 +46,7 @@ describe('Hotel Controller Tests', () => {
     it('should handle errors', async () => {
       fetchHotel.mockRejectedValue(new Error('Failed to fetch'));
 
-      const response = await request(app).get('/api/hotels/hotel123');
+      const response = await request(app).get('/api/hotels/invalid_id');
 
       expect(response.status).toBe(500);
       expect(response.body).toEqual({ error: 'Failed to fetch hotel data' });
@@ -68,7 +68,7 @@ describe('Hotel Controller Tests', () => {
     it('should handle errors', async () => {
       fetchRooms.mockRejectedValue(new Error('Failed to fetch'));
 
-      const response = await request(app).get('/api/hotels/hotel123/price').query({ checkin: '2024-08-01' });
+      const response = await request(app).get('/api/hotels/invalid_id/price').query({ checkin: '2024-08-01' });
 
       expect(response.status).toBe(500);
       expect(response.body).toEqual({ error: 'Failed to fetch rooms data' });

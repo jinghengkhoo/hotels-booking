@@ -36,7 +36,7 @@ describe('fetchPrices', () => {
   });
 
   it('should throw an error if API request fails', async () => {
-    const params = { destination_id: 1, checkin: '2024-08-01', checkout: '2024-08-10', lang: 'en', currency: 'USD', country_code: 'US', guests: 2, partner_id: 'partner123' };
+    const params = { destination_id: "invalid_id", checkin: '2024-08-01', checkout: '2024-08-10', lang: 'en', currency: 'USD', country_code: 'US', guests: 2, partner_id: 'partner123' };
 
     hotelCache.get.mockReturnValue(null);
     mock.onGet('https://hotelapi.loyalty.dev/api/hotels/prices').reply(500);
@@ -63,7 +63,7 @@ describe('fetchHotel', () => {
   });
 
   it('should throw an error if API request fails', async () => {
-    const id = 'hotel123';
+    const id = 'invalid_id';
 
     hotelCache.get.mockReturnValue(null);
     mock.onGet(`https://hotelapi.loyalty.dev/api/hotels/${id}`).reply(500);
@@ -91,8 +91,8 @@ describe('fetchRooms', () => {
   });
 
   it('should throw an error if API request fails', async () => {
-    const id = 'hotel123';
-    const params = { destination_id: 1, checkin: '2024-08-01', checkout: '2024-08-10', lang: 'en', currency: 'USD', country_code: 'US', guests: 2, partner_id: 'partner123' };
+    const id = 'invalid_id';
+    const params = { destination_id: 'invalid_id', checkin: '2024-08-01', checkout: '2024-08-10', lang: 'en', currency: 'USD', country_code: 'US', guests: 2, partner_id: 'partner123' };
 
     roomCache.get.mockReturnValue(null);
     mock.onGet(`https://hotelapi.loyalty.dev/api/hotels/${id}/price`).reply(500);
