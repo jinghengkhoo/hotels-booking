@@ -40,7 +40,12 @@ function ProfileFormUI({
               required
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">{email}</span>
+            <span
+              data-testid="emailField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {email}
+            </span>
           )}
         </div>
 
@@ -57,7 +62,10 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="salutationField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {salutation}
             </span>
           )}
@@ -75,7 +83,10 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="firstNameField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {firstName}
             </span>
           )}
@@ -93,7 +104,12 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">{lastName}</span>
+            <span
+              data-testid="lastNameField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {lastName}
+            </span>
           )}
         </div>
         <div>
@@ -109,7 +125,10 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="phoneNumberField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {phoneNumber}
             </span>
           )}
@@ -127,7 +146,10 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="billingOneField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {billingAddressOne}
             </span>
           )}
@@ -145,7 +167,10 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="billingTwoField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {billingAddressTwo}
             </span>
           )}
@@ -163,29 +188,38 @@ function ProfileFormUI({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
+            <span
+              data-testid="postalCodeField"
+              className="mt-1 block text-sm text-gray-900"
+            >
               {billingAddressPostalCode}
             </span>
           )}
         </div>
         {errorMsg && <div className="mb-4 text-red-600">{errorMsg}</div>}
-        <div>
-          {editMode ? (
-            <button
-              onClick={handleSave}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Save
-            </button>
-          ) : (
-            <button
-              onClick={editModeTrue}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Edit
-            </button>
-          )}
-        </div>
+        {email == "" ? (
+          <div data-testid="noEditButton" />
+        ) : (
+          <div>
+            {editMode ? (
+              <button
+                data-testid="saveEditButton"
+                onClick={handleSave}
+                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                data-testid="editButton"
+                onClick={editModeTrue}
+                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Edit
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
