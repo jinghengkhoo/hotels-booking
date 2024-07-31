@@ -1,400 +1,405 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchBar matches snapshot 1`] = `
-<div
-  className="flex justify-center items-center py-8 font-montserrat"
->
-  <form
-    className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
-    onSubmit={[Function]}
+<div>
+  <div
+    className="flex justify-center items-center py-8 font-montserrat"
   >
-    <div
-      className="flex flex-col"
+    <form
+      className="bg-base-100 p-4 rounded-lg shadow-md flex space-x-16 flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
+      onSubmit={[Function]}
     >
-      <label
-        className="text-gray-700 mt-4 ml-4 font-bold"
-        id="destination"
-      >
-        Location
-      </label>
       <div
-        className="flex items-center rounded-md p-1 pt-0"
+        className="flex flex-col"
       >
-        <input
-          aria-activedescendant=""
-          aria-autocomplete="list"
-          aria-controls="downshift-:r0:-menu"
-          aria-expanded={false}
-          aria-labelledby="downshift-:r0:-label"
-          autoComplete="off"
-          className="w-full px-3 py-2 bg-base-100 mt-4 border-none focus:outline-none"
-          data-testid="destination"
+        <label
+          className="text-gray-700 mt-4 ml-4 font-bold"
           id="destination"
-          name="destination"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          placeholder="where to next?"
-          role="combobox"
-          type="text"
-          value=""
-        />
-      </div>
-      <ul
-        aria-labelledby="downshift-:r0:-label"
-        className="absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 hidden"
-        id="downshift-:r0:-menu"
-        onMouseLeave={[Function]}
-        role="listbox"
-      />
-    </div>
-    <div
-      className="flex flex-col"
-    >
-      <label
-        className="text-gray-700 mt-4 font-bold"
-        id="startDate"
-      >
-        Date Start
-      </label>
-      <div
-        className="bg-base-100 flex items-center mt-4 py-1"
-      >
-        <input
-          className="form-input bg-base-100 flex items-center py-1"
-          data-testid="startDate"
-          onChange={[Function]}
-          pattern="\\d{4}-\\d{2}-\\d{2}"
-          placeholder="YYYY-MM-DD"
-          required={true}
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-    <div
-      className="flex flex-col"
-    >
-      <label
-        className="text-gray-700 mt-4 font-bold"
-        id="endDate"
-      >
-        Date End
-      </label>
-      <div
-        className="bg-base-100 flex items-center mt-4 py-1"
-      >
-        <input
-          className="form-input bg-base-100 flex items-center py-1"
-          data-testid="endDate"
-          onChange={[Function]}
-          pattern="\\d{4}-\\d{2}-\\d{2}"
-          placeholder="YYYY-MM-DD"
-          required={true}
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-    <div
-      className="flex flex-col"
-    >
-      <label
-        className="text-gray-700 mt-4 font-bold"
-        id="guests"
-      >
-        Number of Travelers
-      </label>
-      <div
-        className="flex items-center rounded-md"
-      >
-        <select
-          className="w-full py-2 bg-base-100 focus:outline-none"
-          data-testid="guests"
-          onChange={[Function]}
-          value={1}
         >
-          <option
+          Location
+        </label>
+        <div
+          className="flex items-center rounded-md p-1 pt-0"
+        >
+          <input
+            aria-activedescendant=""
+            aria-autocomplete="list"
+            aria-controls="downshift-:r0:-menu"
+            aria-expanded={false}
+            aria-labelledby="downshift-:r0:-label"
+            autoComplete="off"
+            className="w-full px-3 py-2 bg-base-100 mt-2 border-none focus:outline-none"
+            data-testid="destination"
+            id="destination"
+            name="destination"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            placeholder="where to next?"
+            role="combobox"
+            type="text"
+            value="Singapore"
+          />
+        </div>
+        <ul
+          aria-labelledby="downshift-:r0:-label"
+          className="absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 hidden"
+          id="downshift-:r0:-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        />
+      </div>
+      <div
+        className="flex flex-col"
+      >
+        <label
+          className="text-gray-700 mt-4 font-bold"
+          id="startDate"
+        >
+          Date Start
+        </label>
+        <div
+          className="bg-base-100 flex items-center mt-2 py-1"
+        >
+          <input
+            className="form-input bg-base-100 flex items-center py-1"
+            data-testid="startDate"
+            onChange={[Function]}
+            pattern="\\d{4}-\\d{2}-\\d{2}"
+            placeholder="YYYY-MM-DD"
+            required={true}
+            type="text"
+            value="2024-07-31"
+          />
+        </div>
+      </div>
+      <div
+        className="flex flex-col"
+      >
+        <label
+          className="text-gray-700 mt-4 font-bold"
+          id="endDate"
+        >
+          Date End
+        </label>
+        <div
+          className="bg-base-100 flex items-center mt-2 py-1"
+        >
+          <input
+            className="form-input bg-base-100 flex items-center py-1"
+            data-testid="endDate"
+            onChange={[Function]}
+            pattern="\\d{4}-\\d{2}-\\d{2}"
+            placeholder="YYYY-MM-DD"
+            required={true}
+            type="text"
+            value="2024-08-07"
+          />
+        </div>
+      </div>
+      <div
+        className="flex flex-col"
+      >
+        <label
+          className="text-gray-700 mt-4 font-bold"
+          id="guests"
+        >
+          Number of Travelers
+        </label>
+        <div
+          className="flex items-center rounded-md mt-2"
+        >
+          <select
+            className="w-full py-2 bg-base-100 focus:outline-none"
+            data-testid="guests"
+            onChange={[Function]}
             value={1}
           >
-            1
-             
-            Guest
-          </option>
-          <option
-            value={2}
-          >
-            2
-             
-            Guests
-          </option>
-          <option
-            value={3}
-          >
-            3
-             
-            Guests
-          </option>
-          <option
-            value={4}
-          >
-            4
-             
-            Guests
-          </option>
-          <option
-            value={5}
-          >
-            5
-             
-            Guests
-          </option>
-          <option
-            value={6}
-          >
-            6
-             
-            Guests
-          </option>
-          <option
-            value={7}
-          >
-            7
-             
-            Guests
-          </option>
-          <option
-            value={8}
-          >
-            8
-             
-            Guests
-          </option>
-          <option
-            value={9}
-          >
-            9
-             
-            Guests
-          </option>
-          <option
-            value={10}
-          >
-            10
-             
-            Guests
-          </option>
-          <option
-            value={11}
-          >
-            11
-             
-            Guests
-          </option>
-          <option
-            value={12}
-          >
-            12
-             
-            Guests
-          </option>
-          <option
-            value={13}
-          >
-            13
-             
-            Guests
-          </option>
-          <option
-            value={14}
-          >
-            14
-             
-            Guests
-          </option>
-          <option
-            value={15}
-          >
-            15
-             
-            Guests
-          </option>
-          <option
-            value={16}
-          >
-            16
-             
-            Guests
-          </option>
-          <option
-            value={17}
-          >
-            17
-             
-            Guests
-          </option>
-          <option
-            value={18}
-          >
-            18
-             
-            Guests
-          </option>
-          <option
-            value={19}
-          >
-            19
-             
-            Guests
-          </option>
-          <option
-            value={20}
-          >
-            20
-             
-            Guests
-          </option>
-          <option
-            value={21}
-          >
-            21
-             
-            Guests
-          </option>
-          <option
-            value={22}
-          >
-            22
-             
-            Guests
-          </option>
-          <option
-            value={23}
-          >
-            23
-             
-            Guests
-          </option>
-          <option
-            value={24}
-          >
-            24
-             
-            Guests
-          </option>
-          <option
-            value={25}
-          >
-            25
-             
-            Guests
-          </option>
-        </select>
+            <option
+              value={1}
+            >
+              1
+               
+              Guest
+            </option>
+            <option
+              value={2}
+            >
+              2
+               
+              Guests
+            </option>
+            <option
+              value={3}
+            >
+              3
+               
+              Guests
+            </option>
+            <option
+              value={4}
+            >
+              4
+               
+              Guests
+            </option>
+            <option
+              value={5}
+            >
+              5
+               
+              Guests
+            </option>
+            <option
+              value={6}
+            >
+              6
+               
+              Guests
+            </option>
+            <option
+              value={7}
+            >
+              7
+               
+              Guests
+            </option>
+            <option
+              value={8}
+            >
+              8
+               
+              Guests
+            </option>
+            <option
+              value={9}
+            >
+              9
+               
+              Guests
+            </option>
+            <option
+              value={10}
+            >
+              10
+               
+              Guests
+            </option>
+            <option
+              value={11}
+            >
+              11
+               
+              Guests
+            </option>
+            <option
+              value={12}
+            >
+              12
+               
+              Guests
+            </option>
+            <option
+              value={13}
+            >
+              13
+               
+              Guests
+            </option>
+            <option
+              value={14}
+            >
+              14
+               
+              Guests
+            </option>
+            <option
+              value={15}
+            >
+              15
+               
+              Guests
+            </option>
+            <option
+              value={16}
+            >
+              16
+               
+              Guests
+            </option>
+            <option
+              value={17}
+            >
+              17
+               
+              Guests
+            </option>
+            <option
+              value={18}
+            >
+              18
+               
+              Guests
+            </option>
+            <option
+              value={19}
+            >
+              19
+               
+              Guests
+            </option>
+            <option
+              value={20}
+            >
+              20
+               
+              Guests
+            </option>
+            <option
+              value={21}
+            >
+              21
+               
+              Guests
+            </option>
+            <option
+              value={22}
+            >
+              22
+               
+              Guests
+            </option>
+            <option
+              value={23}
+            >
+              23
+               
+              Guests
+            </option>
+            <option
+              value={24}
+            >
+              24
+               
+              Guests
+            </option>
+            <option
+              value={25}
+            >
+              25
+               
+              Guests
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div
-      className="flex flex-col"
-    >
-      <label
-        className="text-gray-700 mt-4 font-bold"
-        id="rooms"
-      >
-        Number of Rooms
-      </label>
       <div
-        className="flex items-center rounded-md"
+        className="flex flex-col"
       >
-        <select
-          className="w-full py-2 bg-base-100 focus:outline-none"
-          data-testid="rooms"
-          onChange={[Function]}
-          value={1}
+        <label
+          className="text-gray-700 mt-4 font-bold"
+          id="rooms"
         >
-          <option
+          Number of Rooms
+        </label>
+        <div
+          className="flex mt-2 items-center rounded-md"
+        >
+          <select
+            className="w-full py-2 bg-base-100 focus:outline-none"
+            data-testid="rooms"
+            onChange={[Function]}
             value={1}
           >
-            1
-             
-            Room
-          </option>
-          <option
-            value={2}
-          >
-            2
-             
-            Rooms
-          </option>
-          <option
-            value={3}
-          >
-            3
-             
-            Rooms
-          </option>
-          <option
-            value={4}
-          >
-            4
-             
-            Rooms
-          </option>
-          <option
-            value={5}
-          >
-            5
-             
-            Rooms
-          </option>
-          <option
-            value={6}
-          >
-            6
-             
-            Rooms
-          </option>
-          <option
-            value={7}
-          >
-            7
-             
-            Rooms
-          </option>
-          <option
-            value={8}
-          >
-            8
-             
-            Rooms
-          </option>
-          <option
-            value={9}
-          >
-            9
-             
-            Rooms
-          </option>
-          <option
-            value={10}
-          >
-            10
-             
-            Rooms
-          </option>
-        </select>
+            <option
+              value={1}
+            >
+              1
+               
+              Room
+            </option>
+            <option
+              value={2}
+            >
+              2
+               
+              Rooms
+            </option>
+            <option
+              value={3}
+            >
+              3
+               
+              Rooms
+            </option>
+            <option
+              value={4}
+            >
+              4
+               
+              Rooms
+            </option>
+            <option
+              value={5}
+            >
+              5
+               
+              Rooms
+            </option>
+            <option
+              value={6}
+            >
+              6
+               
+              Rooms
+            </option>
+            <option
+              value={7}
+            >
+              7
+               
+              Rooms
+            </option>
+            <option
+              value={8}
+            >
+              8
+               
+              Rooms
+            </option>
+            <option
+              value={9}
+            >
+              9
+               
+              Rooms
+            </option>
+            <option
+              value={10}
+            >
+              10
+               
+              Rooms
+            </option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div
-      className="flex flex-col my-2"
-    >
-      <button
-        className="bg-accent text-white px-8 mx-3 my-5 rounded-md shadow-md hover:bg-accent"
-        data-testid="submit-button"
-        type="submit"
+      <div
+        className="flex flex-col"
       >
-        Search
-      </button>
-    </div>
-  </form>
+        <button
+          className="bg-accent text-white px-8 py-4 mt-6 rounded-md shadow-md hover:bg-accent"
+          data-testid="submit-button"
+          type="submit"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    className="flex justify-center"
+  />
 </div>
 `;

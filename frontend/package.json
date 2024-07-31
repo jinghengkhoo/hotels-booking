@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "node ./node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
@@ -29,8 +29,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.1",
     "testing-library": "^0.0.2",
-    "vite-plugin-svgr": "^4.2.0",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
