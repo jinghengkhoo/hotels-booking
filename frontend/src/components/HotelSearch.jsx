@@ -51,41 +51,6 @@ const HotelSearch = () => {
     fetchHotels();
   }, [destinationId, startDate, endDate, guests, rooms]);
 
-  useEffect(() => {
-    const sortHotels = () => {
-      console.log("Sorting hotels by:", sortState);
-      let sortedArray = [...hotels];
-      switch (sortState) {
-        case "Highest Price":
-          sortedArray.sort((a, b) => b.price - a.price);
-          break;
-        case "Lowest Price":
-          sortedArray.sort((a, b) => a.price - b.price);
-          break;
-        case "Best Ratings":
-          sortedArray.sort((a, b) => b.rating - a.rating);
-          break;
-        case "Lowest Ratings":
-          sortedArray.sort((a, b) => a.rating - b.rating);
-          break;
-        default:
-          sortedArray = hotels;
-      }
-      setSortedHotels(sortedArray);
-    };
-
-    sortHotels();
-  }, [sortState, hotels]);
-
-  const handleDropDownClick = (item) => {
-    setSortState(sortList[item]);
-
-    const elem = document.activeElement;
-    if (elem) {
-      elem?.blur();
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <NavBar textColor="black" />
@@ -115,7 +80,7 @@ const HotelSearch = () => {
         <div role="alert">{error}</div>
       ) : (
         <HotelList
-          hotels={sortedHotels}
+          hotels={hotels}
           destinationId={destinationId}
           startDate={startDate}
           endDate={endDate}
