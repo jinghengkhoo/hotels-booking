@@ -35,7 +35,7 @@ describe('register component', () => {
     expect(screen.getByText(/sign in/i)).toBeInTheDocument();
 });
 
-  test('handles form submission', async () => {
+  test('successful registration', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/register').reply(200);
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
     mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
@@ -66,7 +66,7 @@ describe('register component', () => {
     });
   });
 
-  test('shows error message on email already in used', async () => {
+  test('shows error message on error during registration', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
       message: 'An error occurred during registration'
     });
@@ -131,7 +131,7 @@ describe('register component', () => {
     expect(confirmPasswordInput).toBeInvalid();
   });
 
-  test('navigate to signup', async () => {
+  test('navigate to login page', async () => {
     render(
         <AuthContext.Provider value={{ setUser }}>
           <MemoryRouter>
@@ -171,7 +171,7 @@ describe('register component', () => {
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/assword must be at least 8 characters long and include a number and a special character/i)).toBeInTheDocument();
+      expect(screen.getByText(/Password must be at least 8 characters long and include a number and a special character/i)).toBeInTheDocument();
     });
   });
 
@@ -201,7 +201,7 @@ describe('register component', () => {
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/do not match/i)).toBeInTheDocument();
+      expect(screen.getByText(/passwords do not match/i)).toBeInTheDocument();
     });
   });
 

@@ -118,7 +118,7 @@ describe('Booking Controller', () => {
         .send(newBooking);
 
       expect(response.statusCode).toBe(400);
-      expect(response.body.message).toBe('Missing required field: email');
+      expect(response.body.message).toBe('\"email\" is required');
     });
   });
 

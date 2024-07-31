@@ -2,9 +2,14 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { deleteBookingById } from "../controllers/bookingController.js";
+import { userValidationSchema, updateUserValidationSchema } from './validationSchemas.js'; // Ensure to import your Joi schema correctly
 
-// Register User
 export const registerUser = async (req, res) => {
+  const { error } = userValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msg: error.details[0].message });
+  }
+
   const { email, password } = req.body;
 
   try {
@@ -60,7 +65,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Login User
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -104,7 +108,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Refresh Token
 export const refreshToken = (req, res) => {
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
@@ -183,6 +186,11 @@ export const deleteUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  const { error } = updateUserValidationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ msg: error.details[0].message });
+  }
+
   try {
     const { id } = req.params;
     const {
@@ -231,10 +239,7 @@ export const addUserBooking = async (req, res) => {
       await user.save();
     }
 
-    // const userResponse = user.toObject();
-    // res.status(200).json(userResponse);
   } catch (err) {
     console.error(err.message);
-    // res.status(500).send("Server error");
   }
 };
