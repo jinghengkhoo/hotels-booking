@@ -10,7 +10,7 @@ function ProfileFormUI({
 }) {
   const {
     _id,
-    email,
+    email = userData.email || "",
     password,
     bookingIDs,
     salutation,
