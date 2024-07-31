@@ -14,11 +14,6 @@ const HotelFilter = ({ onFilterChange }) => {
   const permMaxPrice = 1000;
 
   const handleFilterChange = () => {
-    console.log(starRatings);
-    console.log(priceRange);
-    console.log(minPrice);
-    console.log(maxPrice);
-
     onFilterChange({
       starRatings,
       minGuestRating,
