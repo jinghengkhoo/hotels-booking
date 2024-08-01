@@ -67,7 +67,7 @@ describe('register component', () => {
   });
 
   test('shows error message on error during registration', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
+    mockAxios.onPost('http://localhost:5555/api/user/register').reply(401, {
       message: 'An error occurred during registration'
     });
 
@@ -146,7 +146,7 @@ describe('register component', () => {
   });
 
   test('password not strong enough', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
+    mockAxios.onPost('http://localhost:5555/api/user/register').reply(401, {
       message: 'Password must be at least 8 characters long and include a number and a special character'
     });
 
@@ -176,7 +176,7 @@ describe('register component', () => {
   });
 
   test('passwords do not match', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
+    mockAxios.onPost('http://localhost:5555/api/user/register').reply(401, {
       message: 'Passwords do not match'
     });
 
@@ -207,7 +207,7 @@ describe('register component', () => {
 
 
   test('invalid email format', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
+    mockAxios.onPost('http://localhost:5555/api/user/register').reply(401, {
       message: 'Invalid email format'
     });
 
@@ -235,5 +235,77 @@ describe('register component', () => {
       expect(screen.getByText(/email format/i)).toBeInTheDocument();
     });
   });
+
+  test('email input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const emailInput = screen.getByLabelText(/email/i);
+
+    await userEvent.type(emailInput, 'test@email.com');
+
+    await waitFor(() => {
+      expect(emailInput.value).toBe('test@email.com');
+    });
+  });
+
+  test('password input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const passwordInput = screen.getByTestId("password-field");
+
+    await userEvent.type(passwordInput, 'password123$');
+
+    await waitFor(() => {
+      expect(passwordInput.value).toBe('password123$');
+    });
+  });
+
+  test('confirm password input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
+
+    await userEvent.type(confirmPasswordInput, 'password123$');
+
+    await waitFor(() => {
+      expect(confirmPasswordInput.value).toBe('password123$');
+    });
+  }); 
+
+  test('full name input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const nameInput = screen.getByLabelText(/full name/i);
+
+    await userEvent.type(nameInput, 'John Doe');
+
+    await waitFor(() => {
+      expect(nameInput.value).toBe('John Doe');
+    });
+  }); 
 
 });
