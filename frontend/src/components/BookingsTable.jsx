@@ -65,6 +65,9 @@ const BookingsTable = () => {
       await axios.delete(
         `http://localhost:5555/api/bookings/${selectedBooking._id}`
       );
+      setBookings((prevBookings) =>
+        prevBookings.filter((booking) => booking._id !== selectedBooking._id)
+      );
       console.log("Booking deleted:", selectedBooking._id);
       handleDeleteModalClose();
     } catch (error) {

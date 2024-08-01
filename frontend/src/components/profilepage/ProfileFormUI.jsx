@@ -1,59 +1,29 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
 
-const Profile = () => {
-  const [editMode, setEditMode] = useState(false);
-  const [userData, setUserData] = useState({
-    _id: "",
-    email: "",
-    password: "",
-    bookingIDs: [],
-    salutation: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    billingAddressOne: "",
-    billingAddressTwo: "",
-    billingAddressPostalCode: 0,
-  });
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5555/api/user/profile",
-          {
-            withCredentials: true,
-          }
-        );
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching user details", error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = async () => {
-    try {
-      const response = await axios.put(
-        `http://localhost:5555/api/user/${userData._id}`,
-        userData
-      );
-      setUserData(response.data);
-      setEditMode(false);
-    } catch (error) {
-      console.error("Error updating user details", error);
-    }
-  };
+function ProfileFormUI({
+  userData,
+  errorMsg,
+  editMode,
+  handleChange,
+  handleSave,
+  editModeTrue,
+}) {
+  const {
+    _id,
+    email = userData.email || "",
+    password,
+    bookingIDs,
+    salutation,
+    firstName,
+    lastName,
+    phoneNumber,
+    billingAddressOne,
+    billingAddressTwo,
+    billingAddressPostalCode,
+  } = userData;
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div>
       <h1 className="text-2xl font-bold mb-6">Profile</h1>
       <div className="space-y-4">
         <div>
@@ -64,16 +34,21 @@ const Profile = () => {
             <input
               type="email"
               name="email"
-              value={userData.email}
+              value={email}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.email}
+            <span
+              data-testid="emailField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {email}
             </span>
           )}
         </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Salutation:
@@ -82,13 +57,16 @@ const Profile = () => {
             <input
               type="text"
               name="salutation"
-              value={userData.salutation}
+              value={salutation}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.salutation}
+            <span
+              data-testid="salutationField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {salutation}
             </span>
           )}
         </div>
@@ -100,13 +78,16 @@ const Profile = () => {
             <input
               type="text"
               name="firstName"
-              value={userData.firstName}
+              value={firstName}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.firstName}
+            <span
+              data-testid="firstNameField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {firstName}
             </span>
           )}
         </div>
@@ -118,13 +99,16 @@ const Profile = () => {
             <input
               type="text"
               name="lastName"
-              value={userData.lastName}
+              value={lastName}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.lastName}
+            <span
+              data-testid="lastNameField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {lastName}
             </span>
           )}
         </div>
@@ -136,13 +120,16 @@ const Profile = () => {
             <input
               type="text"
               name="phoneNumber"
-              value={userData.phoneNumber}
+              value={phoneNumber}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.phoneNumber}
+            <span
+              data-testid="phoneNumberField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {phoneNumber}
             </span>
           )}
         </div>
@@ -154,13 +141,16 @@ const Profile = () => {
             <input
               type="text"
               name="billingAddressOne"
-              value={userData.billingAddressOne}
+              value={billingAddressOne}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressOne}
+            <span
+              data-testid="billingOneField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {billingAddressOne}
             </span>
           )}
         </div>
@@ -172,13 +162,16 @@ const Profile = () => {
             <input
               type="text"
               name="billingAddressTwo"
-              value={userData.billingAddressTwo}
+              value={billingAddressTwo}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressTwo}
+            <span
+              data-testid="billingTwoField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {billingAddressTwo}
             </span>
           )}
         </div>
@@ -190,36 +183,48 @@ const Profile = () => {
             <input
               type="number"
               name="billingAddressPostalCode"
-              value={userData.billingAddressPostalCode}
+              value={billingAddressPostalCode}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           ) : (
-            <span className="mt-1 block text-sm text-gray-900">
-              {userData.billingAddressPostalCode}
+            <span
+              data-testid="postalCodeField"
+              className="mt-1 block text-sm text-gray-900"
+            >
+              {billingAddressPostalCode}
             </span>
           )}
         </div>
-        <div>
-          {editMode ? (
-            <button
-              onClick={handleSave}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Save
-            </button>
-          ) : (
-            <button
-              onClick={() => setEditMode(true)}
-              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Edit
-            </button>
-          )}
-        </div>
+        {errorMsg && <div className="mb-4 text-red-600">{errorMsg}</div>}
+        {email == "" ? (
+          <div data-testid="noEditButton" />
+        ) : (
+          <div>
+            {editMode ? (
+              <button
+                data-testid="saveEditButton"
+                onClick={handleSave}
+                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                data-testid="editButton"
+                onClick={editModeTrue}
+                className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Edit
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
-};
+}
 
-export default Profile;
+ProfileFormUI.propTypes = {};
+
+export default ProfileFormUI;

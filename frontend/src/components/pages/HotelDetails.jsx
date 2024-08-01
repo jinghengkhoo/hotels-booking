@@ -1,22 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import LoadingIcon from "./LoadingIcon";
-import TopBar from "./hoteldetails/TopBar";
-import Overview from "./hoteldetails/Overview";
-import ImageCarousel from "./hoteldetails/ImageCarousel";
-import PropertyDescription from "./hoteldetails/PropertyDescription";
-import './hoteldetails/hoteldetails.css';
-import RoomDisplay from "./hoteldetails/RoomDisplay";
-import Map from "./Map";
-
+import LoadingIcon from "../LoadingIcon";
+import Overview from "../hoteldetails/Overview";
+import "../hoteldetails/hoteldetails.css";
+import RoomDisplay from "../hoteldetails/RoomDisplay";
+import Map from "../Map";
+import SearchBar from "../SearchBar";
+import NavBar from "../NavBar";
 
 const HotelDetails = () => {
   const { id } = useParams();
   const hotelID = id;
   const location = useLocation();
   const navigate = useNavigate();
-  const { destinationId, startDate, endDate, guests, rooms, hotelDetails } = location.state || {};
+  const { destinationId, startDate, endDate, guests, rooms, hotelDetails, currency } =
+    location.state || {};
   const [roomDetails, setRoomDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +30,7 @@ const HotelDetails = () => {
               checkin: startDate,
               checkout: endDate,
               lang: "en_US",
-              currency: "SGD",
+              currency: currency,
               country_code: "SG",
               guests: Array(rooms).fill(guests).join("|"),
               partner_id: 1,
@@ -50,7 +49,7 @@ const HotelDetails = () => {
     };
 
     fetchRoomDetails();
-  }, [id, destinationId, startDate, endDate, guests, rooms]);
+  }, [id, destinationId, startDate, endDate, guests, rooms, currency]);
 
   const handleSelectRoom = (roomId, roomPrice, roomDescription) => {
     navigate(`/book/${roomId}`, {
@@ -61,6 +60,7 @@ const HotelDetails = () => {
         endDate,
         roomPrice,
         roomDescription,
+        currency
       },
     });
   };
@@ -70,15 +70,19 @@ const HotelDetails = () => {
   }
 
   return (
-    <div>
-      <TopBar />
+    <div className="font-montserrat">
+      <NavBar textColor="black" currency={currency} />
+      <SearchBar currency={currency} />
       <Overview hotelDetails={hotelDetails} />
       <div className="mb-4">
         <Map lat={hotelDetails.latitude} lng={hotelDetails.longitude} />
       </div>
-      <ImageCarousel hotelDetails={hotelDetails} />
-      <PropertyDescription hotelDetails={hotelDetails} />
-      <RoomDisplay roomDetails={roomDetails} endDate={endDate} onSelectRoom={handleSelectRoom} />
+      <RoomDisplay
+        roomDetails={roomDetails}
+        endDate={endDate}
+        onSelectRoom={handleSelectRoom}
+        currency={currency}
+      />
     </div>
   );
 };

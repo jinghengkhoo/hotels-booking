@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Home from "./components/Home";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import HotelSearch from "./components/HotelSearch";
-import HotelDetails from "./components/HotelDetails";
-import BookingFormWrapper from "./components/BookingForm";
-import AdminLogin from "./components/AdminLogin";
+import Home from "./components/pages/Home";
+import Register from "./components/pages/Register";
+import Login from "./components/pages/Login";
+import Profile from "./components/pages/Profile";
+import HotelSearch from "./components/pages/HotelSearch";
+import HotelDetails from "./components/pages/HotelDetails";
+import BookingFormWrapper from "./components/pages/BookingForm";
+import AdminLogin from "./components/pages/AdminLogin";
 
 const App = () => {
   return (

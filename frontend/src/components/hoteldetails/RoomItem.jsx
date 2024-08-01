@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const RoomItem = ({ room, endDate, onSelectRoom }) => {
+const RoomItem = ({ room, endDate, onSelectRoom, currency }) => {
   const getBreakfastInfo = (info) => {
     if (info === 'hotel_detail_room_only') {
       return 'Room Only';
@@ -11,9 +11,9 @@ const RoomItem = ({ room, endDate, onSelectRoom }) => {
   };
 
   return (
-    <div className="card w-full bg-base-100 shadow-lg rounded-lg mb-6">
+    <div className="card w-full bg-base-100 shadow-lg rounded-lg mb-6 border border-base-200">
       <div className="card-body p-6">
-        <h2 className="card-title text-orange-600 text-2xl font-semibold mb-4">{room.roomDescription}</h2>
+        <h2 className="card-title text-secondary text-2xl font-semibold mb-4">{room.roomDescription}</h2>
         <div className="flex">
           <div className="flex-none w-1/6">
             <img src={room.images[0].url} alt="Room" className="rounded-xl shadow-md" />
@@ -34,11 +34,10 @@ const RoomItem = ({ room, endDate, onSelectRoom }) => {
             </div>
             <div className="text-right flex flex-col items-end">
               <p className="text-2xl font-bold text-gray-800 mb-1">
-                SGD {room.lowest_price.toFixed(2)}
+                {currency} {room.lowest_price.toFixed(2)}
               </p>
-              <span className="text-sm text-gray-600 mb-4">per room per night</span>
               <button
-                className="btn btn-warning"
+                className="btn btn-primary rounded-md"
                 onClick={() => onSelectRoom(room.key, room.lowest_price, room.roomDescription)}
               >
                 Reserve
@@ -68,6 +67,7 @@ RoomItem.propTypes = {
   }).isRequired,
   endDate: PropTypes.string.isRequired,
   onSelectRoom: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired
 };
 
 export default RoomItem;

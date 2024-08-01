@@ -20,3 +20,11 @@
 footer ul li a:hover {
     text-decoration: underline;
 }
+
+.main-background {
+    transition: background-image 0.8s ease-in-out, opacity 0.8s ease-in-out;
+}
+
+.text-transition {
+    transition: opacity 0.8s ease-in-out;
+}

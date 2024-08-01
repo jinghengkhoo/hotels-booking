@@ -19,7 +19,6 @@ const UsersTable = () => {
     axios
       .get("http://localhost:5555/api/user/all")
       .then((response) => {
-        console.log(response.data.data);
         setUsers(response.data.data);
         setLoading(false);
       })
@@ -50,7 +49,10 @@ const UsersTable = () => {
 
   const handleSave = async (updatedUser) => {
     try {
-      await axios.put(`http://localhost:5555/api/user/${updatedUser._id}`, updatedUser);
+      await axios.put(
+        `http://localhost:5555/api/user/${updatedUser._id}`,
+        updatedUser
+      );
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === updatedUser._id ? updatedUser : user

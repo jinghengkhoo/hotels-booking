@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const EditBookingModal = ({ booking, isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({ ...booking });
@@ -21,7 +21,7 @@ const EditBookingModal = ({ booking, isOpen, onClose, onSave }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2  overflow-auto max-h-[90vh]">
         <h2 className="text-2xl font-bold mb-4">Edit Booking</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -224,7 +224,9 @@ const EditBookingModal = ({ booking, isOpen, onClose, onSave }) => {
             />
           </div>
           <div>
-            <label className="block text-gray-700">Billing Address Postal Code</label>
+            <label className="block text-gray-700">
+              Billing Address Postal Code
+            </label>
             <input
               type="number"
               name="billingAddressPostalCode"

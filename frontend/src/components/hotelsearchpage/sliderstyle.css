@@ -1,0 +1,26 @@
+/* Styling for the slider track (the range) */
+.custom-slider .rc-slider-track {
+    background-color: rgb(66, 66, 66) !important;
+}
+
+/* Styling for the slider rail (the line outside the range) */
+.custom-slider .rc-slider-rail {
+    background-color: lightgray !important;
+}
+
+/* Styling for the slider handle (the thumb) */
+.custom-slider .rc-slider-handle {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: -8px !important; /* Center the thumb vertically on the track */
+    background-color: white; /* Color of the thumb */
+    border-color: rgb(66, 66, 66) !important; /* Border color of the thumb */
+    opacity: 1 !important; /* Set transparency of thumb */
+}
+
+/* Styling for the slider handle shadow when active (clicked) */
+.custom-slider .rc-slider-handle:active,
+.custom-slider .rc-slider-handle:focus,
+.custom-slider .rc-slider-handle:hover {
+    box-shadow: 0 0 5px 2px rgb(66, 66, 66) !important;
+}
