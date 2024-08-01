@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import HotelDetails from '../HotelDetails';
+import HotelDetails from '../pages/HotelDetails';
 import axios from 'axios';
 
 jest.mock('../NavBar', () => () => <div data-testid="navbar">NavBar</div>);
