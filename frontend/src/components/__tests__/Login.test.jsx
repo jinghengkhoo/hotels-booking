@@ -140,4 +140,40 @@ describe('login component', () => {
         expect(screen.getByText(/Ready for your next adventure?/i)).toBeInTheDocument();    
   });
 
+  test('email input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const emailInput = screen.getByLabelText(/email/i);
+
+    await userEvent.type(emailInput, 'test@gmail.com');
+
+    await waitFor(() => {
+      expect(emailInput.value).toBe('test@gmail.com');
+    });
+  });
+
+  test('password input changes', async () => {
+    render(
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const passwordInput = screen.getByLabelText(/password/i);
+
+    await userEvent.type(passwordInput, 'password123$');
+
+    await waitFor(() => {
+      expect(passwordInput.value).toBe('password123$');
+    });
+  });
+
 });

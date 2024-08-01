@@ -247,12 +247,12 @@ describe('register component', () => {
 
     const emailInput = screen.getByLabelText(/email/i);
 
-    await userEvent.type(emailInput, 'test@email.com');
+    await userEvent.type(emailInput, 'test@gmail.com');
 
     await waitFor(() => {
-      expect(emailInput.value).toBe('test@email.com');
+      expect(emailInput.value).toBe('test@gmail.com');
     });
-  });
+  })
 
   test('password input changes', async () => {
     render(
