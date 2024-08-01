@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { MdOutlineDelete } from "react-icons/md";
 import PropTypes from "prop-types";
-import EditBookingModal from "../EditBookingModal";
 import axios from "axios";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import LoadingIcon from "../LoadingIcon";
 
 const ProfileBookingsTable = (userData) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
     const fetchBookingData = async () => {
@@ -35,55 +28,7 @@ const ProfileBookingsTable = (userData) => {
     };
 
     fetchBookingData();
-  }, [isEditModalOpen, isDeleteModalOpen]);
-
-  const handleEditClick = (booking) => {
-    setSelectedBooking(booking);
-    setIsEditModalOpen(true);
-  };
-
-  const handleDeleteClick = (booking) => {
-    setSelectedBooking(booking);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleEditModalClose = () => {
-    setIsEditModalOpen(false);
-    setSelectedBooking(null);
-  };
-
-  const handleDeleteModalClose = () => {
-    setIsDeleteModalOpen(false);
-    setSelectedBooking(null);
-  };
-
-  const handleSave = async (updatedBooking) => {
-    try {
-      await axios.put(
-        `http://localhost:5555/api/bookings/${selectedBooking._id}`,
-        updatedBooking
-      );
-      handleEditModalClose();
-    } catch (error) {
-      //console.error("Error updating booking", error);
-    }
-    console.log("Updated Booking:", updatedBooking);
-  };
-
-  const handleDelete = async () => {
-    try {
-      await axios.delete(
-        `http://localhost:5555/api/bookings/${selectedBooking._id}`
-      );
-      setBookings((prevBookings) =>
-        prevBookings.filter((booking) => booking._id !== selectedBooking._id)
-      );
-      console.log("Booking deleted:", selectedBooking._id);
-      handleDeleteModalClose();
-    } catch (error) {
-      //console.error("Error deleting booking:", error);
-    }
-  };
+  }, []);
 
   return (
     <div>
@@ -218,21 +163,6 @@ const ProfileBookingsTable = (userData) => {
               ))}
             </tbody>
           </table>
-          {isEditModalOpen && selectedBooking && (
-            <EditBookingModal
-              booking={selectedBooking}
-              isOpen={isEditModalOpen}
-              onClose={handleEditModalClose}
-              onSave={handleSave}
-            />
-          )}
-          {isDeleteModalOpen && selectedBooking && (
-            <DeleteConfirmationModal
-              isOpen={isDeleteModalOpen}
-              onClose={handleDeleteModalClose}
-              onDelete={handleDelete}
-            />
-          )}
         </div>
       )}
     </div>
