@@ -46,21 +46,32 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
 
   const validateForm = () => {
     if (!destinationId) {
+      console.log("dest error")
       setError("Please select a valid destination.");
       return 0;
     } else if (!startDate) {
+      console.log("date error")
+
       setError("Please select a start date.");
       return 0;
     } else if (!endDate) {
+      console.log("date error")
+
       setError("Please select an end date.");
       return 0;
     } else if (new Date(startDate) > new Date(endDate)) {
+      console.log("date error")
+
       setError("Please select an end date after the selected start date.");
       return 0;
     } else if (guests <= 0) {
+      console.log("guest error")
+
       setError("Please select the number of guests.");
       return 0;
     } else if (rooms <= 0) {
+      console.log("room error")
+
       setError("Please select the number of rooms.");
       return 0;
     }
@@ -70,6 +81,7 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
+      console.log("success")
       localStorage.setItem("destination", destination);
       localStorage.setItem("destinationId", destinationId);
       localStorage.setItem("startDate", startDate);

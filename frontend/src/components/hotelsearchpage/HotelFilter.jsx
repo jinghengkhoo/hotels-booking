@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import './sliderstyle.css';
 
 const HotelFilter = ({ onFilterChange }) => {
   const [starRatings, setStarRatings] = useState([]);
@@ -92,7 +93,7 @@ const HotelFilter = ({ onFilterChange }) => {
               defaultValue={priceRange}
               value={priceRange}
               onChange={handleSliderChange}
-              className="mt-2"
+              className="mt-4 custom-slider"
             />
             <div className="flex justify-between mt-2">
               <span>${minPrice}</span>

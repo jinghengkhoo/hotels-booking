@@ -58,21 +58,34 @@ const HotelList = ({
   }, [displayedHotels, destinationId, endDate, startDate, guests, rooms, currency]);
 
   const fetchAdditionalData = async (hotelList) => {
-    const hotelPromises = hotelList.map(async (hotel) => {
-      if (cache[hotel.id]) {
-        return cache[hotel.id];
-      }
-      const response = await axios.get(
-        `http://localhost:5555/api/hotels/${hotel.id}`
-      );
-      const hotelData = {
-        ...hotel,
-        ...response.data,
-      };
-      cache[hotel.id] = hotelData;
-      return hotelData;
-    });
-    return await Promise.all(hotelPromises);
+    try {
+      const hotelPromises = hotelList.map(async (hotel) => {
+        if (cache[hotel.id]) {
+          return cache[hotel.id];
+        }
+
+        try {
+          const response = await axios.get(
+            `http://localhost:5555/api/hotels/${hotel.id}`
+          );
+
+          const hotelData = {
+            ...hotel,
+            ...response.data,
+          };
+
+          cache[hotel.id] = hotelData;
+          return hotelData;
+        } catch (error) {
+          console.error("Failed to fetch hotel data:", error);
+          return hotel;
+        }
+      });
+      return await Promise.all(hotelPromises);
+    } catch (error) {
+      console.error("Failed to fetch hotel data:", error);
+      return hotelList;
+    }
   };
 
   const handleFilterChange = async (filters) => {
@@ -87,8 +100,8 @@ const HotelList = ({
         filters.starRatings.includes(starRating.toString());
       const meetsGuestRating = guestRating >= filters.minGuestRating;
       const meetsPriceRange =
-        hotel.price >= (filters.minPrice*totalNights) && hotel.price <= (filters.maxPrice*totalNights);
-        return meetsStarRating && meetsGuestRating && meetsPriceRange;
+        hotel.price >= (filters.minPrice * totalNights) && hotel.price <= (filters.maxPrice * totalNights);
+      return meetsStarRating && meetsGuestRating && meetsPriceRange;
     });
     const initialHotels = await fetchAdditionalData(
       newFilteredHotels.slice(0, 10)
@@ -146,7 +159,7 @@ const HotelList = ({
                   </p>
                 }
               >
-                <div id="hotels-list"className="grid grid-cols-1 gap-4">
+                <div id="hotels-list" className="grid grid-cols-1 gap-4">
                   {displayedHotels.map((hotel) => (
                     <HotelItem
                       key={hotel.id}

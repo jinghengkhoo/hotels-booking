@@ -1,4 +1,3 @@
-// Login Admin
 export const loginAdmin = async (req, res) => {
   const { username, password } = req.body;
 

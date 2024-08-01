@@ -29,7 +29,7 @@ const ProfileBookingsTable = (userData) => {
         // console.log(bookingDetails.data.bookingsDetails);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching booking details", error);
+        //console.error("Error fetching booking details", error);
         setLoading(false);
       }
     };
@@ -65,7 +65,7 @@ const ProfileBookingsTable = (userData) => {
       );
       handleEditModalClose();
     } catch (error) {
-      console.error("Error updating booking", error);
+      //console.error("Error updating booking", error);
     }
     console.log("Updated Booking:", updatedBooking);
   };
@@ -81,7 +81,7 @@ const ProfileBookingsTable = (userData) => {
       console.log("Booking deleted:", selectedBooking._id);
       handleDeleteModalClose();
     } catch (error) {
-      console.error("Error deleting booking:", error);
+      //console.error("Error deleting booking:", error);
     }
   };
 

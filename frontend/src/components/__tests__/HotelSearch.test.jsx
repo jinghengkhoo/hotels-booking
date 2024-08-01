@@ -1,6 +1,6 @@
 // HotelSearch.test.js
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import axios from 'axios';
 import HotelSearch from '../HotelSearch';
 import { MemoryRouter } from 'react-router-dom';
@@ -34,85 +34,144 @@ describe('HotelSearch Component', () => {
     );
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
+  it('renders the NavBar and SearchBar components', async () => {
+    const mockHotels = Array.from({ length: 5 }, (v, i) => ({
+      id: "ABC" + i,
+      name: `Hotel ${i + 1}`,
+      destinationId: 100 + i,
+      startDate: `2023-12-${String(i + 1).padStart(2, '0')}`,
+      endDate: `2023-12-${String(i + 5).padStart(2, '0')}`,
+      address: `Address ${i + 1}`,
+      price: 100 + i,
+      guests: 2 + (i % 3),
+      rooms: 1 + (i % 2),
+      currency: 'SGD',
+      rating: 1 + (i % 5),
+      image_details: {
+        prefix: 'https://example.com/',
+        suffix: '/image.jpg',
+      },
+      default_image_index: i % 3,
+      trustyou: {
+        score: {
+          overall: parseFloat((Math.random() * 5).toFixed(1)), // Random rating between 0 and 5
+        },
+      },
+    }));
 
-  // it('renders hotel list after loading', async () => {
-  //   const hotels = [
-  //     {
-  //       id: 1,
-  //       name: 'Hotel 1',
-  //       price: 100,
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'Hotel 2',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 3,
-  //       name: 'Hotel 3',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 4,
-  //       name: 'Hotel 4',
-  //       price: 100,
-  //     },
-  //     {
-  //       id: 5,
-  //       name: 'Hotel 5',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 6,
-  //       name: 'Hotel 6',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 7,
-  //       name: 'Hotel 7',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 8,
-  //       name: 'Hotel 8',
-  //       price: 100,
-  //     },
-  //     {
-  //       id: 9,
-  //       name: 'Hotel 9',
-  //       price: 150,
-  //     },
-  //     {
-  //       id: 10,
-  //       name: 'Hotel 10',
-  //       price: 150,
-  //     },
-  //   ];
+    const mockData = {
+      completed: true,
+      hotels: mockHotels,
+    };
+    axios.get.mockResolvedValueOnce({ data: mockData });
 
-  //   axios.get.mockResolvedValueOnce({
-  //     data: { completed: true, hotels },
-  //   });
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <HotelSearch />
+        </MemoryRouter>
+      );
+    });
 
-  //   render(
-  //     <MemoryRouter>
-  //       <HotelSearch />
-  //     </MemoryRouter>
-  //   );
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('searchbar')).toBeInTheDocument();
 
-  //   // Wait for the mock API call and state update
-  //   await waitFor(() => {
-  //     expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-  //   }, { timeout: 3000 });
+    // ensure sorting feature exists
+    expect(screen.getByText('Sort By: Highest Price')).toBeInTheDocument();
 
-  //   // Debugging: output the DOM to ensure the hotels are rendered
-  //   console.log(loading);
-  //   screen.debug();
+    // ensure filter features exist
+    expect(screen.getByText('Filters')).toBeInTheDocument();
+    expect(screen.getByText('Star Rating')).toBeInTheDocument();
+    expect(screen.getByText('Guest Rating')).toBeInTheDocument();
+    expect(screen.getByText('Price Range (per night):')).toBeInTheDocument();
 
+    // check if star ratings are displayed
+    expect(screen.getByText('1 stars')).toBeInTheDocument();
+    expect(screen.getByText('2 stars')).toBeInTheDocument();
+    expect(screen.getByText('3 stars')).toBeInTheDocument();
+    expect(screen.getByText('4 stars')).toBeInTheDocument();
+    expect(screen.getByText('5 stars')).toBeInTheDocument();
+  });
 
-  //   // Check that hotel data is rendered
-  //   expect(screen.getByText('Hotel 1')).toBeInTheDocument();
-  //   expect(screen.getByText('Hotel 2')).toBeInTheDocument();
-  // });
+  it('logs "Waiting" and retries fetching when data is incomplete', async () => {
+    // Mock axios response for an incomplete data fetch
+    const mockData = {
+      completed: false,
+      hotels: [],
+    };
+    axios.get.mockResolvedValueOnce({ data: mockData });
+
+    // Spy on console.log
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => { });
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <HotelSearch />
+        </MemoryRouter>
+      );
+    });
+
+    // Optionally, debug to check the state
+    screen.debug();
+
+    // Verify that the "Waiting" message is logged to the console
+    expect(consoleSpy).toHaveBeenCalledWith('Waiting...');
+
+    // Clean up the console spy
+    consoleSpy.mockRestore();
+
+    // You can add more checks for retry mechanism or loading state if needed
+  });
+
+  it('fetches and displays hotels successfully', async () => {
+    // Mock axios response for a successful data fetch
+
+    const mockHotels = Array.from({ length: 20 }, (v, i) => ({
+      id: "ABC" + i,
+      name: `Hotel ${i + 1}`,
+      destinationId: 100 + i,
+      startDate: `2023-12-${String(i + 1).padStart(2, '0')}`,
+      endDate: `2023-12-${String(i + 5).padStart(2, '0')}`,
+      address: `Address ${i + 1}`,
+      price: 100 + i,
+      guests: 2 + (i % 3),
+      rooms: 1 + (i % 2),
+      currency: 'SGD',
+      rating: 1 + (i % 5),
+      image_details: {
+        prefix: 'https://example.com/',
+        suffix: '/image.jpg',
+      },
+      default_image_index: i % 3,
+      trustyou: {
+        score: {
+          overall: parseFloat((Math.random() * 5).toFixed(1)), // Random rating between 0 and 5
+        },
+      },
+    }));
+
+    const mockData = {
+      completed: true,
+      hotels: mockHotels,
+    };
+    axios.get.mockResolvedValueOnce({ data: mockData });
+
+    await act(async () => {
+      render(
+        <MemoryRouter>
+          <HotelSearch />
+        </MemoryRouter>
+      );
+    });
+
+    // Wait for the hotels to be fetched and displayed
+    await waitFor(() => {
+      expect(screen.getByText('Hotel 1')).toBeInTheDocument();
+      expect(screen.getByText('Hotel 2')).toBeInTheDocument();
+      expect(screen.getByText('Hotel 3')).toBeInTheDocument();
+    });
+  });
 
   it('handles error state', async () => {
     axios.get.mockRejectedValueOnce(new Error('Error fetching hotel data'));
@@ -127,164 +186,4 @@ describe('HotelSearch Component', () => {
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Error fetching hotel data'));
   });
 });
-
-
-// import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import HotelSearch from '../HotelSearch';
-// import '@testing-library/jest-dom';
-// import { MemoryRouter } from 'react-router-dom';
-// import { act } from 'react';
-// import axios from 'axios';
-
-// // Mock components
-// jest.mock('../HotelList', () => () => <div data-testid="hotel-list" />);
-// jest.mock('../LoadingIcon', () => () => <div data-testid="loading-icon" />);
-// jest.mock('../NavBar', () => () => <div data-testid="nav-bar" />);
-// jest.mock('../SearchBar', () => () => <div data-testid="search-bar" />);
-
-// jest.mock('axios');
-
-// const mockParameters = {
-//   state: {
-//     destinationId: 'WD0M',
-//     startDate: '2024-08-01',
-//     endDate: '2024-08-07',
-//     guests: 2,
-//     rooms: 1,
-//   },
-// };
-
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useLocation: () => mockParameters,
-// }));
-
-// describe('HotelSearch', () => {
-//   test('renders Loading in HotelSearch', async () => {
-//     axios.get.mockResolvedValueOnce({
-//       data: {
-//         completed: true,
-//         currency: 'SGD',
-//         hotels: [
-//           { id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
-//           { id: '2', name: 'Rome Times Hotel', price: 457.26 },
-//         ],
-//       },
-//     });
-
-//     await act(async () => {
-//       render(
-//         <MemoryRouter>
-//           <HotelSearch />
-//         </MemoryRouter>
-//       );
-//     });
-//     screen.debug();
-//     expect(screen.getByTestId('loading-icon')).toBeInTheDocument();
-//   });
-
-// test('renders HotelSearch component correctly', async () => {
-//   axios.get.mockResolvedValueOnce({
-//     data: {
-//       completed: true,
-//       currency: 'SGD',
-//       hotels: [
-//         { id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
-//         { id: '2', name: 'Rome Times Hotel', price: 457.26 },
-//       ],
-//     },
-//   });
-
-//   await act(async () => {
-//     render(
-//       <MemoryRouter>
-//         <HotelSearch />
-//       </MemoryRouter>
-//     );
-//   });
-
-//   screen.debug();
-
-//   // Check if the NavBar and SearchBar components are rendered
-//   expect(screen.getByTestId('nav-bar')).toBeInTheDocument();
-//   expect(screen.getByTestId('search-bar')).toBeInTheDocument();
-
-//   // Check if the HotelList component is rendered after loading
-//   expect(screen.getByTestId('hotel-list')).toBeInTheDocument();
-// });
-// })
-
-// const mockParameters = {
-//   state: {
-//     destination_id: 'WD0M',
-//     checkin: '2024-08-01',
-//     chekout: '2024-08-07',
-//     lang: 'en_US',
-//     currency: 'SGD',
-//     guests: 2,
-//     partner_id: 1
-//   },
-// };
-
-// const mockHotelDetails = {
-//   completed: true,
-//   currency: 'SGD',
-//   hotels: [
-//     { id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
-//     { id: '2', name: 'Rome Times Hotel', price: 457.26 },
-//   ],
-// };
-
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useLocation: () => mockParameters,
-// }));
-
-// describe('HotelSearch', () => {
-//   test('renders HotelSearch component correctly', async () => {
-//     axios.get.mockResolvedValueOnce({
-//       data: {
-//         completed: true,
-//         currency: 'SGD',
-//         hotels: [
-//           { id: '1', name: 'ROOM INN VATICAN', price: 254.17 },
-//           { id: '2', name: 'Rome Times Hotel', price: 457.26 },
-//         ],
-//       },
-//     });
-
-//     await act(async () => {
-//       render(
-//         <MemoryRouter>
-//           <HotelSearch />
-//         </MemoryRouter>
-//       );
-//     });
-
-//     screen.debug();
-
-//     // Check if the NavBar and SearchBar components are rendered
-//     expect(screen.getByTestId('nav-bar')).toBeInTheDocument();
-//     expect(screen.getByTestId('search-bar')).toBeInTheDocument();
-
-//     // Check if the HotelList component is rendered after loading
-//     expect(screen.getByTestId('hotel-list')).toBeInTheDocument();
-//   });
-
-//   test('displays an error message when fetching hotels fails', async () => {
-//     axios.get.mockRejectedValueOnce(new Error('Error fetching hotel data'));
-
-//     await act(async () => {
-//       render(
-//         <MemoryRouter>
-//           <HotelSearch />
-//         </MemoryRouter>
-//       );
-//     });
-
-//     // Check if an error message is displayed
-//     expect(screen.getByRole('alert')).toHaveTextContent('Error fetching hotel data');
-//   });
-// });
 
