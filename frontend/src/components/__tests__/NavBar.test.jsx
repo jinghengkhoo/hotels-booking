@@ -80,16 +80,3 @@ describe('NavBar', () => {
         expect(tree).toMatchSnapshot();
     });
 });
-
-// test('renders the user email and logout button when user is logged in', () => {
-//     render(
-//         <Router>
-//             <AuthProvider>
-//                 <NavBar textColor="white" currency="USD" />
-//             </AuthProvider>
-//         </Router>
-//     );
-//     const user = { email: 'test@example.com' };
-//     const logoutButton = screen.getByText('Logout');
-//     expect(logoutButton).toBeInTheDocument();
-// });
