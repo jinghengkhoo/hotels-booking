@@ -10,7 +10,7 @@ const mockOnFilterChange = jest.fn();
 const user = userEvent.setup();
 
 describe('testing hotel filter panel', () => {
-    test('renders correctly', async () => {
+    test('render filter UI', async () => {
       render(<HotelFilter/>);
       expect(screen.getByText('Filters')).toBeInTheDocument();
       expect(screen.getByLabelText('Star Rating')).toBeInTheDocument();
@@ -19,9 +19,58 @@ describe('testing hotel filter panel', () => {
       expect(screen.getByText('Apply Filters')).toBeInTheDocument();
       expect(screen.getByText('Reset Filters')).toBeInTheDocument();
     });
+
+    test('check star ratings', async () => {
+      render(<HotelFilter onFilterChange={mockOnFilterChange} />);
+  
+      // Simulate user interaction
+      await user.click(screen.getByLabelText('4 stars'));
+      await user.click(screen.getByLabelText('5 stars'));   // Select star rating
+
+      expect(screen.getByLabelText('4 stars').checked).toBe(true);
+      expect(screen.getByLabelText('5 stars').checked).toBe(true);
+  });
+
+    test('uncheck star ratings', async () => {
+      render(<HotelFilter onFilterChange={mockOnFilterChange} />);
+
+      // Simulate user interaction
+      await user.click(screen.getByLabelText('4 stars'));
+      await user.click(screen.getByLabelText('5 stars'));   // Select star rating
+
+      // Check correct display
+      await user.click(screen.getByLabelText('4 stars'));
+      expect(screen.getByLabelText('4 stars').checked).toBe(false);
+      expect(screen.getByLabelText('5 stars').checked).toBe(true);
+    });
+
+    test('guest rating changes', async () => {
+      render(<HotelFilter onFilterChange={mockOnFilterChange} />);
+
+      // Simulate user interaction
+      fireEvent.change(screen.getByLabelText('Guest Rating'), { target: { value: '50' } }); // Input guest rating
+
+      // Check correct display
+      expect(screen.getByLabelText('Guest Rating').value).toBe('50');
+    });
+
+    test('price range changes', async () => {
+      render(<HotelFilter onFilterChange={mockOnFilterChange} />);
+
+      // Simulate user interaction
+      const minSlider = screen.getByRole('slider', { name: 'price-range-slider-min' });
+      const maxSlider = screen.getByRole('slider', { name: 'price-range-slider-max' });
+
+      fireEvent.change(minSlider, { target: { value: 100 } });    // Select min
+      fireEvent.change(maxSlider, { target: { value: 800 } });    // Select max
+
+    // Check correct display
+      expect(minSlider.value).toEqual("100");
+      expect(maxSlider.value).toEqual("800");
+    });
   
     // date selected is from 2024-09-01 to 2024-09-03
-    test('applies filters and calls onFilterChange', async () => {
+    test('click applies filters', async () => {
         render(<HotelFilter onFilterChange={mockOnFilterChange}/>);
     
         // Simulate user interaction
@@ -49,7 +98,7 @@ describe('testing hotel filter panel', () => {
         expect(maxSlider.value).toEqual("800");
     });
   
-    test('resets filters correctly', async() => {
+    test('click resets filters', async() => {
       render(<HotelFilter onFilterChange={mockOnFilterChange} />);
   
       // Simulate user interaction
@@ -88,19 +137,5 @@ describe('testing hotel filter panel', () => {
       expect(minSlider.value).toEqual("0");
       expect(maxSlider.value).toEqual("1000");
     });
-
-    test('uncheck star ratings', async () => {
-      render(<HotelFilter onFilterChange={mockOnFilterChange} />);
-  
-      // Simulate user interaction
-      await user.click(screen.getByLabelText('4 stars'));
-      await user.click(screen.getByLabelText('5 stars'));   // Select star rating
-
-      // Simulate user interaction for price range slider
-      await user.click(screen.getByLabelText('4 stars'));
-      expect(screen.getByLabelText('4 stars').checked).toBe(false);
-      expect(screen.getByLabelText('5 stars').checked).toBe(true);
-    });
-
 
   });
