@@ -214,37 +214,10 @@ const ProfileBookingsTable = (userData) => {
                   <td className="border border-slate-700 rounded-md text-center">
                     {booking.billingAddressPostalCode}
                   </td>
-                  <td className="border border-slate-700 rounded-md text-center">
-                    <div className="flex justify-center gap-x-4">
-                      <AiOutlineEdit
-                        className="text-2xl text-yellow-600 cursor-pointer"
-                        onClick={() => handleEditClick(booking)}
-                      />
-                      <MdOutlineDelete
-                        className="text-2xl text-red-600 cursor-pointer"
-                        onClick={() => handleDeleteClick(booking)}
-                      />
-                    </div>
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {isEditModalOpen && selectedBooking && (
-            <EditBookingModal
-              booking={selectedBooking}
-              isOpen={isEditModalOpen}
-              onClose={handleEditModalClose}
-              onSave={handleSave}
-            />
-          )}
-          {isDeleteModalOpen && selectedBooking && (
-            <DeleteConfirmationModal
-              isOpen={isDeleteModalOpen}
-              onClose={handleDeleteModalClose}
-              onDelete={handleDelete}
-            />
-          )}
         </div>
       )}
     </div>
