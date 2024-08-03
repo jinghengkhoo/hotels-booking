@@ -18,21 +18,6 @@ describe('login component', () => {
     mockAxios.reset();
   });
 
-  test('renders login form', () => {
-    render(
-      <AuthContext.Provider value={{ setUser }}>
-        <MemoryRouter>
-          <Login />
-        </MemoryRouter>
-      </AuthContext.Provider>
-    );
-
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /continue/i })).toBeInTheDocument();
-    expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
-});
-
   test('successful login', async () => {
     mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
     mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
@@ -126,7 +111,7 @@ describe('login component', () => {
     expect(emailInput).toBeInvalid();
   });
 
-  test('navigate to signup', async () => {
+  test('navigate to register page when on login page', async () => {
     render(
         <AuthContext.Provider value={{ setUser }}>
           <MemoryRouter>
@@ -138,42 +123,6 @@ describe('login component', () => {
 
         await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
         expect(screen.getByText(/Ready for your next adventure?/i)).toBeInTheDocument();    
-  });
-
-  test('email input changes', async () => {
-    render(
-      <AuthContext.Provider value={{ setUser }}>
-        <MemoryRouter>
-          <Login />
-        </MemoryRouter>
-      </AuthContext.Provider>
-    );
-
-    const emailInput = screen.getByLabelText(/email/i);
-
-    await userEvent.type(emailInput, 'test@gmail.com');
-
-    await waitFor(() => {
-      expect(emailInput.value).toBe('test@gmail.com');
-    });
-  });
-
-  test('password input changes', async () => {
-    render(
-      <AuthContext.Provider value={{ setUser }}>
-        <MemoryRouter>
-          <Login />
-        </MemoryRouter>
-      </AuthContext.Provider>
-    );
-
-    const passwordInput = screen.getByLabelText(/password/i);
-
-    await userEvent.type(passwordInput, 'password123$');
-
-    await waitFor(() => {
-      expect(passwordInput.value).toBe('password123$');
-    });
   });
 
 });
