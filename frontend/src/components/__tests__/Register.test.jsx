@@ -1,24 +1,25 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { AuthContext } from '../../context/AuthContext';
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { AuthContext } from "../../context/AuthContext";
 import Login from "../pages/Login";
-import Register from '../pages/Register';
+import Register from "../pages/Register";
 
 const mockAxios = new MockAdapter(axios);
 
-describe('register component', () => {
+describe("register component", () => {
   const setUser = jest.fn();
+  window.alert = jest.fn();
 
   beforeEach(() => {
     mockAxios.reset();
   });
 
-  test('renders register form', () => {
+  test("renders register form", () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
@@ -31,14 +32,18 @@ describe('register component', () => {
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByTestId("password-field")).toBeInTheDocument();
     expect(screen.getByLabelText(/confirm password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /continue/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue/i })
+    ).toBeInTheDocument();
     expect(screen.getByText(/sign in/i)).toBeInTheDocument();
-});
+  });
 
-  test('successful registration', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/register').reply(200);
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
-    mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
+  test("successful registration", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/register").reply(200);
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(200);
+    mockAxios
+      .onGet("http://localhost:5555/api/user/profile")
+      .reply(200, { name: "John" });
 
     render(
       <AuthContext.Provider value={{ setUser }}>
@@ -53,22 +58,22 @@ describe('register component', () => {
     const passwordInput = screen.getByTestId("password-field");
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(nameInput, 'John');
-    await userEvent.type(passwordInput, 'password123$');
-    await userEvent.type(confirmPasswordInput, 'password123$');
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(nameInput, "John");
+    await userEvent.type(passwordInput, "password123$");
+    await userEvent.type(confirmPasswordInput, "password123$");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(setUser).toHaveBeenCalledWith({ name: 'John' });
+      expect(setUser).toHaveBeenCalledWith({ name: "John" });
     });
   });
 
-  test('shows error message on error during registration', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'An error occurred during registration'
+  test("shows error message on error during registration", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(401, {
+      message: "An error occurred during registration",
     });
 
     render(
@@ -84,19 +89,21 @@ describe('register component', () => {
     const passwordInput = screen.getByTestId("password-field");
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'password123$');
-    await userEvent.type(confirmPasswordInput, 'password123$');
-    await userEvent.type(nameInput, 'John');
+    const submitButton = screen.getByRole("button", { name: /continue/i });
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(passwordInput, "password123$");
+    await userEvent.type(confirmPasswordInput, "password123$");
+    await userEvent.type(nameInput, "John");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/An error occurred during registration/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/An error occurred during registration/i)
+      ).toBeInTheDocument();
     });
   });
 
-  test('shows validation error when fields are empty', async () => {
+  test("shows validation error when fields are empty", async () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
@@ -105,7 +112,7 @@ describe('register component', () => {
       </AuthContext.Provider>
     );
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
     await userEvent.click(submitButton);
 
@@ -131,23 +138,24 @@ describe('register component', () => {
     expect(confirmPasswordInput).toBeInvalid();
   });
 
-  test('navigate to login page', async () => {
+  test("navigate to login page", async () => {
     render(
-        <AuthContext.Provider value={{ setUser }}>
-          <MemoryRouter>
-            <Login/>
-            <Register/>
-          </MemoryRouter>
-        </AuthContext.Provider>
-      );
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Login />
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
 
-        await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
-        expect(screen.getByText(/Continue your adventure/i)).toBeInTheDocument();    
+    await userEvent.click(screen.getByRole("button", { name: /sign in/i }));
+    expect(screen.getByText(/Continue your adventure/i)).toBeInTheDocument();
   });
 
-  test('password not strong enough', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'Password must be at least 8 characters long and include a number and a special character'
+  test("password not strong enough", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(401, {
+      message:
+        "Password must be at least 8 characters long and include a number and a special character",
     });
 
     render(
@@ -163,21 +171,25 @@ describe('register component', () => {
     const passwordInput = screen.getByTestId("password-field");
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'password123');
-    await userEvent.type(confirmPasswordInput, 'password123');
-    await userEvent.type(nameInput, 'John');
+    const submitButton = screen.getByRole("button", { name: /continue/i });
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(passwordInput, "password123");
+    await userEvent.type(confirmPasswordInput, "password123");
+    await userEvent.type(nameInput, "John");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Password must be at least 8 characters long and include a number and a special character/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          /Password must be at least 8 characters long and include a number and a special character/i
+        )
+      ).toBeInTheDocument();
     });
   });
 
-  test('passwords do not match', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'Passwords do not match'
+  test("passwords do not match", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(401, {
+      message: "Passwords do not match",
     });
 
     render(
@@ -193,11 +205,11 @@ describe('register component', () => {
     const passwordInput = screen.getByTestId("password-field");
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'password123#');
-    await userEvent.type(confirmPasswordInput, 'password123');
-    await userEvent.type(nameInput, 'John');
+    const submitButton = screen.getByRole("button", { name: /continue/i });
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(passwordInput, "password123#");
+    await userEvent.type(confirmPasswordInput, "password123");
+    await userEvent.type(nameInput, "John");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -205,10 +217,9 @@ describe('register component', () => {
     });
   });
 
-
-  test('invalid email format', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'Invalid email format'
+  test("invalid email format", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(401, {
+      message: "Invalid email format",
     });
 
     render(
@@ -224,16 +235,15 @@ describe('register component', () => {
     const passwordInput = screen.getByTestId("password-field");
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
-    await userEvent.type(emailInput, 'test@gmail');
-    await userEvent.type(passwordInput, 'password123@');
-    await userEvent.type(confirmPasswordInput, 'password123@');
-    await userEvent.type(nameInput, 'John');
+    const submitButton = screen.getByRole("button", { name: /continue/i });
+    await userEvent.type(emailInput, "test@gmail");
+    await userEvent.type(passwordInput, "password123@");
+    await userEvent.type(confirmPasswordInput, "password123@");
+    await userEvent.type(nameInput, "John");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/email format/i)).toBeInTheDocument();
     });
   });
-
 });
