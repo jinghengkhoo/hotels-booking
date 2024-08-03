@@ -84,13 +84,13 @@ const NavBar = ({ textColor, currency, setCurrency }) => {
           <span>
             {user ? (
               <div>
-                <p>{user.email}</p>
+                <p id="userEmail">{user.email}</p>
                 <button onClick={logout}>Logout</button>
               </div>
             ) : (
               <div>
                 <Link to="/login">
-                  <button className="btn btn-ghost">
+                  <button id="login" className="btn btn-ghost">
                     <span className="font-normal">Login/Register</span>
                   </button>
                 </Link>

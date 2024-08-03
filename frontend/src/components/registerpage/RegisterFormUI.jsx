@@ -19,9 +19,11 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
           <p className="mb-4">Create an account with your email</p>
           <form onSubmit={onSubmit}>
             <div className="mb-2">
-              <label htmlFor="name-field" className="block text-gray-700">Full Name</label>
+              <label id="name-field" className="block text-gray-700">
+                Full Name
+              </label>
               <input
-              id="name-field"
+                id="name-field-input"
                 type="text"
                 name="fullName"
                 onChange={onChange}
@@ -30,9 +32,11 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="email-field" className="block text-gray-700">Email</label>
+              <label id="email-field" className="block text-gray-700">
+                Email
+              </label>
               <input
-              id="email-field"
+                id="email-field-input"
                 type="email"
                 name="email"
                 value={email}
@@ -42,9 +46,11 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="password-field" className="block text-gray-700">Password</label>
+              <label id="password-field" className="block text-gray-700">
+                Password
+              </label>
               <input
-              id="password-field"
+                id="password-field-input"
                 type="password"
                 name="password"
                 value={password}
@@ -55,9 +61,14 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="password-field-confirm" className="block text-gray-700">Confirm Password</label>
+              <label
+                id="password-field-confirm"
+                className="block text-gray-700"
+              >
+                Confirm Password
+              </label>
               <input
-              id="password-field-confirm"
+                id="password-field-confirm-input"
                 type="password"
                 name="confirmPassword"
                 value={confirmPassword}
@@ -68,8 +79,13 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div>
-              {error && <div className="mb-4 text-red-600">{error}</div>}
+              {error && (
+                <div id="errorMessage" className="mb-4 text-red-600">
+                  {error}
+                </div>
+              )}
               <button
+                id="registerButton"
                 type="submit"
                 className="w-full py-2 px-4 btn btn-primary text-lg font-semibold rounded-lg shadow-md"
               >
