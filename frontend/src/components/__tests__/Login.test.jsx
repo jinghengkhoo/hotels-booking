@@ -1,24 +1,25 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { AuthContext } from '../../context/AuthContext';
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { AuthContext } from "../../context/AuthContext";
 import Login from "../pages/Login";
-import Register from '../pages/Register';
+import Register from "../pages/Register";
 
 const mockAxios = new MockAdapter(axios);
 
-describe('login component', () => {
+describe("login component", () => {
   const setUser = jest.fn();
+  window.alert = jest.fn();
 
   beforeEach(() => {
     mockAxios.reset();
   });
 
-  test('renders login form', () => {
+  test("renders login form", () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
@@ -29,13 +30,17 @@ describe('login component', () => {
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /continue/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue/i })
+    ).toBeInTheDocument();
     expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
-});
+  });
 
-  test('successful login', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
-    mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
+  test("successful login", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(200);
+    mockAxios
+      .onGet("http://localhost:5555/api/user/profile")
+      .reply(200, { name: "John" });
 
     render(
       <AuthContext.Provider value={{ setUser }}>
@@ -47,20 +52,20 @@ describe('login component', () => {
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(passwordInput, "password123");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(setUser).toHaveBeenCalledWith({ name: 'John' });
+      expect(setUser).toHaveBeenCalledWith({ name: "John" });
     });
   });
 
-  test('shows error message on failed login', async () => {
-    mockAxios.onPost('http://localhost:5555/api/user/login').reply(401, {
-      message: 'Invalid Account Details'
+  test("shows error message on failed login", async () => {
+    mockAxios.onPost("http://localhost:5555/api/user/login").reply(401, {
+      message: "Invalid Account Details",
     });
 
     render(
@@ -73,10 +78,10 @@ describe('login component', () => {
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
-    await userEvent.type(emailInput, 'test@email.com');
-    await userEvent.type(passwordInput, 'password');
+    await userEvent.type(emailInput, "test@email.com");
+    await userEvent.type(passwordInput, "password");
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -84,7 +89,7 @@ describe('login component', () => {
     });
   });
 
-  test('shows validation error when fields are empty', async () => {
+  test("shows validation error when fields are empty", async () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
@@ -93,7 +98,7 @@ describe('login component', () => {
       </AuthContext.Provider>
     );
 
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
     // Click the submit button without filling the fields
     await userEvent.click(submitButton);
@@ -105,7 +110,7 @@ describe('login component', () => {
     expect(passwordInput).toBeInvalid();
   });
 
-  test('shows validation error when email is empty', async () => {
+  test("shows validation error when email is empty", async () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
@@ -115,10 +120,10 @@ describe('login component', () => {
     );
 
     const passwordInput = screen.getByLabelText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /continue/i });
+    const submitButton = screen.getByRole("button", { name: /continue/i });
 
     // Fill the password field only
-    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(passwordInput, "password123");
     await userEvent.click(submitButton);
 
     // Check if the email input is invalid
@@ -126,18 +131,19 @@ describe('login component', () => {
     expect(emailInput).toBeInvalid();
   });
 
-  test('navigate to signup', async () => {
+  test("navigate to signup", async () => {
     render(
-        <AuthContext.Provider value={{ setUser }}>
-          <MemoryRouter>
-            <Login/>
-            <Register/>
-          </MemoryRouter>
-        </AuthContext.Provider>
-      );
+      <AuthContext.Provider value={{ setUser }}>
+        <MemoryRouter>
+          <Login />
+          <Register />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
 
-        await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
-        expect(screen.getByText(/Ready for your next adventure?/i)).toBeInTheDocument();    
+    await userEvent.click(screen.getByRole("button", { name: /sign up/i }));
+    expect(
+      screen.getByText(/Ready for your next adventure?/i)
+    ).toBeInTheDocument();
   });
-
 });

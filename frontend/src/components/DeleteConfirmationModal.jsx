@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const DeleteConfirmationModal = ({ isOpen, onClose, onDelete }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div
+      data-testid="deleteConfirmationModal"
+      className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+    >
       <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
         <h2 className="text-2xl font-bold mb-4">Confirm Deletion</h2>
         <p>Are you sure you want to delete this entry?</p>

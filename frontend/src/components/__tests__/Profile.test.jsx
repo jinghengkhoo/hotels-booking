@@ -1,12 +1,13 @@
 // Profile.test.jsx
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { expect, jest, test } from "@jest/globals";
 import Profile from "../pages/Profile.jsx";
 import axios from "axios";
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider, AuthContext } from "../../context/AuthContext";
+import ProfileFormUI from "../profilepage/ProfileFormUI.jsx";
 
 jest.mock("axios");
 
@@ -38,6 +39,8 @@ describe("Profile component", () => {
   const user = jest.fn();
   const setUser = jest.fn();
   const logout = jest.fn();
+  const setEditMode = jest.fn();
+  const handleDeleteClick = jest.fn();
 
   test("Renders the necessary table if no account", () => {
     render(
@@ -111,5 +114,37 @@ describe("Profile component", () => {
     );
     expect(await screen.findByTestId("editButton")).toBeInTheDocument();
     expect(await screen.findByTestId("deleteButton")).toBeInTheDocument();
+  });
+
+  test("calls editMode when the edit button is activated", async () => {
+    axios.get.mockResolvedValue({ data: mockUserData });
+    render(
+      <AuthContext.Provider value={{ user, setUser, logout }}>
+        <MemoryRouter>
+          <Profile />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+    const button = await screen.findByTestId("editButton");
+    fireEvent.click(button);
+    expect(await screen.findByTestId("saveEditButton")).toBeInTheDocument();
+  });
+
+  test("calls handleDeleteClick when the Delete Account button is activated", async () => {
+    axios.get.mockResolvedValue({ data: mockUserData });
+    render(
+      <AuthContext.Provider value={{ user, setUser, logout }}>
+        <MemoryRouter>
+          <Profile />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    // Find the button and simulate click
+    const button = await screen.findByTestId("deleteButton");
+    fireEvent.click(button);
+
+    // Assert that the function was called
+    expect(screen.getByTestId("deleteConfirmationModal")).toBeInTheDocument();
   });
 });
