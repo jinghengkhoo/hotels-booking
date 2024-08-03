@@ -37,6 +37,7 @@ const Login = () => {
         }
       );
       setUser(profile.data);
+      alert("Login successful!");
       navigate("/");
     } catch (err) {
       setError("Invalid Account Details");
