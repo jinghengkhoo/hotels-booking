@@ -27,7 +27,7 @@ context("Retrieve Booking Details Use Case System Testing", () => {
     billingAddressPostalCode: 552233,
   };
 
-  beforeEach(() => {
+  before(() => {
     cy.visit("http://localhost:5173/");
 
     //Register testuser account

@@ -1,29 +1,36 @@
 // src/components/__tests__/SearchBar.test.jsx
-import React from 'react';
-import { cleanup, render, screen, fireEvent, waitFor, act } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import SearchBar from '../SearchBar';
-import axios from 'axios';
+import React from "react";
+import {
+  cleanup,
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
+import renderer from "react-test-renderer";
+import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import SearchBar from "../SearchBar";
+import axios from "axios";
 
 jest.mock("axios");
 
-describe('SearchBar', () => {
-  const currency = 'USD';
+describe("SearchBar", () => {
+  const currency = "USD";
 
   const mockCountries = [
-    { term: 'United States', id: '1' },
-    { term: 'Canada', id: '2' },
-    { term: 'United Kingdom', id: '3' },
-    { term: 'Australia', id: '4' },
-    { term: 'Germany', id: '5' },
-    { term: 'France', id: '6' },
-    { term: 'Japan', id: '7' },
-    { term: 'China', id: '8' },
-    { term: 'India', id: '9' },
-    { term: 'Brazil', id: '10' },
-    { term: 'Singapore', id: '11' },
+    { term: "United States", id: "1" },
+    { term: "Canada", id: "2" },
+    { term: "United Kingdom", id: "3" },
+    { term: "Australia", id: "4" },
+    { term: "Germany", id: "5" },
+    { term: "France", id: "6" },
+    { term: "Japan", id: "7" },
+    { term: "China", id: "8" },
+    { term: "India", id: "9" },
+    { term: "Brazil", id: "10" },
+    { term: "Singapore", id: "11" },
   ];
 
   afterEach(() => {
@@ -31,7 +38,7 @@ describe('SearchBar', () => {
     jest.clearAllMocks(); // Clear all mocks after each test
   });
 
-  test('Test Nil: renders SearchBar component', async () => {
+  test("Test Nil: renders SearchBar component", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -44,25 +51,25 @@ describe('SearchBar', () => {
     screen.debug();
 
     //getting all elements by TestId
-    const destination = screen.getByTestId('destination');
-    const startDate = screen.getByTestId('startDate');
-    const endDate = screen.getByTestId('endDate');
-    const guests = screen.getByTestId('guests');
-    const rooms = screen.getByTestId('rooms');
-    const submit = screen.getByTestId('submit-button');
+    const destination = screen.getByTestId("destination");
+    const startDate = screen.getByTestId("startDate");
+    const endDate = screen.getByTestId("endDate");
+    const guests = screen.getByTestId("guests");
+    const rooms = screen.getByTestId("rooms");
+    const submit = screen.getByTestId("submit-button");
 
     expect(destination).toBeInTheDocument();
-    expect(destination).toHaveAttribute('placeholder', 'where to next?');
+    expect(destination).toHaveAttribute("placeholder", "where to next?");
     expect(startDate).toBeInTheDocument();
-    expect(startDate).toHaveAttribute('placeholder', 'YYYY-MM-DD');
+    expect(startDate).toHaveAttribute("placeholder", "YYYY-MM-DD");
     expect(endDate).toBeInTheDocument();
-    expect(endDate).toHaveAttribute('placeholder', 'YYYY-MM-DD');
+    expect(endDate).toHaveAttribute("placeholder", "YYYY-MM-DD");
     expect(guests).toBeInTheDocument();
     expect(rooms).toBeInTheDocument();
     expect(submit).toBeInTheDocument();
   });
 
-  test('Test 0: destination input changes', async () => {
+  test("Test 0: destination input changes", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -72,18 +79,20 @@ describe('SearchBar', () => {
       );
     });
 
-    const destination = screen.getByTestId('destination');
+    const destination = screen.getByTestId("destination");
     expect(destination).toBeInTheDocument();
-    expect(destination).toHaveAttribute('placeholder', 'where to next?');
+    expect(destination).toHaveAttribute("placeholder", "where to next?");
 
     //changing the value of the destination
-    fireEvent.change(destination, { target: { value: 'Singapore' } });
-    expect(destination.value).toBe('Singapore');
+    fireEvent.change(destination, { target: { value: "Singapore" } });
+    expect(destination.value).toBe("Singapore");
   });
 
-  test('Test 1: Should catch error and log to console on failed API call', async () => {
-    const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => { });
-    const mockError = new Error('API Error');
+  test("Test 1: Should catch error and log to console on failed API call", async () => {
+    const consoleErrorMock = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const mockError = new Error("API Error");
 
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     axios.get.mockRejectedValueOnce(mockError);
@@ -97,8 +106,8 @@ describe('SearchBar', () => {
     });
 
     // Simulate user typing in the destination input
-    const input = screen.getByPlaceholderText('where to next?');
-    fireEvent.change(input, { target: { value: 'Test' } });
+    const input = screen.getByPlaceholderText("where to next?");
+    fireEvent.change(input, { target: { value: "Test" } });
 
     // Wait for useEffect to complete and axios to throw an error
     await waitFor(() => {
@@ -138,7 +147,6 @@ describe('SearchBar', () => {
   //   console.log("locsl storage dest", localStorage.getItem('destination'));
   //   console.log("locsl storage dest", localStorage.getItem('destinationId'));
 
-
   //   // Check local storage
   //   expect(localStorage.getItem('destinationId')).toBe('123');
   //   expect(localStorage.getItem('startDate')).toBe('2024-08-01');
@@ -159,7 +167,7 @@ describe('SearchBar', () => {
   // });
 
   // Test 6: Test to check if the start / end date input changes
-  test('Test 6: startDate input changes', async () => {
+  test("Test 6: startDate input changes", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -169,15 +177,15 @@ describe('SearchBar', () => {
       );
     });
 
-    const startDate = screen.getByTestId('startDate');
+    const startDate = screen.getByTestId("startDate");
     expect(startDate).toBeInTheDocument();
 
     //changing the value of the startDate
-    fireEvent.change(startDate, { target: { value: '2024-08-10' } });
-    expect(startDate.value).toBe('2024-08-10');
+    fireEvent.change(startDate, { target: { value: "2025-08-10" } });
+    expect(startDate.value).toBe("2025-08-10");
   });
 
-  test('Test 6: valid endDate change', async () => {
+  test("Test 6: valid endDate change", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -186,15 +194,15 @@ describe('SearchBar', () => {
         </Router>
       );
     });
-    const endDate = screen.getByTestId('endDate');
+    const endDate = screen.getByTestId("endDate");
     expect(endDate).toBeInTheDocument();
 
     //changing the value of the endDate
-    fireEvent.change(endDate, { target: { value: '2024-08-12' } });
-    expect(endDate.value).toBe('2024-08-12');
+    fireEvent.change(endDate, { target: { value: "2025-08-12" } });
+    expect(endDate.value).toBe("2025-08-12");
   });
 
-  test('Test 8: valid guest change', async () => {
+  test("Test 8: valid guest change", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -204,16 +212,16 @@ describe('SearchBar', () => {
       );
     });
 
-    const guests = screen.getByTestId('guests');
+    const guests = screen.getByTestId("guests");
     expect(guests).toBeInTheDocument();
 
     //changing the value of the guests
-    fireEvent.change(guests, { target: { value: '2' } });
-    expect(guests.value).toBe('2');
+    fireEvent.change(guests, { target: { value: "2" } });
+    expect(guests.value).toBe("2");
   });
 
   // Test 8: Test to check if the guests/rooms change
-  test('Test 8: valid rooms change', async () => {
+  test("Test 8: valid rooms change", async () => {
     axios.get.mockResolvedValueOnce({ data: mockCountries });
     await act(async () => {
       render(
@@ -223,20 +231,22 @@ describe('SearchBar', () => {
       );
     });
 
-    const rooms = screen.getByTestId('rooms');
+    const rooms = screen.getByTestId("rooms");
     expect(rooms).toBeInTheDocument();
 
     //changing the value of the rooms
-    fireEvent.change(rooms, { target: { value: '2' } });
-    expect(rooms.value).toBe('2');
+    fireEvent.change(rooms, { target: { value: "2" } });
+    expect(rooms.value).toBe("2");
   });
 
-  test('matches snapshot', () => {
-    const tree = renderer.create(
-      <Router>
-        <SearchBar currency={currency} renderDatePicker={false} />
-      </Router>
-    ).toJSON();
+  test("matches snapshot", () => {
+    const tree = renderer
+      .create(
+        <Router>
+          <SearchBar currency={currency} renderDatePicker={false} />
+        </Router>
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

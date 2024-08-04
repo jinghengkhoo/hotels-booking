@@ -9,8 +9,8 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
   // Helper function to format date as YYYY-MM-DD
   const formatDate = (date) => {
     const d = new Date(date);
-    const month = `${d.getMonth() + 1}`.padStart(2, '0');
-    const day = `${d.getDate()}`.padStart(2, '0');
+    const month = `${d.getMonth() + 1}`.padStart(2, "0");
+    const day = `${d.getDate()}`.padStart(2, "0");
     const year = d.getFullYear();
     return `${year}-${month}-${day}`;
   };
@@ -20,13 +20,25 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
   const oneWeekLater = new Date(today);
   oneWeekLater.setDate(today.getDate() + 7);
 
-  const [destination, setDestination] = useState(localStorage.getItem("destination") || "Singapore");
-  const [destinationId, setDestinationId] = useState(localStorage.getItem("destinationId") || "");
+  const [destination, setDestination] = useState(
+    localStorage.getItem("destination") || "Singapore"
+  );
+  const [destinationId, setDestinationId] = useState(
+    localStorage.getItem("destinationId") || ""
+  );
   const [suggestions, setSuggestions] = useState([]);
-  const [startDate, setStartDate] = useState(localStorage.getItem("startDate") || formatDate(today));
-  const [endDate, setEndDate] = useState(localStorage.getItem("endDate") || formatDate(oneWeekLater));
-  const [guests, setGuests] = useState(parseInt(localStorage.getItem("guests")) || 1);
-  const [rooms, setRooms] = useState(parseInt(localStorage.getItem("rooms")) || 1);
+  const [startDate, setStartDate] = useState(
+    localStorage.getItem("startDate") || formatDate(today)
+  );
+  const [endDate, setEndDate] = useState(
+    localStorage.getItem("endDate") || formatDate(oneWeekLater)
+  );
+  const [guests, setGuests] = useState(
+    parseInt(localStorage.getItem("guests")) || 1
+  );
+  const [rooms, setRooms] = useState(
+    parseInt(localStorage.getItem("rooms")) || 1
+  );
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [selectedDest, setSelectedDest] = useState(0);
@@ -46,31 +58,31 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
 
   const validateForm = () => {
     if (!destinationId) {
-      console.log("dest error")
+      console.log("dest error");
       setError("Please select a valid destination.");
       return 0;
     } else if (!startDate) {
-      console.log("date error")
+      console.log("date error");
 
       setError("Please select a start date.");
       return 0;
     } else if (!endDate) {
-      console.log("date error")
+      console.log("date error");
 
       setError("Please select an end date.");
       return 0;
     } else if (new Date(startDate) > new Date(endDate)) {
-      console.log("date error")
+      console.log("date error");
 
       setError("Please select an end date after the selected start date.");
       return 0;
     } else if (guests <= 0) {
-      console.log("guest error")
+      console.log("guest error");
 
       setError("Please select the number of guests.");
       return 0;
     } else if (rooms <= 0) {
-      console.log("room error")
+      console.log("room error");
 
       setError("Please select the number of rooms.");
       return 0;
@@ -81,7 +93,7 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("success")
+      console.log("success");
       localStorage.setItem("destination", destination);
       localStorage.setItem("destinationId", destinationId);
       localStorage.setItem("startDate", startDate);
@@ -125,7 +137,10 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
           onSubmit={handleFormSubmit}
         >
           <div className="flex flex-col">
-            <label id="destination" className="text-gray-700 mt-4 ml-4 font-bold">
+            <label
+              id="destination"
+              className="text-gray-700 mt-4 ml-4 font-bold"
+            >
               Location
             </label>
             <div className="flex items-center rounded-md p-1 pt-0">
@@ -141,8 +156,9 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
               />
             </div>
             <ul
-              className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${!(isOpen && suggestions.length) && "hidden"
-                }`}
+              className={`absolute w-56 bg-base-100 shadow-md max-h-80 overflow-scroll p-0 z-10 mt-28 ${
+                !(isOpen && suggestions.length) && "hidden"
+              }`}
               {...getMenuProps()}
             >
               {isOpen &&
@@ -150,10 +166,11 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
                   <li
                     key={item.id}
                     {...getItemProps({ item, index })}
-                    className={`cursor-pointer px-4 py-2 ${highlightedIndex === index
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-black"
-                      }`}
+                    className={`cursor-pointer px-4 py-2 ${
+                      highlightedIndex === index
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-black"
+                    }`}
                   >
                     {item.term}
                   </li>
@@ -265,7 +282,11 @@ const SearchBar = ({ currency, renderDatePicker = true }) => {
         </form>
       </div>
       <div className="flex justify-center">
-        {error && <div className="mb-4 text-lg font-montserrat text-red-600">{error}</div>}
+        {error && (
+          <div className="mb-4 text-lg font-montserrat text-red-600">
+            {error}
+          </div>
+        )}
       </div>
     </div>
   );

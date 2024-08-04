@@ -4,7 +4,7 @@ context("Login Use Case System Testing", () => {
     password: "password123!",
   };
 
-  beforeEach(() => {
+  before(() => {
     cy.visit("http://localhost:5173/");
     cy.request("POST", "http://localhost:5555/api/user/register", {
       email: testUser.email,
@@ -24,11 +24,23 @@ context("Login Use Case System Testing", () => {
 
     cy.get("#loginPage").should("contain.text", "Login with your email");
 
+    cy.log("Alternative FLow - Incorrect Login Details");
+    //User Enters Incorrect login details
+    cy.get("#email-field").clear().type("error@mail.com");
+    cy.get("#password-field").clear().type("123");
+
+    //User Click Login Button
+    cy.get("#loginButton").click();
+    cy.get("#errorMessage").should("have.text", "Invalid Account Details");
+
+    cy.log("Correct Login Details");
     //User Enters login details
     cy.get("#email-field")
+      .clear()
       .type(testUser.email)
       .should("have.value", testUser.email);
     cy.get("#password-field")
+      .clear()
       .type(testUser.password)
       .should("have.value", testUser.password);
 
@@ -46,26 +58,7 @@ context("Login Use Case System Testing", () => {
     cy.log("Login Use Case Test Completed");
   });
 
-  it("Login System Test Case (Alternative Flow)", () => {
-    //User navigate to home page
-    cy.get(".container").should("contain.text", "Travelust");
-
-    //User click on login/register button
-    cy.get("#login").should("exist");
-    cy.get("#login").click();
-
-    cy.get("#loginPage").should("contain.text", "Login with your email");
-
-    //User Enters login details
-    cy.get("#email-field").type("error@mail.com");
-    cy.get("#password-field").type("123");
-
-    //User Click Login Button
-    cy.get("#loginButton").click();
-    cy.get("#errorMessage").should("have.text", "Invalid Account Details");
-  });
-
-  afterEach(() => {
+  after(() => {
     let testID = null;
     cy.request({
       method: "GET",

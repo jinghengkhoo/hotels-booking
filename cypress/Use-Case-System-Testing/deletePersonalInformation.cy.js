@@ -4,7 +4,7 @@ context("Delete Personal Information Use Case System Testing", () => {
     password: "password123!",
   };
 
-  beforeEach(() => {
+  before(() => {
     cy.visit("http://localhost:5173/");
 
     //Register testuser account

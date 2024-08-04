@@ -93,6 +93,7 @@ exports[`NavBar matches snapshot 1`] = `
           >
             <button
               className="btn btn-ghost"
+              id="login"
             >
               <span
                 className="font-normal"
