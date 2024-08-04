@@ -19,7 +19,7 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
           <p className="mb-4">Create an account with your email</p>
           <form onSubmit={onSubmit}>
             <div className="mb-2">
-              <label id="name-field" className="block text-gray-700">
+              <label htmlFor="name-field-input" className="block text-gray-700">
                 Full Name
               </label>
               <input
@@ -32,7 +32,10 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-2">
-              <label id="email-field" className="block text-gray-700">
+              <label
+                htmlFor="email-field-input"
+                className="block text-gray-700"
+              >
                 Email
               </label>
               <input
@@ -46,7 +49,10 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
               />
             </div>
             <div className="mb-4">
-              <label id="password-field" className="block text-gray-700">
+              <label
+                htmlFor="password-field-input"
+                className="block text-gray-700"
+              >
                 Password
               </label>
               <input
@@ -62,7 +68,7 @@ const RegisterFormUI = ({ error, formData, onChange, onSubmit, login }) => {
             </div>
             <div className="mb-4">
               <label
-                id="password-field-confirm"
+                htmlFor="password-field-confirm-input"
                 className="block text-gray-700"
               >
                 Confirm Password

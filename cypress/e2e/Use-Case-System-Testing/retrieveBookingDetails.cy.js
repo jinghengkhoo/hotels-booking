@@ -1,4 +1,4 @@
-context("Delete Personal Information Use Case System Testing", () => {
+context("Retrieve Booking Details Use Case System Testing", () => {
   const testUser = {
     email: "testuser@example.com",
     password: "password123!",
