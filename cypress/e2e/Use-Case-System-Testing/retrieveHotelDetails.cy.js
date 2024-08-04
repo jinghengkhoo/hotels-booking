@@ -27,7 +27,9 @@ context("Retrieve Hotel Details Use Case System Testing", () => {
 
   it("Retrieve Hotel Details System Test Case", () => {
     //User clicks on Hotel check availability
-    cy.contains("button", "Check availability").should("exist");
+    cy.contains("button", "Check availability", { timeout: 20000 }).should(
+      "be.visible"
+    );
     cy.contains("button", "Check availability").first().click();
 
     cy.url().should("include", "/pKtt");

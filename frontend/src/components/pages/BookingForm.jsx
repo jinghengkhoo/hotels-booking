@@ -91,11 +91,11 @@ const BookingForm = () => {
     } else if (!formData.lastName) {
       setErrorMsg("Please Enter a Last Name");
       return 0;
-    } else if (!validatePhoneNumber(formData.phoneNumber)) {
-      setErrorMsg("Please Enter a Valid Singapore Number");
-      return 0;
     } else if (!validateEmail(formData.emailAddress)) {
       setErrorMsg("Please Enter a Valid Email Address");
+      return 0;
+    } else if (!validatePhoneNumber(formData.phoneNumber)) {
+      setErrorMsg("Please Enter a Valid Singapore Number");
       return 0;
     } else if (!(formData.adults > 0)) {
       setErrorMsg("Booking requires at least 1 Adult");

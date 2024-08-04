@@ -173,5 +173,43 @@ context("Register Use Case System Testing", () => {
           cy.log("User deleted successfully.");
         });
       });
+
+    const user = {
+      email: existingUser.email,
+      password: existingUser.password,
+    };
+    cy.request({
+      method: "POST",
+      url: "http://localhost:5555/api/user/login", // The endpoint you want to hit
+      body: user, // The user object containing email and password
+      withCredentials: true, // Ensure credentials are sent with the request
+    })
+      .then((response) => {
+        // You can add assertions here to check the response
+        expect(response.status).to.eq(200); // Ensure the login was successful
+      })
+      .then((response) => {
+        cy.request({
+          method: "GET",
+          url: "http://localhost:5555/api/user/profile",
+          // Ensure cookies are sent with the request
+          withCredentials: true,
+        })
+          .then((response) => {
+            // Check the status of the response
+            testID = response.body._id;
+            expect(response.status).to.eq(200);
+          })
+          .then((response) => {
+            cy.request({
+              method: "DELETE",
+              url: `http://localhost:5555/api/user/${testID}`,
+            }).then((response) => {
+              // Assert that the deletion was successful
+              expect(response.status).to.be.oneOf([200, 204]);
+              cy.log("User deleted successfully.");
+            });
+          });
+      });
   });
 });
