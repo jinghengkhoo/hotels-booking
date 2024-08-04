@@ -1,8 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import './sliderstyle.css';
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import "./sliderstyle.css";
 
 const HotelFilter = ({ onFilterChange }) => {
   const [starRatings, setStarRatings] = useState([]);
@@ -24,9 +24,8 @@ const HotelFilter = ({ onFilterChange }) => {
       minGuestRating,
       minPrice,
       maxPrice,
-      priceRange
+      priceRange,
     });
-
   };
 
   const resetFilter = () => {
@@ -35,7 +34,7 @@ const HotelFilter = ({ onFilterChange }) => {
     setMaxPrice(permMaxPrice);
     setMinPrice(permMinPrice);
     setPriceRange([permMinPrice, permMaxPrice]);
-  }
+  };
 
   const handleCheckBox = (e) => {
     const { value, checked } = e.target;
@@ -44,7 +43,7 @@ const HotelFilter = ({ onFilterChange }) => {
     );
   };
 
-  const handleSliderChange = sliderValues => {
+  const handleSliderChange = (sliderValues) => {
     setPriceRange(sliderValues);
     setMaxPrice(sliderValues[1]);
     setMinPrice(sliderValues[0]);
@@ -56,25 +55,35 @@ const HotelFilter = ({ onFilterChange }) => {
         <h3 className="text-xl mb-2 font-bold text-base-content">Filters</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label htmlFor="star-rating-input" className="block text-base-content">Star Rating</label>
-              <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <label className="flex cursor-pointer" key={i}>
-                    <input
-                      id="star-rating-input"
-                      type="checkbox"
-                      className="checkbox checkbox-primary"
-                      value={5 - i}
-                      checked={starRatings.includes((5 - i).toString())}
-                      onChange={handleCheckBox}
-                    />
-                    <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
-                  </label>
-                ))}
-              </div>
+            <label
+              htmlFor="star-rating-input"
+              className="block text-base-content"
+            >
+              Star Rating
+            </label>
+            <div className="form-control grid grid-flow-row-dense 2x1:grid-cols-1 gap-4 p-4 md:grid-cols-5 xl:grid-cols-1 lg:grid-cols-5 sm:grid-cols-1">
+              {Array.from({ length: 5 }, (_, i) => (
+                <label className="flex cursor-pointer" key={i}>
+                  <input
+                    id="star-rating-input"
+                    type="checkbox"
+                    className="checkbox checkbox-primary"
+                    value={5 - i}
+                    checked={starRatings.includes((5 - i).toString())}
+                    onChange={handleCheckBox}
+                  />
+                  <p className="flex-none ml-5 mr-5">{5 - i} stars</p>
+                </label>
+              ))}
+            </div>
           </div>
           <div>
-            <label htmlFor="guest-rating-input" className="block text-base-content">Guest Rating</label>
+            <label
+              htmlFor="guest-rating-input"
+              className="block text-base-content"
+            >
+              Guest Rating
+            </label>
             <input
               id="guest-rating-input"
               type="number"
@@ -85,7 +94,9 @@ const HotelFilter = ({ onFilterChange }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mt-4 text-base-content">Price Range (per night): </label>
+            <label className="block mt-4 text-base-content">
+              Price Range (per night):{" "}
+            </label>
             <Slider
               range
               min={permMinPrice}
@@ -100,18 +111,16 @@ const HotelFilter = ({ onFilterChange }) => {
               <span>${maxPrice}</span>
             </div>
           </div>
-
         </div>
 
         <button
           onClick={handleFilterChange}
-          className="btn btn-primary rounded-xl">
+          className="btn btn-primary rounded-xl"
+        >
           Apply Filters
         </button>
 
-        <button
-          onClick={resetFilter}
-          className="btn btn-secondary rounded-xl">
+        <button onClick={resetFilter} className="btn btn-secondary rounded-xl">
           Reset Filters
         </button>
       </div>
