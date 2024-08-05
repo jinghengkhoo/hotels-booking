@@ -60,6 +60,7 @@ const Register = () => {
         }
       );
       setUser(profile.data);
+      alert("Registration successful!");
       navigate("/");
     } catch (err) {
       console.error(err.response.data);

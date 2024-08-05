@@ -32,7 +32,7 @@ const NavBar = ({ textColor, currency, setCurrency }) => {
           <span className="font-normal">MENU</span>
         </button>
         {isOpen && user != null && (
-          <div className="absolute top-full mt-1 ml-5">
+          <div id="profileButton" className="absolute top-full mt-1 ml-5">
             <Link to="/profile" onClick={toggleMenu}>
               Profile
             </Link>
@@ -84,13 +84,13 @@ const NavBar = ({ textColor, currency, setCurrency }) => {
           <span>
             {user ? (
               <div>
-                <p>{user.email}</p>
+                <p id="userEmail">{user.email}</p>
                 <button onClick={logout}>Logout</button>
               </div>
             ) : (
               <div>
                 <Link to="/login">
-                  <button className="btn btn-ghost">
+                  <button id="login" className="btn btn-ghost">
                     <span className="font-normal">Login/Register</span>
                   </button>
                 </Link>

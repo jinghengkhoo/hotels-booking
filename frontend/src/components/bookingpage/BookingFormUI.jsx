@@ -14,7 +14,9 @@ const BookingFormUI = ({
       <form onSubmit={handleSubmit} className="space-y-4 col-span-2">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="salutation" className="block text-base-content">Salutation</label>
+            <label htmlFor="salutation" className="block text-base-content">
+              Salutation
+            </label>
             <input
               id="salutation"
               type="text"
@@ -25,7 +27,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="emailAddress" className="block text-base-content">Email Address</label>
+            <label htmlFor="emailAddress" className="block text-base-content">
+              Email Address
+            </label>
             <input
               id="emailAddress"
               type="email"
@@ -37,7 +41,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="firstName" className="block text-base-content">First Name</label>
+            <label htmlFor="firstName" className="block text-base-content">
+              First Name
+            </label>
             <input
               id="firstName"
               type="text"
@@ -49,7 +55,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-base-content">Last Name</label>
+            <label htmlFor="lastName" className="block text-base-content">
+              Last Name
+            </label>
             <input
               id="lastName"
               type="text"
@@ -61,7 +69,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="countryCode" className="block text-base-content">Country Code</label>
+            <label htmlFor="countryCode" className="block text-base-content">
+              Country Code
+            </label>
             <select
               id="countryCode"
               name="countryCode"
@@ -76,7 +86,9 @@ const BookingFormUI = ({
             </select>
           </div>
           <div>
-            <label htmlFor="phoneNumber" className="block text-base-content">Phone Number</label>
+            <label htmlFor="phoneNumber" className="block text-base-content">
+              Phone Number
+            </label>
             <input
               id="phoneNumber"
               type="tel"
@@ -88,7 +100,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="adults" className="block text-base-content">Adults</label>
+            <label htmlFor="adults" className="block text-base-content">
+              Adults
+            </label>
             <input
               id="adults"
               type="number"
@@ -101,7 +115,9 @@ const BookingFormUI = ({
             />
           </div>
           <div>
-            <label htmlFor="children" className="block text-base-content">Children</label>
+            <label htmlFor="children" className="block text-base-content">
+              Children
+            </label>
             <input
               id="children"
               type="number"
@@ -116,7 +132,9 @@ const BookingFormUI = ({
         </div>
 
         <div>
-          <label htmlFor="messageToHotel" className="block text-base-content">Message to Hotel</label>
+          <label htmlFor="messageToHotel" className="block text-base-content">
+            Message to Hotel
+          </label>
           <textarea
             id="messageToHotel"
             name="messageToHotel"
@@ -135,7 +153,10 @@ const BookingFormUI = ({
               <CardElement className="mt-1 block w-full px-3 py-2 bg-base-100 border border-base-200 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
             </div>
             <div>
-              <label htmlFor="billingAddressOne" className="block text-base-content">
+              <label
+                htmlFor="billingAddressOne"
+                className="block text-base-content"
+              >
                 Billing Address Line 1
               </label>
               <input
@@ -149,7 +170,10 @@ const BookingFormUI = ({
               />
             </div>
             <div>
-              <label htmlFor="billingAddressTwo" className="block text-base-content">
+              <label
+                htmlFor="billingAddressTwo"
+                className="block text-base-content"
+              >
                 Billing Address Line 2
               </label>
               <input
@@ -187,7 +211,11 @@ const BookingFormUI = ({
           </label>
         </div>
         <div>
-          {errorMsg && <div className="mb-4 text-red-600">{errorMsg}</div>}
+          {errorMsg && (
+            <div id="errorMessage" className="mb-4 text-red-600">
+              {errorMsg}
+            </div>
+          )}
           <button
             type="submit"
             className="w-full btn btn-primary font-semibold rounded-lg shadow-md text-lg"

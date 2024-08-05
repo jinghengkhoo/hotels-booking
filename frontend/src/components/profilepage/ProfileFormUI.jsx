@@ -9,17 +9,17 @@ function ProfileFormUI({
   editModeTrue,
 }) {
   const {
-    _id,
+    _id = userData._id || "",
     email = userData.email || "",
-    password,
-    bookingIDs,
-    salutation,
-    firstName,
-    lastName,
-    phoneNumber,
-    billingAddressOne,
-    billingAddressTwo,
-    billingAddressPostalCode,
+    password = userData.password || "",
+    bookingIDs = userData.bookingIDs || [],
+    salutation = userData.salutation || "",
+    firstName = userData.firstName || "",
+    lastName = userData.lastName || "",
+    phoneNumber = userData.phoneNumber || "",
+    billingAddressOne = userData.billingAddressOne || "",
+    billingAddressTwo = userData.billingAddressTwo || "",
+    billingAddressPostalCode = userData.billingAddressPostalCode || "",
   } = userData;
 
   return (

@@ -4,7 +4,12 @@ import { subDays } from "date-fns";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
 
-const CustomDatePicker = ({ selectedDate = null, onChange, minDate, maxDate }) => {
+const CustomDatePicker = ({
+  selectedDate = null,
+  onChange,
+  minDate,
+  maxDate,
+}) => {
   const [startDate, setStartDate] = useState(selectedDate);
 
   if (!minDate) {
@@ -30,7 +35,6 @@ const CustomDatePicker = ({ selectedDate = null, onChange, minDate, maxDate }) =
       onChange={handleChange}
       dateFormat="yyyy-MM-dd"
       className="mt-1 block w-full bg-base-100  rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      placeholder="where to next?"
     />
   );
 };

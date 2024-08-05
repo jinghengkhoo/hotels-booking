@@ -53,16 +53,20 @@ const HotelItem = ({ hotel, onSelect, startDate, endDate }) => {
         <p className="text-base">{hotel.address}</p>
         <div className="text-base">{DrawStarRating()}</div>
         <p className="text-base">
-          Guest Rating: {hotel.trustyou.score.overall}
+          Guest Rating:{" "}
+          <span class="guest-rating">{hotel.trustyou.score.overall}</span>
         </p>
-        <p className="text-right tracking-wide text-md text-gray-500">{totalNights} Night(s)</p>
+        <p className="text-right tracking-wide text-md text-gray-500">
+          {totalNights} Night(s)
+        </p>
         <p className="text-right font-semibold tracking-wide text-2xl">
           ${hotel.price}
         </p>
         <div className="card-actions justify-end">
           <button
             onClick={() => onSelect(hotel.id)}
-            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl">
+            className="btn btn-primary font-semibold text-l tracking-wide rounded-xl"
+          >
             Check availability
           </button>
         </div>
