@@ -230,7 +230,7 @@ test.each(Object.entries(invalidCases))("invokes error when form is submitted wi
 	});
 });
 
-test("submits and navigates to homepage from form with valid data", async () => {
+test("submits, alerts, then navigates to home page from form with valid data", async () => {
 	const navigate = jest.fn();
 	const walert = jest.fn();
 	window.alert = walert;
