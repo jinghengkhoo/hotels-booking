@@ -13,6 +13,7 @@ const mockAxios = new MockAdapter(axios);
 
 describe('register component', () => {
   const setUser = jest.fn();
+  window.alert = jest.fn();
 
   beforeEach(() => {
     mockAxios.reset();
@@ -51,7 +52,7 @@ describe('register component', () => {
 
     test('shows error message on error during registration', async () => {
         mockAxios.onPost('http://localhost:5555/api/user/register').reply(401, {
-        message: 'An error occurred during registration'
+          message: 'An error occurred during registration'
         });
 
         render(
