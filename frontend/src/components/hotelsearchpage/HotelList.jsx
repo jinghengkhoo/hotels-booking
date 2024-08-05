@@ -152,7 +152,7 @@ const HotelList = ({
                 dataLength={displayedHotels.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={<h4>Loading more hotels...</h4>}
+                loader={<h4 style={{ textAlign: "center", padding: "20px"}}><b>Loading more hotels...</b></h4>}
                 endMessage={
                   <p style={{ textAlign: "center", padding: "20px" }}>
                     <b>Yay! You have seen it all</b>
