@@ -13,6 +13,7 @@ import "@testing-library/jest-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import axios from "axios";
+import MockDate from 'mockdate';
 
 jest.mock("axios");
 
@@ -91,7 +92,7 @@ describe("SearchBar", () => {
   test("Test 1: Should catch error and log to console on failed API call", async () => {
     const consoleErrorMock = jest
       .spyOn(console, "error")
-      .mockImplementation(() => {});
+      .mockImplementation(() => { });
     const mockError = new Error("API Error");
 
     axios.get.mockResolvedValueOnce({ data: mockCountries });
@@ -240,6 +241,7 @@ describe("SearchBar", () => {
   });
 
   test("matches snapshot", () => {
+    MockDate.set('2025-08-13T00:00:00Z');
     const tree = renderer
       .create(
         <Router>
