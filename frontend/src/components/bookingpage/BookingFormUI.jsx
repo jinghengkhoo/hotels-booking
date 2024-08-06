@@ -186,10 +186,13 @@ const BookingFormUI = ({
               />
             </div>
             <div>
-              <label className="block text-base-content">
+              <label
+                htmlFor="billingAddressPostalCode"
+                className="block text-base-content">
                 Billing Address Postal Code
               </label>
               <input
+                id="billingAddressPostalCode"
                 type="number"
                 name="billingAddressPostalCode"
                 value={formData.billingAddressPostalCode}
