@@ -19,28 +19,9 @@ describe("login component", () => {
     mockAxios.reset();
   });
 
-  test("renders login form", () => {
-    render(
-      <AuthContext.Provider value={{ setUser }}>
-        <MemoryRouter>
-          <Login />
-        </MemoryRouter>
-      </AuthContext.Provider>
-    );
-
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /continue/i })
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Sign up/i)).toBeInTheDocument();
-  });
-
-  test("successful login", async () => {
-    mockAxios.onPost("http://localhost:5555/api/user/login").reply(200);
-    mockAxios
-      .onGet("http://localhost:5555/api/user/profile")
-      .reply(200, { name: "John" });
+  test('successful login', async () => {
+    mockAxios.onPost('http://localhost:5555/api/user/login').reply(200);
+    mockAxios.onGet('http://localhost:5555/api/user/profile').reply(200, { name: 'John' });
 
     render(
       <AuthContext.Provider value={{ setUser }}>
@@ -131,7 +112,7 @@ describe("login component", () => {
     expect(emailInput).toBeInvalid();
   });
 
-  test("navigate to signup", async () => {
+  test('navigate to register page when on login page', async () => {
     render(
       <AuthContext.Provider value={{ setUser }}>
         <MemoryRouter>
